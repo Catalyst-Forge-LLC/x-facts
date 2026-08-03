@@ -1,0 +1,140 @@
+<!--
+  xFacts family footer · canonical snippet
+  ========================================
+  Owned by the x-facts repo (xfacts.dev). Sibling sites paste this markup and
+  the <style> block below into their landing pages at the next deploy.
+
+  Usage:
+  1. Copy the CSS into the page <style> (or link a shared sheet later).
+  2. Paste the <footer> markup at the bottom of the page.
+  3. Mark the current site: replace its <a> with <span class="current">…</span>
+     and set data-current on the footer to hub|app|model|tool|agent|skill.
+  4. Accent CSS variables below assume a dark AppFacts-family page. If a sibling
+     already defines --app/--model/etc, omit the :root block and keep the rest.
+
+  When the family grows or a label ships, change this file first; siblings follow.
+-->
+
+<style>
+  /* ---- xFacts family footer (paste into sibling sites) ---- */
+  :root {
+    --xf-app: #d96b2b;
+    --xf-app-soft: #f0a36a;
+    --xf-model: #7c5cf0;
+    --xf-model-soft: #ab93f5;
+    --xf-tool: #2dd4bf;
+    --xf-tool-soft: #5eead4;
+    --xf-agent: #f6ad55;
+    --xf-agent-soft: #fbd38d;
+    --xf-skill: #f472b6;
+    --xf-skill-soft: #f9a8d4;
+    --xf-mute: #9aa8b8;
+    --xf-max: 68rem;
+  }
+
+  .xfacts-family-footer {
+    padding: 2rem 0 2.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--xf-mute);
+    font-size: 0.8rem;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  .xfacts-family-footer .xfacts-footer-inner {
+    width: min(100% - 2rem, var(--xf-max));
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .xfacts-family-footer .xfacts-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .xfacts-family-footer .xfacts-footer-nav a,
+  .xfacts-family-footer .xfacts-footer-nav span {
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.78rem;
+  }
+
+  .xfacts-family-footer .xfacts-footer-nav .current {
+    color: #fff;
+  }
+
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="hub"] { color: #c9d3de; }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="app"] { color: var(--xf-app-soft); }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="model"] { color: var(--xf-model-soft); }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"] { color: var(--xf-tool-soft); }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"] { color: var(--xf-agent-soft); }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"] { color: var(--xf-skill-soft); }
+
+  .xfacts-family-footer .xfacts-footer-nav a:hover { color: #fff; }
+
+  .xfacts-family-footer .xfacts-footer-credit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .xfacts-family-footer .xfacts-footer-credit a {
+    color: #c9d3de;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  .xfacts-family-footer .xfacts-footer-credit a:hover { color: #fff; }
+</style>
+
+<!--
+  Example below is for the hub (xfacts.dev). On a sibling site:
+  - Link hub to https://xfacts.dev
+  - Unlink the current label (use <span class="current">)
+  - Keep other labels as links
+-->
+<footer class="xfacts-family-footer" data-current="hub">
+  <div class="xfacts-footer-inner">
+    <ul class="xfacts-footer-nav" aria-label="xFacts family">
+      <li><span class="current" data-label="hub">xFacts</span></li>
+      <li><a data-label="app" href="https://appfacts.dev">AppFacts</a></li>
+      <li><a data-label="model" href="https://modelfacts.dev">ModelFacts</a></li>
+      <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
+      <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
+      <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+    </ul>
+    <div class="xfacts-footer-credit">
+      <div>© 2026 xFacts</div>
+      <div>by <a href="https://www.catalystforge.com/">Catalyst Forge</a></div>
+    </div>
+  </div>
+</footer>
+
+<!--
+  Sibling example (AppFacts). Replace the AppFacts link with current:
+
+  <footer class="xfacts-family-footer" data-current="app">
+    <div class="xfacts-footer-inner">
+      <ul class="xfacts-footer-nav" aria-label="xFacts family">
+        <li><a data-label="hub" href="https://xfacts.dev">xFacts</a></li>
+        <li><span class="current" data-label="app">AppFacts</span></li>
+        <li><a data-label="model" href="https://modelfacts.dev">ModelFacts</a></li>
+        <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
+        <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
+        <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+      </ul>
+      <div class="xfacts-footer-credit">
+        <div>© 2026 AppFacts</div>
+        <div>by <a href="https://www.catalystforge.com/">Catalyst Forge</a></div>
+      </div>
+    </div>
+  </footer>
+-->

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>xFacts · Nutrition labels for every layer of the AI stack</title>
+  <meta name="description" content="xFacts is a family of small, validatable nutrition labels, one per layer of the AI stack. AppFacts, ModelFacts, ToolFacts, AgentFacts, and SkillFacts." />
+  <link rel="canonical" href="https://xfacts.dev/" />
+  <meta property="og:title" content="xFacts" />
+  <meta property="og:description" content="x is a variable, not a social network. One nutrition label per layer of the AI stack." />
+  <meta property="og:url" content="https://xfacts.dev/" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #101418;
+      --paper: #f8fafc;
+      --slate: #1a222c;
+      --slate-2: #243040;
+      --mute: #9aa8b8;
+      --line: #d7dee7;
+      --app: #d96b2b;
+      --app-soft: #f0a36a;
+      --model: #7c5cf0;
+      --model-soft: #ab93f5;
+      --tool: #2dd4bf;
+      --tool-soft: #5eead4;
+      --agent: #f6ad55;
+      --agent-soft: #fbd38d;
+      --skill: #f472b6;
+      --skill-soft: #f9a8d4;
+      --radius: 2px;
+      --font-display: "Sora", sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --max: 68rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(900px 520px at 8% -8%, rgba(217, 107, 43, 0.10), transparent 55%),
+        radial-gradient(800px 480px at 50% -12%, rgba(124, 92, 240, 0.10), transparent 50%),
+        radial-gradient(900px 500px at 92% 0%, rgba(45, 212, 191, 0.08), transparent 50%),
+        linear-gradient(180deg, #0c1015 0%, var(--ink) 40%, #0a0e13 100%);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    a { color: #c9d3de; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    a:hover { color: #fff; }
+
+    .wrap {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+    }
+
+    /* ----- Hero ----- */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.25rem 0 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, black, transparent);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      padding-bottom: 0.5rem;
+      animation: fadeup 800ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3.2rem, 9vw, 5.5rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin: 0 0 1.15rem;
+      color: #fff;
+    }
+
+    .brand .x {
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .lede {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      line-height: 1.35;
+      color: #e8eef5;
+      max-width: 28ch;
+      margin: 0 0 0.85rem;
+    }
+
+    .sub {
+      color: var(--mute);
+      max-width: 48ch;
+      margin: 0 0 1.75rem;
+    }
+
+    .marks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .marks li {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 1px;
+    }
+
+    .marks .app { background: var(--app); }
+    .marks .model { background: var(--model); }
+    .marks .tool { background: var(--tool); }
+    .marks .agent { background: var(--agent); }
+    .marks .skill { background: var(--skill); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ----- Sections ----- */
+    section {
+      padding: 3.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      letter-spacing: -0.03em;
+      margin: 0 0 0.6rem;
+      color: #fff;
+    }
+
+    .section-lead {
+      color: var(--mute);
+      max-width: 52ch;
+      margin: 0 0 1.5rem;
+    }
+
+    .prose p { margin: 0 0 1rem; color: #c9d3de; max-width: 62ch; }
+    .prose strong { color: #fff; font-weight: 600; }
+    .prose code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: #e8eef5;
+    }
+
+    /* ----- Anatomy ----- */
+    .anatomy {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 720px) {
+      .anatomy { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 1000px) {
+      .anatomy { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .label-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      padding: 1rem 1rem 1.1rem;
+      background: rgba(26, 34, 44, 0.55);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-top: 3px solid var(--mark);
+      text-decoration: none;
+      color: inherit;
+      min-height: 100%;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    a.label-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(36, 48, 64, 0.7);
+      color: inherit;
+    }
+
+    .label-card.is-pending {
+      opacity: 0.88;
+    }
+
+    .label-card .name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin: 0;
+    }
+
+    .label-card .name span { color: var(--mark); }
+
+    .label-card .layer {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mark-soft);
+      margin: 0;
+    }
+
+    .label-card .answers {
+      color: #c9d3de;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      margin: 0.15rem 0 0;
+      flex: 1;
+    }
+
+    .label-card .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.75rem;
+      align-items: baseline;
+      margin-top: 0.65rem;
+      font-size: 0.72rem;
+      color: var(--mute);
+    }
+
+    .label-card .status {
+      color: var(--mark-soft);
+      font-weight: 600;
+    }
+
+    .label-card[data-label="app"] { --mark: var(--app); --mark-soft: var(--app-soft); }
+    .label-card[data-label="model"] { --mark: var(--model); --mark-soft: var(--model-soft); }
+    .label-card[data-label="tool"] { --mark: var(--tool); --mark-soft: var(--tool-soft); }
+    .label-card[data-label="agent"] { --mark: var(--agent); --mark-soft: var(--agent-soft); }
+    .label-card[data-label="skill"] { --mark: var(--skill); --mark-soft: var(--skill-soft); }
+
+    /* ----- Rules ----- */
+    .rules {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 800px) {
+      .rules { grid-template-columns: 1fr 1fr; }
+    }
+
+    .rules li {
+      padding: 0.9rem 1rem;
+      background: rgba(26, 34, 44, 0.45);
+      border-left: 3px solid rgba(255,255,255,0.18);
+      color: #c9d3de;
+    }
+
+    .rules li strong {
+      display: block;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ----- Full panel ----- */
+    .panel {
+      display: grid;
+      gap: 0.75rem;
+      animation: fadeup 700ms 60ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    @media (min-width: 720px) {
+      .panel { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1000px) {
+      .panel { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .mini-label {
+      background: var(--paper);
+      color: var(--ink);
+      border-top: 4px solid var(--ink);
+      padding: 0.75rem 0.8rem 0.9rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .mini-label h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .mini-label .file {
+      font-size: 0.65rem;
+      color: #5a6570;
+      margin: 0.2rem 0 0.45rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 6px solid var(--ink);
+    }
+
+    .mini-label .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--ink);
+      padding: 0.28rem 0;
+      font-size: 0.68rem;
+    }
+
+    .mini-label .row.thick { border-bottom-width: 3px; }
+    .mini-label .row strong { font-weight: 600; }
+    .mini-label .accent { color: var(--mark); font-weight: 600; }
+
+    .mini-label[data-label="app"] { --mark: var(--app); }
+    .mini-label[data-label="model"] { --mark: var(--model); }
+    .mini-label[data-label="tool"] { --mark: var(--tool); }
+    .mini-label[data-label="agent"] { --mark: var(--agent); }
+
+    .panel-note {
+      margin: 1.25rem 0 0;
+      color: var(--mute);
+      max-width: 56ch;
+      font-size: 0.9rem;
+    }
+
+    /* ----- Admission ----- */
+    .admit-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+      display: grid;
+      gap: 0.65rem;
+      counter-reset: admit;
+    }
+
+    .admit-list li {
+      padding-left: 2rem;
+      position: relative;
+      color: #d5dde6;
+      max-width: 58ch;
+      counter-increment: admit;
+    }
+
+    .admit-list li::before {
+      content: counter(admit);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    .refused {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (min-width: 720px) {
+      .refused { grid-template-columns: 1fr 1fr; }
+    }
+
+    .refused article {
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(26, 34, 44, 0.4);
+    }
+
+    .refused h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0 0 0.35rem;
+      color: #fff;
+    }
+
+    .refused .verdict {
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin: 0 0 0.4rem;
+    }
+
+    .refused p {
+      margin: 0;
+      color: #c9d3de;
+      font-size: 0.85rem;
+    }
+
+    /* ----- Family footer (inlined from footer.html) ----- */
+    .xfacts-family-footer {
+      padding: 2rem 0 2.75rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--mute);
+      font-size: 0.8rem;
+    }
+
+    .xfacts-family-footer .xfacts-footer-inner {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .xfacts-family-footer .xfacts-footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 1rem;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .xfacts-family-footer .xfacts-footer-nav a,
+    .xfacts-family-footer .xfacts-footer-nav span {
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.78rem;
+    }
+
+    .xfacts-family-footer .xfacts-footer-nav .current {
+      color: #fff;
+    }
+
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="hub"] { color: #c9d3de; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="app"] { color: var(--app-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="model"] { color: var(--model-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"] { color: var(--tool-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"] { color: var(--agent-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"] { color: var(--skill-soft); }
+
+    .xfacts-family-footer .xfacts-footer-nav a:hover { color: #fff; }
+
+    .xfacts-family-footer .xfacts-footer-credit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .xfacts-family-footer .xfacts-footer-credit a {
+      color: #c9d3de;
+    }
+
+    .xfacts-family-footer .xfacts-footer-credit a:hover { color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-copy">
+      <h1 class="brand"><span class="x">x</span>Facts</h1>
+      <p class="lede">x is a variable, not a social network.</p>
+      <p class="sub">
+        A family of small, validatable nutrition labels, one per layer of the AI stack,
+        that make software legible at the moment someone decides whether to trust it.
+      </p>
+      <ul class="marks" aria-label="xFacts family accents">
+        <li class="app" title="AppFacts"></li>
+        <li class="model" title="ModelFacts"></li>
+        <li class="tool" title="ToolFacts"></li>
+        <li class="agent" title="AgentFacts"></li>
+        <li class="skill" title="SkillFacts"></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="anatomy">
+      <div class="wrap">
+        <h2 class="section-title">The anatomy</h2>
+        <p class="section-lead">Five labels. One question each. Status told straight.</p>
+        <div class="anatomy">
+          <a class="label-card" data-label="app" href="https://appfacts.dev">
+            <p class="layer">Body</p>
+            <h3 class="name">App<span>Facts</span></h3>
+            <p class="answers">What is this app built from?</p>
+            <div class="meta">
+              <span class="status">Live</span>
+              <span>appfacts.dev</span>
+            </div>
+          </a>
+
+          <a class="label-card" data-label="model" href="https://modelfacts.dev">
+            <p class="layer">Brain</p>
+            <h3 class="name">Model<span>Facts</span></h3>
+            <p class="answers">What went into this model?</p>
+            <div class="meta">
+              <span class="status">Built, shipping</span>
+              <span>modelfacts.dev</span>
+            </div>
+          </a>
+
+          <div class="label-card is-pending" data-label="tool" aria-label="ToolFacts, spec in progress">
+            <p class="layer">Toolbelt</p>
+            <h3 class="name">Tool<span>Facts</span></h3>
+            <p class="answers">What does this instrument touch when invoked?</p>
+            <div class="meta">
+              <span class="status">Spec in progress</span>
+              <span>toolfacts.dev</span>
+            </div>
+          </div>
+
+          <div class="label-card is-pending" data-label="agent" aria-label="AgentFacts, spec in progress">
+            <p class="layer">Hands</p>
+            <h3 class="name">Agent<span>Facts</span></h3>
+            <p class="answers">What may this actor do, and on what leash?</p>
+            <div class="meta">
+              <span class="status">Spec in progress</span>
+              <span>agentfacts.dev</span>
+            </div>
+          </div>
+
+          <div class="label-card is-pending" data-label="skill" aria-label="SkillFacts, reserved">
+            <p class="layer">Playbook</p>
+            <h3 class="name">Skill<span>Facts</span></h3>
+            <p class="answers">What will this teach my agent to do?</p>
+            <div class="meta">
+              <span class="status">Reserved</span>
+              <span>skillfacts.dev</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="wrap">
+        <h2 class="section-title">Shared rules</h2>
+        <p class="section-lead">Every label in the family keeps the same skeleton and the same teeth.</p>
+        <ul class="rules">
+          <li>
+            <strong>The Golden Rule</strong>
+            Objective facts only. Subjective claims stay in READMEs and marketing pages.
+          </li>
+          <li>
+            <strong><code>undisclosed</code> over omission</strong>
+            Non-disclosure is itself a fact worth labeling. A column of <code>undisclosed</code> is a story.
+          </li>
+          <li>
+            <strong>Closed enums</strong>
+            Judgment fields use fixed vocabularies so labels compare across products.
+          </li>
+          <li>
+            <strong>CC0 specs, MIT tooling</strong>
+            Specs and schemas are public domain. Generators and validators are MIT. Nothing to hesitate over.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="panel">
+      <div class="wrap">
+        <h2 class="section-title">The full panel</h2>
+        <p class="section-lead">
+          A serious AI product can ship four files side by side and be more transparent than any incumbent.
+        </p>
+        <div class="panel" aria-label="Full panel of four xFacts labels">
+          <article class="mini-label" data-label="app">
+            <h3>App Facts</h3>
+            <p class="file">APP_FACTS.md</p>
+            <div class="row thick"><strong>Type</strong><span>web app</span></div>
+            <div class="row"><strong>Language</strong><span>TypeScript</span></div>
+            <div class="row thick"><strong>Framework</strong><span>SvelteKit</span></div>
+            <div class="row"><strong class="accent">Body</strong><span>stack · deps</span></div>
+          </article>
+          <article class="mini-label" data-label="model">
+            <h3>Model Facts</h3>
+            <p class="file">MODEL_FACTS.md</p>
+            <div class="row thick"><strong>Architecture</strong><span>dense decoder</span></div>
+            <div class="row"><strong>Parameters</strong><span>70B</span></div>
+            <div class="row thick"><strong>Context</strong><span>128k</span></div>
+            <div class="row"><strong class="accent">Brain</strong><span>weights · safety</span></div>
+          </article>
+          <article class="mini-label" data-label="tool">
+            <h3>Tool Facts</h3>
+            <p class="file">TOOL_FACTS.md</p>
+            <div class="row thick"><strong>Surface</strong><span>MCP server</span></div>
+            <div class="row"><strong>Side effects</strong><span>read · write</span></div>
+            <div class="row thick"><strong>Network</strong><span>outbound</span></div>
+            <div class="row"><strong class="accent">Toolbelt</strong><span>touch · scope</span></div>
+          </article>
+          <article class="mini-label" data-label="agent">
+            <h3>Agent Facts</h3>
+            <p class="file">AGENT_FACTS.md</p>
+            <div class="row thick"><strong>Autonomy</strong><span>supervised</span></div>
+            <div class="row"><strong>Tools</strong><span>3 toolsets</span></div>
+            <div class="row thick"><strong>Leash</strong><span>approval gates</span></div>
+            <div class="row"><strong class="accent">Hands</strong><span>may · must not</span></div>
+          </article>
+        </div>
+        <p class="panel-note">
+          Compose them: the agent points at the model it thinks with and the tools it wields;
+          the app that ships them all carries <code>APP_FACTS.md</code>. That is the suite's picture.
+        </p>
+      </div>
+    </section>
+
+    <section id="admission">
+      <div class="wrap prose">
+        <h2 class="section-title">How a label earns a domain</h2>
+        <p class="section-lead">The suite grows only when all three hold. Saying no in public is part of the brand.</p>
+        <ol class="admit-list">
+          <li>Someone adopts or installs the thing and needs to trust it at that moment.</li>
+          <li>The essential facts are objective and at least partly machine-derivable.</li>
+          <li>No incumbent format already answers the question well.</li>
+        </ol>
+        <h3 class="section-title" style="font-size:1.15rem;margin-top:0.5rem;">Refused</h3>
+        <div class="refused">
+          <article>
+            <p class="verdict">No · Dataset labels</p>
+            <h3>DataFacts</h3>
+            <p>The Data Nutrition Project already walked that road. Crowded ground; we leave it alone.</p>
+          </article>
+          <article>
+            <p class="verdict">No · Prompt labels</p>
+            <h3>PromptFacts</h3>
+            <p>Prompts are mostly judgment. They fail the machine-derivable rule.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Canonical family footer: see footer.html for the paste-ready snippet. -->
+  <footer class="xfacts-family-footer" data-current="hub">
+    <div class="xfacts-footer-inner">
+      <ul class="xfacts-footer-nav" aria-label="xFacts family">
+        <li><span class="current" data-label="hub">xFacts</span></li>
+        <li><a data-label="app" href="https://appfacts.dev">AppFacts</a></li>
+        <li><a data-label="model" href="https://modelfacts.dev">ModelFacts</a></li>
+        <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
+        <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
+        <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+      </ul>
+      <div class="xfacts-footer-credit">
+        <div>© 2026 xFacts</div>
+        <div>by <a href="https://www.catalystforge.com/">Catalyst Forge</a></div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
