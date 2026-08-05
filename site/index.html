@@ -461,10 +461,14 @@
 
     .xfacts-family-footer .xfacts-footer-nav a[data-label="hub"] { color: #c9d3de; }
     .xfacts-family-footer .xfacts-footer-nav a[data-label="app"] { color: var(--app-soft); }
-    .xfacts-family-footer .xfacts-footer-nav a[data-label="model"] { color: var(--model-soft); }
-    .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"] { color: var(--tool-soft); }
-    .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"] { color: var(--agent-soft); }
-    .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"] { color: var(--skill-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="model"],
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="model"] { color: var(--model-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"],
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="tool"] { color: var(--tool-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"],
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="agent"] { color: var(--agent-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"],
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="skill"] { color: var(--skill-soft); }
 
     .xfacts-family-footer .xfacts-footer-nav a:hover { color: #fff; }
 
@@ -672,10 +676,10 @@
       <ul class="xfacts-footer-nav" aria-label="xFacts family">
         <li><span class="current" data-label="hub">xFacts</span></li>
         <li><a data-label="app" href="https://appfacts.dev">AppFacts</a></li>
-        <li><a data-label="model" href="https://modelfacts.dev">ModelFacts</a></li>
-        <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
-        <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
-        <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+        <li><span data-label="model">ModelFacts</span></li>
+        <li><span data-label="tool">ToolFacts</span></li>
+        <li><span data-label="agent">AgentFacts</span></li>
+        <li><span data-label="skill">SkillFacts</span></li>
       </ul>
       <div class="xfacts-footer-credit">
         <div>© 2026 xFacts</div>
