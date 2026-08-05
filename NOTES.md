@@ -1,7 +1,7 @@
 # Project Notes · xFacts hub
 
 > Working notes for maintainers/agents picking up this project. Not published to the site.
-> Last updated: 2026-08-03 (initial hub build).
+> Last updated: 2026-08-05 (GitHub remote + CF Pages prep).
 
 ## What this is
 
@@ -20,9 +20,9 @@ Bootstrap spec: `GENESIS.md` in this repo.
 | Hub landing | `site/index.html` | Done. Content order per GENESIS. Accent-neutral hub; each label in its own accent. |
 | Family footer | `site/footer.html` | Done. Paste-ready markup + CSS; hub example + AppFacts sibling example in comments. |
 | README | `README.md` | Done. Short family pointer. |
-| Cloudflare Pages + DNS | (pending) | Not yet. Milestone 3 in GENESIS. |
-| GitHub remote | (none) | None locally. Owner creates `Catalyst-Forge-LLC/x-facts` and pushes. |
-| Sibling footer adoption | app-facts, model-facts, … | Pending their next deploys. |
+| Cloudflare Pages + DNS | (pending) | Repo ready. Connect Pages with root = `site`, no build step. |
+| GitHub remote | `Catalyst-Forge-LLC/x-facts` | Pushed 2026-08-05. |
+| Sibling footer adoption | app-facts, model-facts, tool-facts, agent-facts | Local footers adopted; redeploy when each goes live. |
 
 No tooling planned. If any appears: pnpm + TypeScript + ESM only.
 
