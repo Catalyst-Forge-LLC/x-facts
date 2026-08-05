@@ -9,7 +9,7 @@ This repo is the hub only. No spec, no schema, no generator. It owns the story p
 | Label | Layer | Site | Status |
 |---|---|---|---|
 | [AppFacts](https://appfacts.dev) | Body | appfacts.dev | Live |
-| [ModelFacts](https://modelfacts.dev) | Brain | modelfacts.dev | Built, shipping |
+| ModelFacts | Brain | modelfacts.dev | Built, not live yet |
 | ToolFacts | Toolbelt | toolfacts.dev | Spec in progress |
 | AgentFacts | Hands | agentfacts.dev | Spec in progress |
 | SkillFacts | Playbook | skillfacts.dev | Reserved |
