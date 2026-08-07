@@ -13,9 +13,9 @@ The front door of the xFacts family at **xfacts.dev** (domain owned, registered
 five label sites. The per-label domains stay canonical for specs and schemas; this
 site owns the story.
 
-Sibling repos: `app-facts`, `model-facts`, `tool-facts`, `agent-facts` (all in
-``), plus skillfacts.dev reserved for later. GitHub org
-`Catalyst-Forge-LLC`, repo `x-facts` (owner creates and pushes).
+Sibling repos: `app-facts`, `model-facts`, `tool-facts`, `agent-facts`,
+plus skillfacts.dev reserved for later. GitHub org `Catalyst-Forge-LLC`,
+repo `x-facts` (owner creates and pushes).
 
 ## The name, stated on the first screen
 
