@@ -7,7 +7,7 @@
 > **Out of scope this round: ModelFacts.** Its catalog + `facts.json` path is the
 > special case; a ModelFacts `/v` may be considered later and is not required here.
 
-**Status:** planned (not implemented).  
+**Status:** implemented for App/Tool/Agent/Skill (ModelFacts still skipped).  
 **Owner:** Catalyst Forge / xFacts suite.  
 **Depends on:** AppFacts `SPEC-af1.md` + `site/v/` as the reference implementation.  
 **Related:** prior flesh-out in [`SUITE-FLESH-OUT-2026-08.md`](./SUITE-FLESH-OUT-2026-08.md).
@@ -246,17 +246,17 @@ proves size stress; Agent/Skill copy the shell).
 
 ## 9. Acceptance criteria
 
-- [ ] AppFacts `/v#af1.…` still works for existing payloads.
-- [ ] AppFacts viewer has flip-to-raw + copy-to-clipboard (+ copy link optional).
-- [ ] ToolFacts / AgentFacts / SkillFacts each ship `/v` decoding their prefix only.
-- [ ] Every curated exemplar has a primary “Open label” control that lands on `/v`
+- [x] AppFacts `/v#af1.…` still works for existing payloads.
+- [x] AppFacts viewer has flip-to-raw + copy-to-clipboard (+ copy link optional).
+- [x] ToolFacts / AgentFacts / SkillFacts each ship `/v` decoding their prefix only.
+- [x] Every curated exemplar has a primary “Open label” control that lands on `/v`
       with a valid fragment (and optional `?face=raw`).
-- [ ] Flip reveals reconstructed or embedded raw Markdown; copy puts that text on
+- [x] Flip reveals reconstructed or embedded raw Markdown; copy puts that text on
       the clipboard.
-- [ ] Trust banner + link safety rules match AppFacts.
-- [ ] `/v` CSP remains strict; no network fetch required to render a hash payload.
-- [ ] ModelFacts untouched.
-- [ ] Specs/schemas stay CC0; no “certified” language.
+- [x] Trust banner + link safety rules match AppFacts.
+- [x] `/v` CSP remains strict; no network fetch required to render a hash payload.
+- [x] ModelFacts untouched.
+- [x] Specs/schemas stay CC0; no “certified” language.
 
 ---
 
@@ -296,11 +296,11 @@ Update each label `llms.txt` with one line:
 | Item | Status |
 |---|---|
 | Suite spec written (`x-facts/specs/PORTABLE-VIEWER-AND-FLIP.md`) | done |
-| `SPEC-tf1.md` / `SPEC-ag1.md` / `SPEC-sf1.md` | pending |
-| AppFacts flip + copy | pending |
-| ToolFacts `/v` + exemplar wiring | pending |
-| AgentFacts `/v` + exemplar wiring | pending |
-| SkillFacts `/v` + exemplar wiring | pending |
+| `SPEC-tf1.md` / `SPEC-ag1.md` / `SPEC-sf1.md` | done |
+| AppFacts flip + copy | done |
+| ToolFacts `/v` + exemplar wiring | done |
+| AgentFacts `/v` + exemplar wiring | done |
+| SkillFacts `/v` + exemplar wiring | done |
 | ModelFacts | explicitly skipped |
 
 ---
