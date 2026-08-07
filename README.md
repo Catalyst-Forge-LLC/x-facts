@@ -25,6 +25,7 @@ specs/
   SUITE-FLESH-OUT-2026-08.md   Session task / phases / findings
   HUB-UPDATES.md               Hub change plan for this session
   PORTABLE-VIEWER-AND-FLIP.md  Suite plan: /v viewers + flip-to-raw (not ModelFacts)
+  SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
 ```
 
 Static site, no build step. Point Cloudflare Pages at `site/`.
