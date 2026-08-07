@@ -20,7 +20,7 @@ into the hero.
 | P2 | **ModelFacts push + directory live** | Public proof + agent catalog pattern |
 | P3 | **AgentFacts rolls up ToolFacts** | Composition story becomes real |
 | P4 | **SkillFacts generator** | Skills wave; reuse tool heuristics |
-| P5 | **AppFacts as emitter culture** | Templates, CI norms, badge virality |
+| P5 | **AppFacts as default emit habit** | Templates and CI ship labels; badges spread the mark |
 | Ongoing | Refuse new labels that fail admission; no “certified” without measurement |
 
 ---

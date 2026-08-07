@@ -198,10 +198,12 @@ The admission rule exists because suite credibility depends on refusals
 (DataFacts, PromptFacts). If we add labels for every noun, the family becomes
 noise. Guard that reflex.
 
-### 7.6 Portable hash viewers are share UX, not the source of truth
+### 7.6 Portable hash viewers are for sharing, not for trusting
 
-Fragments are untrusted user-controlled data (trust banners exist for a reason).
-Git + schema remain canonical. Do not let QR virality become the security model.
+The `/v#…` card is a **shareable view** (link, QR, flip/copy). Fragments are
+untrusted user-controlled data (trust banners exist for a reason). Git + schema
+remain canonical. Do not treat a widely forwarded QR or hash link as proof that
+the facts are true.
 
 ### 7.7 Cold-start of publishers
 
