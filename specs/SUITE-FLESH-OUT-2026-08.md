@@ -88,8 +88,12 @@
 3. **SkillFacts v0.1** formalization (GENESIS already drafted taxonomy; owner asked to build now).
 4. **Hub honesty** about status without pasting label meat.
 
-Explicitly **deferred** (still on roadmaps): MCP generator, shared crawl directories,
-portable `/v` badges, deploy/DNS/GitHub remotes, SkillFacts generator.
+Explicitly **deferred** from the flesh-out session: MCP generator, shared crawl
+directories, deploy/DNS/GitHub remotes, SkillFacts generator.
+
+**Follow-on (specced):** portable `/v` viewers + flip-to-raw/copy across App/Tool/
+Agent/Skill — see [`PORTABLE-VIEWER-AND-FLIP.md`](./PORTABLE-VIEWER-AND-FLIP.md).
+ModelFacts remains excluded from that round.
 
 ---
 
