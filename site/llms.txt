@@ -22,6 +22,7 @@
 ## Hub
 
 - Site: https://xfacts.dev/
-- Essay for humans (why / how to use labels): https://xfacts.dev/essay/coordination-bet/
+- Essay for readers/publishers: https://xfacts.dev/essay/why-labels/
+- Essay for helpers (adopt / integrate / evangelize; not hub-linked): https://xfacts.dev/essay/coordination-bet/
 - Maintainer roadmaps (git): https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/ROADMAPS.md
 - Sponsor: https://www.catalystforge.com/

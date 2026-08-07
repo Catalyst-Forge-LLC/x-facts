@@ -5,9 +5,14 @@
 > Each label repo owns its detailed roadmap; this file is the suite map and
 > sequencing advice.
 
-**Public essay (hub):** [`/essay/coordination-bet/`](../site/essay/coordination-bet/index.html)
-— **for consumers** (people who use or publish labels), not maintainers. Linked
-from the hub; keeps strategy docs out of the hero. Maintainer analysis stays in
+**Public essays (hub site):**
+
+| Path | Audience | Hub-linked? |
+|---|---|---|
+| [`/essay/why-labels/`](../site/essay/why-labels/index.html) | Readers and publishers | Yes |
+| [`/essay/coordination-bet/`](../site/essay/coordination-bet/index.html) | People helping adopt, integrate, maintain, broadcast, evangelize | No (`noindex`) |
+
+Maintainer analysis stays in
 [`SUITE-VALUE-AND-NETWORK-EFFECTS.md`](./SUITE-VALUE-AND-NETWORK-EFFECTS.md).
 
 ---
