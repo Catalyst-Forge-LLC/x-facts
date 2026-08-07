@@ -21,11 +21,13 @@ site/
   index.html     Hub landing page (Cloudflare Pages root)
   footer.html    Canonical family footer snippet + styles
   llms.txt       Thin family pointer for agents
+  essay/coordination-bet/   Public essay (keeps the home page light)
 specs/
   SUITE-FLESH-OUT-2026-08.md   Session task / phases / findings
   HUB-UPDATES.md               Hub change plan for this session
   PORTABLE-VIEWER-AND-FLIP.md  Suite plan: /v viewers + flip-to-raw (not ModelFacts)
   SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
+  ROADMAPS.md                  Index of per-label improvement roadmaps
 ```
 
 Static site, no build step. Point Cloudflare Pages at `site/`.

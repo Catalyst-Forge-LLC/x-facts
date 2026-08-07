@@ -22,4 +22,6 @@
 ## Hub
 
 - Site: https://xfacts.dev/
+- Essay (human): https://xfacts.dev/essay/coordination-bet/
+- Suite value + roadmaps (git): https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/ROADMAPS.md
 - Sponsor: https://www.catalystforge.com/

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The coordination bet · xFacts</title>
+  <meta name="description" content="Why nutrition labels for the AI stack fill an obvious gap, what network effects require, and what could still go wrong. An essay from the xFacts hub." />
+  <link rel="canonical" href="https://xfacts.dev/essay/coordination-bet/" />
+  <meta property="og:title" content="The coordination bet · xFacts" />
+  <meta property="og:description" content="Trust at the moment of adoption is underserved. The reader is increasingly a machine." />
+  <meta property="og:url" content="https://xfacts.dev/essay/coordination-bet/" />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #101418;
+      --paper: #f8fafc;
+      --mute: #9aa8b8;
+      --line: #d7dee7;
+      --app: #d96b2b;
+      --model: #7c5cf0;
+      --tool: #2dd4bf;
+      --agent: #f6ad55;
+      --skill: #f472b6;
+      --font-display: "Sora", sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --max: 42rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(700px 420px at 12% -8%, rgba(217, 107, 43, 0.10), transparent 55%),
+        radial-gradient(600px 380px at 88% 0%, rgba(124, 92, 240, 0.10), transparent 50%),
+        linear-gradient(180deg, #0c1015 0%, var(--ink) 40%, #0a0e13 100%);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    a { color: #c9d3de; text-underline-offset: 0.18em; }
+    a:hover { color: #fff; }
+    .wrap {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+    }
+    .top {
+      padding: 1.5rem 0 0;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand .x { color: #fff; }
+    .marks {
+      display: flex;
+      gap: 0.35rem;
+      list-style: none;
+      margin: 0.65rem 0 0;
+      padding: 0;
+    }
+    .marks li {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 1px;
+    }
+    .marks .app { background: var(--app); }
+    .marks .model { background: var(--model); }
+    .marks .tool { background: var(--tool); }
+    .marks .agent { background: var(--agent); }
+    .marks .skill { background: var(--skill); }
+
+    article.essay {
+      padding: 2.25rem 0 4rem;
+      animation: fadeup 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    .kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin: 0 0 0.75rem;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.85rem, 5vw, 2.45rem);
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      margin: 0 0 1rem;
+      color: #fff;
+    }
+    .deck {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: #e8eef5;
+      margin: 0 0 1.75rem;
+      max-width: 36ch;
+    }
+    .meta {
+      font-size: 0.75rem;
+      color: var(--mute);
+      margin: 0 0 2.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin: 2.25rem 0 0.75rem;
+    }
+    p { margin: 0 0 1rem; color: #c9d3de; }
+    strong { color: #e8eef5; font-weight: 600; }
+    ul, ol {
+      margin: 0 0 1.15rem;
+      padding-left: 1.2rem;
+      color: #c9d3de;
+    }
+    li { margin: 0.35rem 0; }
+    blockquote {
+      margin: 1.35rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid var(--tool);
+      background: rgba(255,255,255,0.03);
+      color: #e8eef5;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+    .verdict {
+      margin-top: 2.5rem;
+      padding: 1.1rem 1.15rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+    }
+    .verdict p:last-child { margin-bottom: 0; }
+    .next {
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: var(--mute);
+    }
+    .next a { color: var(--tool); }
+    footer.foot {
+      padding: 1.5rem 0 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      color: var(--mute);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      justify-content: space-between;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      article.essay { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top wrap">
+    <a class="brand" href="/"><span class="x">x</span>Facts</a>
+    <ul class="marks" aria-hidden="true">
+      <li class="app"></li><li class="model"></li><li class="tool"></li><li class="agent"></li><li class="skill"></li>
+    </ul>
+  </div>
+
+  <article class="essay wrap">
+    <p class="kicker">Essay</p>
+    <h1>The coordination bet</h1>
+    <p class="deck">Trust at the moment of adoption is underserved across the AI stack. The reader of that trust signal is increasingly a machine.</p>
+    <p class="meta">Catalyst Forge · August 2026 · About the xFacts family</p>
+
+    <p>
+      Once you see it, the gap is hard to unsee. We have READMEs, licenses, SBOMs, model cards,
+      marketplace blurbs, and optional MCP annotations that almost nobody sets and hosts are
+      told not to trust. What we do not have is a small, shared answer to one question at every
+      layer of the stack:
+    </p>
+
+    <blockquote>
+      In under a minute, what are the objective facts that change whether I (or my harness)
+      should trust this right now?
+    </blockquote>
+
+    <p>
+      That is what <a href="/">xFacts</a> is for. Not more documentation. Decision-shaped facts:
+      YAML frontmatter as source of truth, a nutrition-label body for humans, closed enums so
+      products compare, and <code>undisclosed</code> as a first-class value when someone will not say.
+      One label per layer. App, model, tool, agent, skill. Compose them into a full panel.
+    </p>
+
+    <h2>Why it feels obvious</h2>
+    <p>
+      Agents did not invent trust problems. They invented new <em>moments of adoption</em> that look
+      like reading and behave like power. Attaching an MCP server. Installing a skill that teaches
+      shell. Unclipping an agent with open-world fetch. Picking a model from a rumor-shaped card.
+    </p>
+    <p>
+      Package SBOMs never answered “what does this tool destroy when invoked?” Model cards never
+      answered it with comparable enums. Product pages never answered “what is the shipped leash?”
+      Skill READMEs never answered “what will this teach my agent to reach?” The absence only
+      became loud after install volume outran vocabulary.
+    </p>
+
+    <h2>Why now</h2>
+    <p>
+      Several curves meet at once: MCP ecosystems without a trust vocabulary; installable skills as
+      plain-English supply chain; agents that prefer <code>llms.txt</code>, schemas, and JSON over marketing
+      HTML; compliance pressure that still lacks a lightweight evidence artifact for agentic stacks;
+      and CC0-sized files that spread the way developer standards actually spread: copy into the
+      repo, validate in CI, badge out.
+    </p>
+    <p>
+      Timing favors the <em>idea</em>. History only remembers the <em>plumbing</em>.
+    </p>
+
+    <h2>Where the leverage is</h2>
+    <p>
+      Humans will adopt slowly. Network effects get interesting when three loops close:
+    </p>
+    <ul>
+      <li><strong>Publishers and consumers</strong> — more labels make directories and policy useful; usefulness makes publishing rational.</li>
+      <li><strong>Generators and repos</strong> — emit-on-save beats hand-authored virtue.</li>
+      <li><strong>Harnesses that gate on facts</strong> — the day a host auto-approves read-only idempotent tools from ToolFacts, the suite stops being a proposal.</li>
+    </ul>
+    <p>
+      Agent discovery is the accelerant, not the strategy by itself. <code>llms.txt</code> only helps agents
+      that look. Someone still has to put the pointer in bootstraps, templates, and host docs.
+    </p>
+
+    <h2>What we might be getting wrong</h2>
+    <p>
+      The secret flaw is not “the idea is dumb.” It is <strong>trust theater</strong> and <strong>cold start</strong>.
+      A wrong <code>side_effects: none</code> on a destructive tool is worse than no label. Empty directories
+      make <code>undisclosed</code> meaningless. Incumbents can grow registry metadata or ship an official
+      agent manifest and absorb the niche. CC0 is the hedge: if the vocabulary survives inside
+      something bigger, that can still be a win.
+    </p>
+    <p>
+      Portable hash viewers are share UX, not the security model. Git plus schema stay canonical.
+      Fragments stay untrusted by design. And the suite’s credibility depends as much on what we
+      refuse to label as what we label.
+    </p>
+
+    <h2>The verdict</h2>
+    <div class="verdict">
+      <p>
+        The gap is real. The shape is right. Timing is unusually good for tools, agents, and skills.
+        Adoption will not be “very quick” by default. It will be quick if emitters and one
+        load-bearing consumer close the loop.
+      </p>
+      <p>
+        This is a correctly timed coordination bet. It becomes an amazing tool suite at the right
+        time in history only if it becomes infrastructure.
+      </p>
+    </div>
+
+    <p class="next">
+      Deeper notes for maintainers:
+      <a href="https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/SUITE-VALUE-AND-NETWORK-EFFECTS.md">suite value assessment</a>
+      ·
+      <a href="https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/ROADMAPS.md">per-label roadmaps</a>
+      ·
+      <a href="/">back to xFacts</a>
+    </p>
+  </article>
+
+  <footer class="foot wrap">
+    <div>© 2026 xFacts</div>
+    <div>by <a href="https://www.catalystforge.com/">Catalyst Forge</a></div>
+  </footer>
+</body>
+</html>
