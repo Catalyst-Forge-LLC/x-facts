@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The coordination bet · xFacts</title>
-  <meta name="description" content="Why nutrition labels for the AI stack fill an obvious gap, what network effects require, and what could still go wrong. An essay from the xFacts hub." />
+  <title>Why labels · xFacts</title>
+  <meta name="description" content="Before you attach a tool, pick a model, or unclip an agent: what objective facts should you be able to read in under a minute? How xFacts helps." />
   <link rel="canonical" href="https://xfacts.dev/essay/coordination-bet/" />
-  <meta property="og:title" content="The coordination bet · xFacts" />
-  <meta property="og:description" content="Trust at the moment of adoption is underserved. The reader is increasingly a machine." />
+  <meta property="og:title" content="Why labels · xFacts" />
+  <meta property="og:description" content="Nutrition-style facts for the AI stack, at the moment you decide whether to trust something." />
   <meta property="og:url" content="https://xfacts.dev/essay/coordination-bet/" />
   <meta property="og:type" content="article" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,10 +18,9 @@
       --ink: #101418;
       --paper: #f8fafc;
       --mute: #9aa8b8;
-      --line: #d7dee7;
+      --tool: #2dd4bf;
       --app: #d96b2b;
       --model: #7c5cf0;
-      --tool: #2dd4bf;
       --agent: #f6ad55;
       --skill: #f472b6;
       --font-display: "Sora", sans-serif;
@@ -48,9 +47,7 @@
       width: min(100% - 2rem, var(--max));
       margin-inline: auto;
     }
-    .top {
-      padding: 1.5rem 0 0;
-    }
+    .top { padding: 1.5rem 0 0; }
     .brand {
       font-family: var(--font-display);
       font-weight: 800;
@@ -59,7 +56,6 @@
       text-decoration: none;
       color: #fff;
     }
-    .brand .x { color: #fff; }
     .marks {
       display: flex;
       gap: 0.35rem;
@@ -109,7 +105,7 @@
       line-height: 1.4;
       color: #e8eef5;
       margin: 0 0 1.75rem;
-      max-width: 36ch;
+      max-width: 38ch;
     }
     .meta {
       font-size: 0.75rem;
@@ -128,12 +124,12 @@
     }
     p { margin: 0 0 1rem; color: #c9d3de; }
     strong { color: #e8eef5; font-weight: 600; }
-    ul, ol {
+    ul {
       margin: 0 0 1.15rem;
       padding-left: 1.2rem;
       color: #c9d3de;
     }
-    li { margin: 0.35rem 0; }
+    li { margin: 0.4rem 0; }
     blockquote {
       margin: 1.35rem 0;
       padding: 0.85rem 1rem;
@@ -145,13 +141,42 @@
       font-size: 1.02rem;
       line-height: 1.45;
     }
-    .verdict {
-      margin-top: 2.5rem;
-      padding: 1.1rem 1.15rem;
+    .panel-links {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.25rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .panel-links a {
+      display: block;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      text-decoration: none;
+      color: #e8eef5;
+    }
+    .panel-links a:hover {
+      border-color: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+    .panel-links .layer {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 0.15rem;
+    }
+    .panel-links .q { font-size: 0.88rem; color: #c9d3de; }
+    .note {
+      margin-top: 2rem;
+      padding: 1rem 1.1rem;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.04);
+      font-size: 0.88rem;
     }
-    .verdict p:last-child { margin-bottom: 0; }
+    .note p:last-child { margin-bottom: 0; }
     .next {
       margin-top: 2.5rem;
       font-size: 0.85rem;
@@ -183,103 +208,102 @@
 
   <article class="essay wrap">
     <p class="kicker">Essay</p>
-    <h1>The coordination bet</h1>
-    <p class="deck">Trust at the moment of adoption is underserved across the AI stack. The reader of that trust signal is increasingly a machine.</p>
-    <p class="meta">Catalyst Forge · August 2026 · About the xFacts family</p>
+    <h1>Why labels</h1>
+    <p class="deck">Before you trust an app, model, tool, agent, or skill, you should be able to read the facts that matter in under a minute.</p>
+    <p class="meta">For people who use or publish the AI stack · Catalyst Forge · August 2026</p>
 
     <p>
-      Once you see it, the gap is hard to unsee. We have READMEs, licenses, SBOMs, model cards,
-      marketplace blurbs, and optional MCP annotations that almost nobody sets and hosts are
-      told not to trust. What we do not have is a small, shared answer to one question at every
-      layer of the stack:
+      You already do this with food. The box has a nutrition label. Not a novel. Not a press release.
+      A short list of facts that change whether you put it in the cart.
+    </p>
+    <p>
+      The AI stack mostly still asks you to decide from READMEs, marketing pages, model cards of
+      uneven quality, and marketplace blurbs. Optional tool annotations exist and almost nobody
+      sets them. When you attach an MCP server, install a skill, pick a model, or let an agent run
+      on a real workspace, the question is the same every time:
     </p>
 
     <blockquote>
-      In under a minute, what are the objective facts that change whether I (or my harness)
-      should trust this right now?
+      What are the objective facts that change whether I should trust this right now?
     </blockquote>
 
     <p>
-      That is what <a href="/">xFacts</a> is for. Not more documentation. Decision-shaped facts:
-      YAML frontmatter as source of truth, a nutrition-label body for humans, closed enums so
-      products compare, and <code>undisclosed</code> as a first-class value when someone will not say.
-      One label per layer. App, model, tool, agent, skill. Compose them into a full panel.
+      <a href="/">xFacts</a> is a family of small nutrition-style labels for that moment. One label
+      per layer. Same idea each time: structured facts you (or your tools) can check, plus a short
+      human skim. When something important is not disclosed, the file says so instead of going quiet.
     </p>
 
-    <h2>Why it feels obvious</h2>
-    <p>
-      Agents did not invent trust problems. They invented new <em>moments of adoption</em> that look
-      like reading and behave like power. Attaching an MCP server. Installing a skill that teaches
-      shell. Unclipping an agent with open-world fetch. Picking a model from a rumor-shaped card.
-    </p>
-    <p>
-      Package SBOMs never answered “what does this tool destroy when invoked?” Model cards never
-      answered it with comparable enums. Product pages never answered “what is the shipped leash?”
-      Skill READMEs never answered “what will this teach my agent to reach?” The absence only
-      became loud after install volume outran vocabulary.
-    </p>
-
-    <h2>Why now</h2>
-    <p>
-      Several curves meet at once: MCP ecosystems without a trust vocabulary; installable skills as
-      plain-English supply chain; agents that prefer <code>llms.txt</code>, schemas, and JSON over marketing
-      HTML; compliance pressure that still lacks a lightweight evidence artifact for agentic stacks;
-      and CC0-sized files that spread the way developer standards actually spread: copy into the
-      repo, validate in CI, badge out.
-    </p>
-    <p>
-      Timing favors the <em>idea</em>. History only remembers the <em>plumbing</em>.
-    </p>
-
-    <h2>Where the leverage is</h2>
-    <p>
-      Humans will adopt slowly. Network effects get interesting when three loops close:
-    </p>
-    <ul>
-      <li><strong>Publishers and consumers</strong> — more labels make directories and policy useful; usefulness makes publishing rational.</li>
-      <li><strong>Generators and repos</strong> — emit-on-save beats hand-authored virtue.</li>
-      <li><strong>Harnesses that gate on facts</strong> — the day a host auto-approves read-only idempotent tools from ToolFacts, the suite stops being a proposal.</li>
+    <h2>Five questions, five labels</h2>
+    <ul class="panel-links">
+      <li>
+        <a href="https://appfacts.dev">
+          <span class="layer">AppFacts · body</span>
+          <span class="q">What is this app built from?</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://modelfacts.dev">
+          <span class="layer">ModelFacts · brain</span>
+          <span class="q">What went into this model?</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://toolfacts.dev">
+          <span class="layer">ToolFacts · toolbelt</span>
+          <span class="q">What does this instrument touch when invoked?</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://agentfacts.dev">
+          <span class="layer">AgentFacts · hands</span>
+          <span class="q">What may this actor do, and on what leash?</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://skillfacts.dev">
+          <span class="layer">SkillFacts · playbook</span>
+          <span class="q">What will this teach my agent to do?</span>
+        </a>
+      </li>
     </ul>
     <p>
-      Agent discovery is the accelerant, not the strategy by itself. <code>llms.txt</code> only helps agents
-      that look. Someone still has to put the pointer in bootstraps, templates, and host docs.
+      A serious product can publish more than one. The app, the model it thinks with, the tools it
+      wields, the agent configuration, the skills it installs. That full panel is clearer than any
+      single landing page.
     </p>
 
-    <h2>What we might be getting wrong</h2>
+    <h2>How to use a label</h2>
+    <ul>
+      <li><strong>Skim the nutrition face</strong> for the decision in front of you: write access, network, leash, egress, and so on.</li>
+      <li><strong>Prefer <code>undisclosed</code> over guesswork.</strong> Silence is information. If a publisher will not say what leaves the machine, treat that as a signal.</li>
+      <li><strong>Compare like with like.</strong> The fields use shared vocabularies so two tools or two agents can sit side by side.</li>
+      <li><strong>If you ship software,</strong> put the label next to the thing people adopt: the repo, the MCP server, the skill package, the shipped agent config.</li>
+      <li><strong>If you build with agents,</strong> point them at the label files and schemas. Marketing HTML is the wrong place to learn the facts.</li>
+    </ul>
+
+    <h2>What a label is not</h2>
     <p>
-      The secret flaw is not “the idea is dumb.” It is <strong>trust theater</strong> and <strong>cold start</strong>.
-      A wrong <code>side_effects: none</code> on a destructive tool is worse than no label. Empty directories
-      make <code>undisclosed</code> meaningless. Incumbents can grow registry metadata or ship an official
-      agent manifest and absorb the niche. CC0 is the hedge: if the vocabulary survives inside
-      something bigger, that can still be a win.
+      A label is not a certificate. Anyone can author one. A wrong claim that a tool has no side
+      effects is worse than no label at all. Treat published facts as claims you can validate and
+      diff, not as a blessing from a central authority.
     </p>
     <p>
-      Portable hash viewers are a <strong>shareable view</strong> (link, QR, flip/copy), not the
-      place you go to decide whether the facts are true. Git plus schema stay canonical. Fragments
-      stay untrusted by design. And the suite’s credibility depends as much on what we refuse to
-      label as what we label.
+      A shareable card or QR (the portable viewer on each site) is a convenient way to pass a label
+      around. It is not the source of truth. Prefer the file in the repo, checked against the public
+      schema, when the stakes are real.
     </p>
 
-    <h2>The verdict</h2>
-    <div class="verdict">
+    <div class="note">
       <p>
-        The gap is real. The shape is right. Timing is unusually good for tools, agents, and skills.
-        Adoption will not be “very quick” by default. It will be quick if emitters and one
-        load-bearing consumer close the loop.
-      </p>
-      <p>
-        This is a correctly timed coordination bet. It becomes an amazing tool suite at the right
-        time in history only if it becomes infrastructure.
+        Specs and schemas are public domain (CC0). You can adopt the format without asking.
+        Tooling is MIT. The suite grows only when a new label earns its place: someone adopts the
+        thing, the facts are objective, and nothing better already answers the question.
       </p>
     </div>
 
     <p class="next">
-      Deeper notes for maintainers:
-      <a href="https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/SUITE-VALUE-AND-NETWORK-EFFECTS.md">suite value assessment</a>
-      ·
-      <a href="https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/ROADMAPS.md">per-label roadmaps</a>
-      ·
-      <a href="/">back to xFacts</a>
+      <a href="/">Back to xFacts</a>
+      · start with the label that matches your next decision
     </p>
   </article>
 

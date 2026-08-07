@@ -290,7 +290,7 @@ infrastructure.”
 | `SUITE-FLESH-OUT-2026-08.md` | What was built in the flesh-out pass |
 | `PORTABLE-VIEWER-AND-FLIP.md` | Share/skim surface for humans |
 | [`ROADMAPS.md`](./ROADMAPS.md) | Suite sequencing + links to per-label roadmaps |
-| Hub essay | [`/essay/coordination-bet/`](../site/essay/coordination-bet/index.html) — public prose version |
+| Hub essay | [`/essay/coordination-bet/`](../site/essay/coordination-bet/index.html) — consumer-facing “why / how to use”; not a maintainer brief |
 | **This file** | Utility, timing, network effects, doubts, verdict |
 
 ---

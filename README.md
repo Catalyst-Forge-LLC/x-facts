@@ -21,7 +21,7 @@ site/
   index.html     Hub landing page (Cloudflare Pages root)
   footer.html    Canonical family footer snippet + styles
   llms.txt       Thin family pointer for agents
-  essay/coordination-bet/   Public essay (keeps the home page light)
+  essay/coordination-bet/   Consumer essay: why / how to use labels (not maintainer strategy)
 specs/
   SUITE-FLESH-OUT-2026-08.md   Session task / phases / findings
   HUB-UPDATES.md               Hub change plan for this session

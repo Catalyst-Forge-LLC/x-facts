@@ -6,8 +6,9 @@
 > sequencing advice.
 
 **Public essay (hub):** [`/essay/coordination-bet/`](../site/essay/coordination-bet/index.html)
-— human-facing version of the value assessment; linked from the hub, not dumped
-into the hero.
+— **for consumers** (people who use or publish labels), not maintainers. Linked
+from the hub; keeps strategy docs out of the hero. Maintainer analysis stays in
+[`SUITE-VALUE-AND-NETWORK-EFFECTS.md`](./SUITE-VALUE-AND-NETWORK-EFFECTS.md).
 
 ---
 
