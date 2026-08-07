@@ -109,7 +109,7 @@ Update as work lands.
 | AgentFacts: 4–5 exemplars + site examples + `llms.txt` | done |
 | SkillFacts: SPEC, schema, validator, exemplars, site | done |
 | Validators green on all new exemplars | done |
-| Commits in touched repos | in progress |
+| Commits in touched repos | done (local only; not pushed) |
 
 ---
 
