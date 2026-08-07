@@ -1,0 +1,25 @@
+# xFacts
+
+> Family hub for nutrition labels across the AI stack. x is a variable, not a social network.
+> This hub does not host per-label schemas or exemplars. Go to each label domain.
+
+## Labels
+
+| Label | Layer | Question | Agent entry |
+|---|---|---|---|
+| AppFacts | Body | What is this app built from? | https://appfacts.dev/ |
+| ModelFacts | Brain | What went into this model? | https://modelfacts.dev/llms.txt |
+| ToolFacts | Toolbelt | What does this instrument touch when invoked? | https://toolfacts.dev/llms.txt |
+| AgentFacts | Hands | What may this actor do, and on what leash? | https://agentfacts.dev/llms.txt |
+| SkillFacts | Playbook | What will this teach my agent to do? | https://skillfacts.dev/llms.txt |
+
+## Shared rules
+
+- YAML frontmatter is the sole source of truth; Markdown body is the human skim.
+- Objective facts only. Prefer `undisclosed` over guessing.
+- Specs and schemas are CC0; tooling is MIT.
+
+## Hub
+
+- Site: https://xfacts.dev/
+- Sponsor: https://www.catalystforge.com/
