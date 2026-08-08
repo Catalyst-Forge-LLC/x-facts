@@ -21,7 +21,7 @@ Maintainer analysis stays in
 
 | Priority | Focus | Why |
 |---|---|---|
-| P0 | **Deploy + discoverability** (all labels live; `llms.txt` real; [pointer contract](./DISCOVERY-AND-PUBLICATION.md) documented) | Cold start ends when URLs resolve and consumers know where to look |
+| P0 | **Deploy + discoverability** (**done:** all five labels + hub live; keep `llms.txt` / pointer contract current) | Cold start ends when URLs resolve and consumers know where to look |
 | P1 | **ToolFacts emitter + policy demo** (generator prints canonical + viewer URLs; demo fetches by URL) | First load-bearing consumer unlocks the flywheel |
 | P2 | **ModelFacts push + directory live** | Public proof + agent catalog pattern |
 | P3 | **AgentFacts rolls up ToolFacts** | Composition story becomes real |

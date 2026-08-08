@@ -20,9 +20,9 @@ Bootstrap spec: `GENESIS.md` in this repo.
 | Hub landing | `site/index.html` | Done. Content order per GENESIS. Accent-neutral hub; each label in its own accent. |
 | Family footer | `site/footer.html` | Done. Paste-ready markup + CSS; hub example + AppFacts sibling example in comments. |
 | README | `README.md` | Done. Short family pointer. |
-| Cloudflare Pages + DNS | (pending) | Repo ready. Connect Pages with root = `site`, no build step. |
+| Cloudflare Pages + DNS | Live | Hub at xfacts.dev; all five label domains live (2026-08). |
 | GitHub remote | `Catalyst-Forge-LLC/x-facts` | Pushed 2026-08-05. |
-| Sibling footer adoption | app-facts, model-facts, tool-facts, agent-facts | Local footers adopted; redeploy when each goes live. |
+| Sibling footer adoption | all five labels | Family footer + suite header link on each landing page. |
 
 No tooling planned. If any appears: pnpm + TypeScript + ESM only.
 

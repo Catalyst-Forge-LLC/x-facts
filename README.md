@@ -9,10 +9,10 @@ This repo is the hub only. No per-label spec, schema, or generator. It owns the 
 | Label | Layer | Site | Status |
 |---|---|---|---|
 | [AppFacts](https://appfacts.dev) | Body | appfacts.dev | Live |
-| ModelFacts | Brain | modelfacts.dev | Built, not live yet |
-| ToolFacts | Toolbelt | toolfacts.dev | Ready for first deploy |
-| AgentFacts | Hands | agentfacts.dev | Ready for first deploy |
-| SkillFacts | Playbook | skillfacts.dev | Ready for first deploy |
+| [ModelFacts](https://modelfacts.dev) | Brain | modelfacts.dev | Live |
+| [ToolFacts](https://toolfacts.dev) | Toolbelt | toolfacts.dev | Live |
+| [AgentFacts](https://agentfacts.dev) | Hands | agentfacts.dev | Live |
+| [SkillFacts](https://skillfacts.dev) | Playbook | skillfacts.dev | Live |
 
 ## What's in here
 
@@ -28,6 +28,7 @@ specs/
   HUB-UPDATES.md               Hub change plan for this session
   PORTABLE-VIEWER-AND-FLIP.md  Suite plan: /v viewers + flip-to-raw (not ModelFacts)
   SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
+  DISCOVERY-AND-PUBLICATION.md Pointer contract (canonical URL + host surface + /v)
   ROADMAPS.md                  Index of per-label improvement roadmaps
 ```
 
