@@ -192,6 +192,12 @@ drowns in nearly identical files.
 deliberate seeding into agent bootstraps and host docs, “agents will find it”
 is a hope, not a mechanism.
 
+A deeper gap: canonical `{LABEL}_FACTS.md` in source plus shareable `/v` cards
+still leave consumers without a **pointer** from the install/attach surface
+(MCP registry, skill marketplace, model card, agent UI) to a fetchable label URL
+when the source tree is invisible. The suite contract for that middle layer is
+[`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md).
+
 ### 7.5 Five labels can look like sprawl
 
 The admission rule exists because suite credibility depends on refusals
@@ -289,6 +295,7 @@ infrastructure.”
 | `catalyst-forge/docs/xfacts-suite-vision.md` | Standing product/strategy canon |
 | `SUITE-FLESH-OUT-2026-08.md` | What was built in the flesh-out pass |
 | `PORTABLE-VIEWER-AND-FLIP.md` | Share/skim surface for humans |
+| [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md) | Canonical URL + host pointer + viewer; per-label discovery homes |
 | [`ROADMAPS.md`](./ROADMAPS.md) | Suite sequencing + links to per-label roadmaps |
 | Hub essays | [`why-labels`](../site/essay/why-labels/index.html) (consumers, hub-linked); [`coordination-bet`](../site/essay/coordination-bet/index.html) (helpers/evangelists, not hub-linked) |
 | **This file** | Utility, timing, network effects, doubts, verdict |

@@ -21,8 +21,8 @@ Maintainer analysis stays in
 
 | Priority | Focus | Why |
 |---|---|---|
-| P0 | **Deploy + discoverability** (all labels live; `llms.txt` real) | Cold start ends when URLs resolve |
-| P1 | **ToolFacts emitter + policy demo** | First load-bearing consumer unlocks the flywheel |
+| P0 | **Deploy + discoverability** (all labels live; `llms.txt` real; [pointer contract](./DISCOVERY-AND-PUBLICATION.md) documented) | Cold start ends when URLs resolve and consumers know where to look |
+| P1 | **ToolFacts emitter + policy demo** (generator prints canonical + viewer URLs; demo fetches by URL) | First load-bearing consumer unlocks the flywheel |
 | P2 | **ModelFacts push + directory live** | Public proof + agent catalog pattern |
 | P3 | **AgentFacts rolls up ToolFacts** | Composition story becomes real |
 | P4 | **SkillFacts generator** | Skills wave; reuse tool heuristics |
@@ -45,9 +45,10 @@ Maintainer analysis stays in
 
 ## Shared work (not owned by one label)
 
+- **Discovery / publication contract:** [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md) (canonical URL + host pointer + optional `/v`; URL-preferred cross-refs).
 - Hub essay + thin `llms.txt` (done / iterate).
 - ForgeKit / AGENTS.md bootstrap pointers to family `llms.txt`.
-- Dogfood **full panels** on CF products.
+- Dogfood **full panels** on CF products (each demo ends with a fetchable label URL).
 - Shared MCP crawl feeding ToolFacts + AgentFacts directories.
 - Emotional success criterion: vocabulary adoption even if domains are not.
 
