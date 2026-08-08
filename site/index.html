@@ -302,7 +302,11 @@
     }
 
     @media (min-width: 1000px) {
-      .panel { grid-template-columns: repeat(4, 1fr); }
+      .panel { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 1200px) {
+      .panel { grid-template-columns: repeat(5, 1fr); }
     }
 
     .mini-label {
@@ -348,6 +352,7 @@
     .mini-label[data-label="model"] { --mark: var(--model); }
     .mini-label[data-label="tool"] { --mark: var(--tool); }
     .mini-label[data-label="agent"] { --mark: var(--agent); }
+    .mini-label[data-label="skill"] { --mark: var(--skill); }
 
     .panel-note {
       margin: 1.25rem 0 0;
@@ -601,9 +606,9 @@
       <div class="wrap">
         <h2 class="section-title">The full panel</h2>
         <p class="section-lead">
-          A serious AI product can ship four files side by side and be more transparent than any incumbent.
+          A serious AI product can ship five files side by side and be more transparent than any incumbent.
         </p>
-        <div class="panel" aria-label="Full panel of four xFacts labels">
+        <div class="panel" aria-label="Full panel of five xFacts labels">
           <article class="mini-label" data-label="app">
             <h3>App Facts</h3>
             <p class="file">APP_FACTS.md</p>
@@ -636,10 +641,19 @@
             <div class="row thick"><strong>Leash</strong><span>approval gates</span></div>
             <div class="row"><strong class="accent">Hands</strong><span>may · must not</span></div>
           </article>
+          <article class="mini-label" data-label="skill">
+            <h3>Skill Facts</h3>
+            <p class="file">SKILL_FACTS.md</p>
+            <div class="row thick"><strong>Kind</strong><span>cursor-skill</span></div>
+            <div class="row"><strong>Shell</strong><span>none</span></div>
+            <div class="row thick"><strong>Network</strong><span>none</span></div>
+            <div class="row"><strong class="accent">Playbook</strong><span>teach · reach</span></div>
+          </article>
         </div>
         <p class="panel-note">
-          Compose them: the agent points at the model it thinks with and the tools it wields;
-          the app that ships them all carries <code>APP_FACTS.md</code>. That is the suite's picture.
+          Compose them: the agent points at the model it thinks with, the tools it wields,
+          and the skills it installs; the app that ships them carries <code>APP_FACTS.md</code>.
+          That is the suite's picture.
         </p>
       </div>
     </section>
