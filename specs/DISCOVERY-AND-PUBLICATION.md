@@ -175,9 +175,9 @@ Until hosts grow first-class pointer fields:
 
 1. Deploy label sites so schema, `llms.txt`, and exemplars resolve.
 2. Seed directories (ModelFacts pattern; Tool/Agent crawl next).
-3. Dogfood: every CF/ForgeKit demo ends with a canonical URL and optionally a `/v`
+3. Dogfood: every CF/ForgeTrail demo ends with a canonical URL and optionally a `/v`
    card.
-4. Seed AGENTS.md / ForgeKit bootstraps to fetch family `llms.txt` and follow
+4. Seed AGENTS.md / ForgeTrail bootstraps to fetch family `llms.txt` and follow
    exemplar `viewer` / file links.
 
 Directories do not remove the need for publisher pointers; they bridge the empty

@@ -68,8 +68,8 @@
 |---|---|
 | **app-facts** | Live gold standard: SPEC, schema, generator, `/v`, badges, one strong exemplar. |
 | **model-facts** | Strong catalog + agent contract (`llms.txt`, `index.json`, compare). Reference only. |
-| **tool-facts** | SPEC/schema/validator/site + **one** ForgeKit exemplar + template. Generator stub. No remote. |
-| **agent-facts** | Twin of tool-facts + one ForgeKit Reference Agent. Generator stub. No remote. |
+| **tool-facts** | SPEC/schema/validator/site + **one** ForgeTrail exemplar + template. Generator stub. No remote. |
+| **agent-facts** | Twin of tool-facts + one ForgeTrail Reference Agent. Generator stub. No remote. |
 | **skill-facts** | Reserved stub: GENESIS + thin landing. No SPEC/schema/validator/examples. |
 | **x-facts** | Hub + canonical footer. Status table understated tool/agent (still "spec in progress"). |
 

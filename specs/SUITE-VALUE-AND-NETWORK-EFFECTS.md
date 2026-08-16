@@ -149,8 +149,8 @@ Ordered by leverage, not comfort:
 3. **Public directories that are useful on day one** (ModelFacts already points
    this way; Tool/Agent need crawl+seed).
 4. **Agent-default discovery:** hub + each label’s `llms.txt` linked from
-   AGENTS.md templates, ForgeKit, and popular agent bootstraps.
-5. **Dogfood in public:** Catalyst Forge / ForgeKit ship full panels; every demo
+   AGENTS.md templates, ForgeTrail, and popular agent bootstraps.
+5. **Dogfood in public:** Catalyst Forge / ForgeTrail ship full panels; every demo
    ends on a `/v` card.
 6. **CI cultural norm:** `--check` / schema validate in greenfield templates.
 
@@ -265,7 +265,7 @@ infrastructure.”
 2. **Ship emitters** — MCP introspection, skill parse, model card ingest.
 3. **Seed directories** — especially tools/agents; ModelFacts pattern already
    teaches this.
-4. **Weaponize agent discovery deliberately** — ForgeKit, AGENTS.md templates,
+4. **Weaponize agent discovery deliberately** — ForgeTrail, AGENTS.md templates,
    hub `llms.txt`, “how agents should consume xFacts” one-pager that hosts can
    paste.
 5. **Dogfood full panels** everywhere CF ships agents.

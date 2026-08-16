@@ -47,7 +47,7 @@ Maintainer analysis stays in
 
 - **Discovery / publication contract:** [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md) (canonical URL + host pointer + optional `/v`; URL-preferred cross-refs).
 - Hub essay + thin `llms.txt` (done / iterate).
-- ForgeKit / AGENTS.md bootstrap pointers to family `llms.txt`.
+- ForgeTrail / AGENTS.md bootstrap pointers to family `llms.txt`.
 - Dogfood **full panels** on CF products (each demo ends with a fetchable label URL).
 - Shared MCP crawl feeding ToolFacts + AgentFacts directories.
 - Emotional success criterion: vocabulary adoption even if domains are not.
