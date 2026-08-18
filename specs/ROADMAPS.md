@@ -21,13 +21,11 @@ Maintainer analysis stays in
 
 | Priority | Focus | Why |
 |---|---|---|
-| P0 | **Deploy + discoverability** (**done:** all five labels + hub live; keep `llms.txt` / pointer contract current) | Cold start ends when URLs resolve and consumers know where to look |
-| P1 | **ToolFacts emitter + policy demo** (generator prints canonical + viewer URLs; demo fetches by URL) | First load-bearing consumer unlocks the flywheel |
-| P2 | **ModelFacts push + directory live** | Public proof + agent catalog pattern |
-| P3 | **AgentFacts rolls up ToolFacts** | Composition story becomes real |
-| P4 | **SkillFacts generator** | Skills wave; reuse tool heuristics |
-| P5 | **AppFacts as default emit habit** | Templates and CI ship labels; badges spread the mark |
-| Ongoing | Refuse new labels that fail admission; no “certified” without measurement |
+| P0 | **Deploy + discoverability** (**done:** all five labels + hub live) | Sites resolve; legacy natives stay published |
+| P1 | **Panel + `mcp-tools-list`** ([`PANEL.md`](./PANEL.md): consumer review → schema/profile loop → validator/drift → viewer → badge) | Derived tool-surface change detection is the load-bearing capability |
+| P2 | Native `tool-facts` Panel profile (marked stopgap) | Bridge from existing `TOOL_FACTS.md` without new authoring UX |
+| P3 | Further profiles (A2A / HF / SBOM) only after tool path has an external user | Depth over breadth |
+| Ongoing | Refuse new layers that fail admission; no “certified” without measurement; do not grow surface area to look complete |
 
 ---
 
@@ -45,12 +43,12 @@ Maintainer analysis stays in
 
 ## Shared work (not owned by one label)
 
-- **Discovery / publication contract:** [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md) (canonical URL + host pointer + optional `/v`; URL-preferred cross-refs).
+- **Panel contract:** [`PANEL.md`](./PANEL.md) — single master. Decision log: [`PANEL-DECISIONS.md`](./PANEL-DECISIONS.md).
+- **Discovery / publication** (legacy natives): [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md).
 - Hub essay + thin `llms.txt` (done / iterate).
+- Consumer and upstream reviews recorded under `reviews/` (Panel step 0).
 - ForgeTrail / AGENTS.md bootstrap pointers to family `llms.txt`.
-- Dogfood **full panels** on CF products (each demo ends with a fetchable label URL).
-- Shared MCP crawl feeding ToolFacts + AgentFacts directories.
-- Emotional success criterion: vocabulary adoption even if domains are not.
+- Emotional success criterion: a drift check that catches a real change — not suite completeness.
 
 ---
 

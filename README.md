@@ -4,7 +4,7 @@
 
 The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): a family of small, validatable nutrition labels, one per layer of the AI stack, that make software legible at the moment someone decides whether to trust it.
 
-This repo is the hub only. No per-label spec, schema, or generator. It owns the story page, the canonical family footer, and a thin agent pointer (`site/llms.txt`) to the five label domains.
+This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the five sibling repos; they are transitional natives. The next implementation cycle (schema, `mcp-tools-list`, validator, viewer) lands here.
 
 | Label | Layer | Site | Status |
 |---|---|---|---|
@@ -29,7 +29,9 @@ specs/
   PORTABLE-VIEWER-AND-FLIP.md  Suite plan: /v viewers + flip-to-raw (not ModelFacts)
   SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
   DISCOVERY-AND-PUBLICATION.md Pointer contract (canonical URL + host surface + /v)
-  ROADMAPS.md                  Index of per-label improvement roadmaps
+  PANEL.md                     Master Panel spec (derived views + drift; implement this)
+  PANEL-DECISIONS.md           Dated decision log for the Panel work
+  ROADMAPS.md                  Suite sequencing
 ```
 
 Static site, no build step. Point Cloudflare Pages at `site/`.

@@ -296,6 +296,7 @@ infrastructure.”
 | `SUITE-FLESH-OUT-2026-08.md` | What was built in the flesh-out pass |
 | `PORTABLE-VIEWER-AND-FLIP.md` | Share/skim surface for humans |
 | [`DISCOVERY-AND-PUBLICATION.md`](./DISCOVERY-AND-PUBLICATION.md) | Canonical URL + host pointer + viewer; per-label discovery homes |
+| [`PANEL.md`](./PANEL.md) | Master Panel spec: derived views, `mcp-tools-list` first, drift as the product |
 | [`ROADMAPS.md`](./ROADMAPS.md) | Suite sequencing + links to per-label roadmaps |
 | Hub essays | [`why-labels`](../site/essay/why-labels/index.html) (consumers, hub-linked); [`coordination-bet`](../site/essay/coordination-bet/index.html) (helpers/evangelists, not hub-linked) |
 | **This file** | Utility, timing, network effects, doubts, verdict |

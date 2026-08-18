@@ -198,7 +198,8 @@ that URL without scraping HTML or decoding a `/v` fragment.
 | Doc | Role |
 |---|---|
 | Per-label `SPEC.md` | File shape; each adds a short Publication & discovery pointer here |
-| [`PORTABLE-VIEWER-AND-FLIP.md`](./PORTABLE-VIEWER-AND-FLIP.md) | `/v` share surface |
+| [`PANEL.md`](./PANEL.md) | Next-cycle derived Panel; `subject.canonical_url` is the pointer for that path |
+| [`PORTABLE-VIEWER-AND-FLIP.md`](./PORTABLE-VIEWER-AND-FLIP.md) | `/v` share surface for legacy natives |
 | [`SUITE-VALUE-AND-NETWORK-EFFECTS.md`](./SUITE-VALUE-AND-NETWORK-EFFECTS.md) §7.4, §7.6 | Discovery is not automatic; viewers are not trust |
 | [`ROADMAPS.md`](./ROADMAPS.md) | Sequencing; shared work includes this contract |
 
