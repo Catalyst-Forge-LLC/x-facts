@@ -99,7 +99,7 @@ A Panel is a JSON object. It MUST validate against `panel.schema.json` (JSON Sch
   "panel_version": "0.1.0",
   "layer": "tool",
   "subject": {
-    "name": "ForgeKit MCP Server",
+    "name": "ForgeTrail MCP Server",
     "publisher": "Catalyst Forge",
     "version": "0.4.2",
     "canonical_url": "https://example.com/mcp"
