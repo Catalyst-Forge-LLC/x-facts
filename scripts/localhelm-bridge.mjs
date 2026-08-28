@@ -64,9 +64,28 @@ function extractFrontmatter(md) {
 	return fm;
 }
 
-function extractViewer(md) {
-	const m = /\[appfacts-label\]:\s*(\S+)/.exec(md);
-	return m ? m[1] : null;
+const LABEL_KINDS = [
+	{ id: 'app', ref: 'appfacts-label', host: /https:\/\/appfacts\.dev\/v#[^\s)\]>]+/ },
+	{ id: 'tool', ref: 'toolfacts-label', host: /https:\/\/toolfacts\.dev\/v#[^\s)\]>]+/ },
+	{ id: 'skill', ref: 'skillfacts-label', host: /https:\/\/skillfacts\.dev\/v#[^\s)\]>]+/ },
+	{ id: 'agent', ref: 'agentfacts-label', host: /https:\/\/agentfacts\.dev\/v#[^\s)\]>]+/ },
+	{ id: 'model', ref: 'modelfacts-label', host: /https:\/\/modelfacts\.dev\/v#[^\s)\]>]+/ },
+];
+
+function extractViewer(md, kindId = 'app') {
+	const kind = LABEL_KINDS.find((row) => row.id === kindId) ?? LABEL_KINDS[0];
+	const named = new RegExp(`\\[${kind.ref}\\]:\\s*(\\S+)`).exec(md);
+	if (named?.[1]) return named[1];
+	const hosted = kind.host.exec(md);
+	return hosted?.[0] ?? null;
+}
+
+function mergeViewers(md, into) {
+	for (const kind of LABEL_KINDS) {
+		if (into[kind.id]) continue;
+		const href = extractViewer(md, kind.id);
+		if (href) into[kind.id] = href;
+	}
 }
 
 function decodeAf1Name(url) {
@@ -111,6 +130,8 @@ function inspectRepo(id) {
 	let viewerStatus = '—';
 	let status = 'no label';
 	let fingerprint = null;
+	const viewers = {};
+	const extra = { agent: false, model: false };
 
 	if (existsSync(appPath)) {
 		const md = readFileSync(appPath, 'utf8');
@@ -120,7 +141,8 @@ function inspectRepo(id) {
 		// fingerprint is nested under generated: in YAML — simple extract:
 		const fp = /inputs_fingerprint:\s*(\S+)/.exec(md);
 		if (fp) fingerprint = fp[1];
-		viewer = extractViewer(md);
+		mergeViewers(md, viewers);
+		viewer = viewers.app ?? null;
 		const payloadName = decodeAf1Name(viewer);
 		if (!viewer) {
 			app = 'present';
@@ -138,7 +160,20 @@ function inspectRepo(id) {
 	}
 
 	const tool = toolPaths.some((p) => existsSync(p)) ? 'yes' : '—';
+	for (const p of toolPaths) {
+		if (existsSync(p)) mergeViewers(readFileSync(p, 'utf8'), viewers);
+	}
 	const skill = skillHits.length ? String(skillHits.length) : '—';
+	for (const p of skillHits) mergeViewers(readFileSync(p, 'utf8'), viewers);
+	const readme = join(root, 'README.md');
+	if (existsSync(readme)) mergeViewers(readFileSync(readme, 'utf8'), viewers);
+
+	for (const kind of ['agent', 'model']) {
+		const p = join(root, `${kind === 'agent' ? 'AGENT' : 'MODEL'}_FACTS.md`);
+		if (!existsSync(p)) continue;
+		extra[kind] = true;
+		mergeViewers(readFileSync(p, 'utf8'), viewers);
+	}
 
 	return {
 		id,
@@ -146,7 +181,10 @@ function inspectRepo(id) {
 		app,
 		tool,
 		skill,
+		agent: extra.agent || viewers.agent ? 'yes' : '—',
+		model: extra.model || viewers.model ? 'yes' : '—',
 		viewer,
+		viewers,
 		viewerStatus,
 		status,
 		fingerprint,
