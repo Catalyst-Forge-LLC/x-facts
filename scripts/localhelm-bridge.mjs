@@ -88,6 +88,34 @@ function mergeViewers(md, into) {
 	}
 }
 
+const GENERIC_FACTS_PARENTS = new Set(['skills', 'passes', 'site', 'mcp-server']);
+
+function factsName(filePath, md) {
+	const fm = extractFrontmatter(md) || {};
+	const parts = filePath.replace(/\\/g, '/').split('/');
+	const file = parts[parts.length - 1] ?? '';
+	const parent = parts[parts.length - 2] ?? '';
+	if (file === 'SKILL_FACTS.md' && parent && !GENERIC_FACTS_PARENTS.has(parent)) return parent;
+	if (fm.name) return fm.name;
+	if (file.endsWith('_FACTS.md') && parent && !GENERIC_FACTS_PARENTS.has(parent)) return parent;
+	return file.replace(/_FACTS\.md$/i, '') || 'label';
+}
+
+function uniqueFactsItems(items) {
+	const byLabel = new Map();
+	for (const item of items) {
+		const prev = byLabel.get(item.label);
+		if (!prev || (!prev.href && item.href)) byLabel.set(item.label, item);
+	}
+	return [...byLabel.values()];
+}
+
+function factsItem(filePath, kindId) {
+	if (!existsSync(filePath)) return null;
+	const md = readFileSync(filePath, 'utf8');
+	return { label: factsName(filePath, md), href: extractViewer(md, kindId) || undefined };
+}
+
 function decodeAf1Name(url) {
 	if (!url || !url.includes('af1.')) return null;
 	try {
@@ -116,7 +144,15 @@ function inspectRepo(id) {
 	function walkSkills(dir, depth = 0) {
 		if (depth > 4 || !existsSync(dir)) return;
 		for (const ent of readdirSync(dir, { withFileTypes: true })) {
-			if (ent.name === 'node_modules' || ent.name === '.git' || ent.name === 'dist') continue;
+			if (
+				ent.name === 'node_modules' ||
+				ent.name === '.git' ||
+				ent.name === 'dist' ||
+				ent.name === '.cursor' ||
+				ent.name === 'site'
+			) {
+				continue;
+			}
 			const p = join(dir, ent.name);
 			if (ent.isFile() && ent.name === 'SKILL_FACTS.md') skillHits.push(p);
 			else if (ent.isDirectory()) walkSkills(p, depth + 1);
@@ -159,14 +195,29 @@ function inspectRepo(id) {
 		}
 	}
 
-	const tool = toolPaths.some((p) => existsSync(p)) ? 'yes' : '—';
-	for (const p of toolPaths) {
-		if (existsSync(p)) mergeViewers(readFileSync(p, 'utf8'), viewers);
+	const toolItems = uniqueFactsItems(toolPaths.map((p) => factsItem(p, 'tool')).filter(Boolean));
+	for (const item of toolItems) {
+		if (item.href && !viewers.tool) viewers.tool = item.href;
 	}
-	const skill = skillHits.length ? String(skillHits.length) : '—';
-	for (const p of skillHits) mergeViewers(readFileSync(p, 'utf8'), viewers);
+	const skillItems = uniqueFactsItems(skillHits.map((p) => factsItem(p, 'skill')).filter(Boolean));
+	for (const item of skillItems) {
+		if (item.href && !viewers.skill) viewers.skill = item.href;
+	}
 	const readme = join(root, 'README.md');
-	if (existsSync(readme)) mergeViewers(readFileSync(readme, 'utf8'), viewers);
+	if (existsSync(readme)) {
+		const md = readFileSync(readme, 'utf8');
+		mergeViewers(md, viewers);
+		if (skillItems.length === 1 && !skillItems[0].href) {
+			const href = extractViewer(md, 'skill');
+			if (href) skillItems[0].href = href;
+		}
+		if (toolItems.length === 1 && !toolItems[0].href) {
+			const href = extractViewer(md, 'tool');
+			if (href) toolItems[0].href = href;
+		}
+	}
+	const tool = toolItems.length ? (toolItems.length === 1 ? 'yes' : String(toolItems.length)) : '—';
+	const skill = skillItems.length ? String(skillItems.length) : '—';
 
 	for (const kind of ['agent', 'model']) {
 		const p = join(root, `${kind === 'agent' ? 'AGENT' : 'MODEL'}_FACTS.md`);
@@ -189,8 +240,10 @@ function inspectRepo(id) {
 		status,
 		fingerprint,
 		appPath: existsSync(appPath) ? appPath : null,
-		hasTool: tool === 'yes',
-		skillCount: skillHits.length,
+		hasTool: toolItems.length > 0,
+		skillCount: skillItems.length,
+		toolItems,
+		skillItems,
 	};
 }
 

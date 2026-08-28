@@ -53,13 +53,7 @@ const EXTRA_LABEL_COLS = [
 
 function labelColumns(rows) {
 	const extra = EXTRA_LABEL_COLS.filter((col) => rows.some((row) => (row[col.id] ?? '—') !== '—' || row.viewers?.[col.id]));
-	return [
-		...CORE_LABEL_COLS,
-		...extra,
-		{ id: 'viewer', label: 'viewer' },
-		{ id: 'name', label: 'name' },
-		{ id: 'status', label: 'status' },
-	];
+	return [...CORE_LABEL_COLS, ...extra, { id: 'name', label: 'name' }, { id: 'status', label: 'status' }];
 }
 
 function boardFrom(inventory) {
@@ -69,7 +63,7 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'Nutrition labels across the sibling workspace. A column is a link when that repo has a /v card.',
+			'Nutrition labels across the sibling workspace. Each name in a column is its own /v link when that file has a card.',
 			'Agent and model columns appear only when a shelf repo has those files.',
 			'Check compares fingerprints. Re-encode refreshes /v cards from frontmatter.',
 			'Refresh re-runs the AppFacts generator (needs Ollama or configured provider).',
@@ -81,19 +75,21 @@ function boardFrom(inventory) {
 		rows: inventory.rows.map((row) => {
 			const links = { ...(row.viewers ?? {}) };
 			if (row.viewer && !links.app) links.app = row.viewer;
-			if (links.app) links.viewer = links.app;
+			const linkGroups = {};
+			if (row.skillItems?.length) linkGroups.skill = row.skillItems;
+			if (row.toolItems?.length) linkGroups.tool = row.toolItems;
 			return {
 				id: row.id,
 				label: row.id,
 				href: links.app || links.skill || links.tool || row.viewer || undefined,
 				links,
+				linkGroups,
 				cells: {
 					app: row.app,
 					tool: row.tool,
 					skill: row.skill,
 					agent: row.agent ?? '—',
 					model: row.model ?? '—',
-					viewer: row.viewerStatus,
 					name: row.name,
 					status: row.status,
 				},
