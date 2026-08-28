@@ -42,7 +42,6 @@ function bridge(args) {
 }
 
 const CORE_LABEL_COLS = [
-	{ id: 'app', label: 'app' },
 	{ id: 'tool', label: 'tool' },
 	{ id: 'skill', label: 'skill' },
 ];
@@ -53,7 +52,7 @@ const EXTRA_LABEL_COLS = [
 
 function labelColumns(rows) {
 	const extra = EXTRA_LABEL_COLS.filter((col) => rows.some((row) => (row[col.id] ?? '—') !== '—' || row.viewers?.[col.id]));
-	return [...CORE_LABEL_COLS, ...extra, { id: 'name', label: 'name' }, { id: 'status', label: 'status' }];
+	return [...CORE_LABEL_COLS, ...extra];
 }
 
 function boardFrom(inventory) {
@@ -63,7 +62,7 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'Nutrition labels across the sibling workspace. Each name in a column is its own /v link when that file has a card.',
+			'Nutrition labels across the sibling workspace. The repo name opens the AppFacts card. Each tool or skill name is its own /v link.',
 			'Agent and model columns appear only when a shelf repo has those files.',
 			'Check compares fingerprints. Re-encode refreshes app, tool, and skill /v cards from frontmatter.',
 			'Refresh re-runs the AppFacts generator (needs Ollama or configured provider).',
