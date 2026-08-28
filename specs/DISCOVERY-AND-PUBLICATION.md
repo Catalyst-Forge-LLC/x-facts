@@ -132,6 +132,9 @@ When one label references another (e.g. AgentFacts `tools.toolsets`, SkillFacts
 | **Primary pointer** | Marketplace listing or publish manifest link; install-time checklist: fetch SkillFacts before enable |
 | **Viewer** | Optional marketplace “nutrition card” via `/v#sf1.…` |
 | **Fallback** | `/.well-known/x-facts/skill.md` when the skill is web-hosted without a package root |
+| **Several skills in one product** | A product repo **MAY** ship many skill packages. Each keeps its own `SKILL_FACTS.md` and its own pointer (README, site footer, catalog row). Do **not** collapse them into one product-level SkillFacts. |
+
+A Temper Pass or Docupuncture README that links only the first playbook is a pointer bug, not a different label shape.
 
 ---
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 WS = Path("z:/workspace")
@@ -31,6 +32,24 @@ def skill_viewer(slug: str) -> str:
         if e["slug"] == slug and e.get("viewer"):
             return "https://skillfacts.dev" + e["viewer"]
     raise KeyError(slug)
+
+
+def skill_list(cfg: dict) -> list[dict]:
+    if cfg.get("skills"):
+        return list(cfg["skills"])
+    if "skill" in cfg:
+        slug, path = cfg["skill"]
+        return [{"slug": slug, "path": path, "name": Path(path).parent.name}]
+    return []
+
+
+def skill_viewer_for(product: str, item: dict) -> str:
+    path = WS / product / item["path"]
+    if path.exists():
+        match = re.search(r"\[skillfacts-label\]:\s*(\S+)", path.read_text(encoding="utf-8"))
+        if match:
+            return match.group(1)
+    return skill_viewer(item["slug"])
 
 
 # Product pointer config
@@ -67,7 +86,12 @@ PRODUCTS = {
     "temper-pass": {
         "github": "Catalyst-Forge-LLC/temper-pass",
         "app_raw": "APP_FACTS.md",
-        "skill": ("temper-pass-clarify-first", "passes/clarify-first/SKILL_FACTS.md"),
+        "skills": [
+            {"slug": "temper-pass-clarify-first", "path": "passes/clarify-first/SKILL_FACTS.md", "name": "clarify-first"},
+            {"slug": "temper-pass-red-team", "path": "passes/red-team/SKILL_FACTS.md", "name": "red-team"},
+            {"slug": "temper-pass-scope-lock", "path": "passes/scope-lock/SKILL_FACTS.md", "name": "scope-lock"},
+            {"slug": "temper-pass-tradeoff-matrix", "path": "passes/tradeoff-matrix/SKILL_FACTS.md", "name": "tradeoff-matrix"},
+        ],
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts", "SkillFacts"],
     },
@@ -103,7 +127,11 @@ PRODUCTS = {
     "docupuncture": {
         "github": "Catalyst-Forge-LLC/docupuncture",
         "app_raw": "APP_FACTS.md",
-        "skill": ("docupuncture-docs", "skills/docupuncture-docs/SKILL_FACTS.md"),
+        "skills": [
+            {"slug": "docupuncture-docs", "path": "skills/docupuncture-docs/SKILL_FACTS.md", "name": "docupuncture-docs"},
+            {"slug": "docupuncture-sheets", "path": "skills/docupuncture-sheets/SKILL_FACTS.md", "name": "docupuncture-sheets"},
+            {"slug": "docupuncture-slides", "path": "skills/docupuncture-slides/SKILL_FACTS.md", "name": "docupuncture-slides"},
+        ],
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts", "SkillFacts"],
     },
@@ -139,11 +167,18 @@ def nutrition_block(slug: str, cfg: dict) -> str:
         tv = tool_viewer(tslug)
         traw = f"https://github.com/{gh}/blob/main/{tpath}"
         lines.append(f"- **ToolFacts:** [viewer]({tv}) · [raw]({traw})")
-    if "skill" in cfg:
-        sslug, spath = cfg["skill"]
-        sv = skill_viewer(sslug)
-        sraw = f"https://github.com/{gh}/blob/main/{spath}"
+    skills = skill_list(cfg)
+    if len(skills) == 1:
+        item = skills[0]
+        sv = skill_viewer_for(slug, item)
+        sraw = f"https://github.com/{gh}/blob/main/{item['path']}"
         lines.append(f"- **SkillFacts:** [viewer]({sv}) · [raw]({sraw})")
+    elif skills:
+        lines.append("- **SkillFacts:**")
+        for item in skills:
+            sv = skill_viewer_for(slug, item)
+            sraw = f"https://github.com/{gh}/blob/main/{item['path']}"
+            lines.append(f"  - [{item['name']}]({sv}) · [raw]({sraw})")
     lines.append("")
     return "\n".join(lines)
 
@@ -158,7 +193,7 @@ def patch_readme(slug: str, cfg: dict) -> None:
     if MARKER in text:
         # replace existing block through next ## or EOF
         text = re.sub(
-            rf"{re.escape(MARKER)}\n(?:.*?\n)*?(?=\n## |\Z)",
+            rf"{re.escape(MARKER)}\n(?:.*?\n)*?(?=\n## (?!Nutrition label))",
             block + "\n",
             text,
             count=1,
@@ -181,8 +216,23 @@ def footer_href(slug: str, cfg: dict, label: str) -> str:
     if label == "ToolFacts":
         return tool_viewer(cfg["tool"][0])
     if label == "SkillFacts":
-        return skill_viewer(cfg["skill"][0])
+        skills = skill_list(cfg)
+        if not skills:
+            raise ValueError("no skills")
+        return skill_viewer_for(slug, skills[0])
     raise ValueError(label)
+
+
+def skill_footer_entries(slug: str, cfg: dict) -> list[str]:
+    skills = skill_list(cfg)
+    if not skills:
+        return []
+    if len(skills) == 1:
+        return [f"\t\t{{ label: 'SkillFacts', href: '{skill_viewer_for(slug, skills[0])}' }}"]
+    return [
+        f"\t\t{{ label: 'SkillFacts · {item['name']}', href: '{skill_viewer_for(slug, item)}' }}"
+        for item in skills
+    ]
 
 
 def patch_filepress(slug: str, cfg: dict) -> None:
@@ -194,29 +244,45 @@ def patch_filepress(slug: str, cfg: dict) -> None:
         print("no filepress", slug)
         return
     text = path.read_text(encoding="utf-8")
-    # Build footer entries to insert
+    skills = skill_list(cfg)
+    if "label: 'AppFacts'" in text or 'label: "AppFacts"' in text:
+        if len(skills) <= 1:
+            print("filepress already", slug)
+            return
+        stripped = re.sub(
+            r",\s*\{\s*label: 'SkillFacts(?: · [^']+)?',\s*href: '[^']+'\s*\}",
+            "",
+            text,
+        )
+        skill_block = ",\n".join(skill_footer_entries(slug, cfg))
+        updated = re.sub(
+            r"(\{\s*label: 'AppFacts',\s*href: '[^']+'\s*\})",
+            r"\1,\n" + skill_block,
+            stripped,
+            count=1,
+        )
+        if updated == stripped:
+            print("filepress no AppFacts slot", slug)
+            return
+        path.write_text(updated, encoding="utf-8", newline="\n")
+        print("filepress skills", slug)
+        return
+
     entries = []
     for label in cfg.get("footer_labels", []):
+        if label == "SkillFacts":
+            entries.extend(skill_footer_entries(slug, cfg))
+            continue
         href = footer_href(slug, cfg, label)
         entries.append(f"\t\t{{ label: '{label}', href: '{href}' }}")
     entry_block = ",\n".join(entries)
 
-    # If already present, skip
-    if "label: 'AppFacts'" in text or 'label: "AppFacts"' in text:
-        print("filepress already", slug)
-        return
-
-    # Insert before closing of footerLinks array
     m = re.search(r"footerLinks:\s*\[([\s\S]*?)\]", text)
     if not m:
         print("no footerLinks", slug)
         return
     inner = m.group(1).rstrip()
     if inner and not inner.rstrip().endswith(","):
-        # last item may lack trailing comma
-        inner = inner.rstrip()
-        # find last }
-        # append with comma
         new_inner = inner + ",\n" + entry_block + "\n\t"
     else:
         new_inner = inner + entry_block + "\n\t"
@@ -273,10 +339,14 @@ def patch_shelf() -> None:
 
 
 def main() -> None:
+    only = {name for name in sys.argv[1:] if not name.startswith("-")}
     for slug, cfg in PRODUCTS.items():
+        if only and slug not in only:
+            continue
         patch_readme(slug, cfg)
         patch_filepress(slug, cfg)
-    patch_shelf()
+    if not only:
+        patch_shelf()
     print("pointers done")
 
 
