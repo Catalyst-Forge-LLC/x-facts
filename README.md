@@ -36,6 +36,21 @@ specs/
 
 Static site, no build step. Point Cloudflare Pages at `site/`.
 
+## LocalHelm plugin
+
+Enroll this checkout in a LocalHelm fleet to get an **xFacts labels** board on the Sites tab (`localhelm.plugin.mjs`).
+
+```bash
+localhelm enroll ../x-facts --apply
+localhelm plugins
+localhelm plugin xfacts                 # board
+localhelm plugin xfacts check           # plan fingerprint checks
+localhelm plugin xfacts reencode --apply
+localhelm plugin xfacts refresh --apply # regenerates AppFacts via sibling generator
+```
+
+The bridge (`scripts/localhelm-bridge.mjs`) walks the open-source shelf siblings and reports App/Tool/Skill presence, `/v` drift, and plan/apply for check · re-encode · refresh.
+
 ## Family footer
 
 `site/footer.html` is the paste-ready footer for every sibling. When the family grows or a label ships, change that file first; the label sites follow at their next deploy.
