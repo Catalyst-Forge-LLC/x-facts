@@ -49,7 +49,7 @@ localhelm plugin xfacts reencode --apply
 localhelm plugin xfacts refresh --apply # regenerates AppFacts via sibling generator
 ```
 
-The bridge (`scripts/localhelm-bridge.mjs`) walks the open-source shelf siblings and reports App/Tool/Skill presence, `/v` drift, and plan/apply for check · re-encode · refresh.
+The bridge (`scripts/localhelm-bridge.mjs`) walks the open-source shelf siblings and reports App/Tool/Skill presence, `/v` drift, and plan/apply for check · re-encode · refresh. Re-encode writes a `/v` card into each `APP_FACTS.md`, `TOOL_FACTS.md`, and `SKILL_FACTS.md` from frontmatter.
 
 ## Family footer
 

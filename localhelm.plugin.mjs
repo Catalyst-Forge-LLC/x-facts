@@ -65,7 +65,7 @@ function boardFrom(inventory) {
 		note: [
 			'Nutrition labels across the sibling workspace. Each name in a column is its own /v link when that file has a card.',
 			'Agent and model columns appear only when a shelf repo has those files.',
-			'Check compares fingerprints. Re-encode refreshes /v cards from frontmatter.',
+			'Check compares fingerprints. Re-encode refreshes app, tool, and skill /v cards from frontmatter.',
 			'Refresh re-runs the AppFacts generator (needs Ollama or configured provider).',
 			inventory.note,
 		]
@@ -76,8 +76,12 @@ function boardFrom(inventory) {
 			const links = { ...(row.viewers ?? {}) };
 			if (row.viewer && !links.app) links.app = row.viewer;
 			const linkGroups = {};
-			if (row.skillItems?.length) linkGroups.skill = row.skillItems;
-			if (row.toolItems?.length) linkGroups.tool = row.toolItems;
+			if (row.skillItems?.length) {
+				linkGroups.skill = row.skillItems.map(({ label, href }) => ({ label, href }));
+			}
+			if (row.toolItems?.length) {
+				linkGroups.tool = row.toolItems.map(({ label, href }) => ({ label, href }));
+			}
 			return {
 				id: row.id,
 				label: row.id,

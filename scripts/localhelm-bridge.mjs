@@ -12,6 +12,7 @@
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateSync } from 'node:zlib';
@@ -113,7 +114,7 @@ function uniqueFactsItems(items) {
 function factsItem(filePath, kindId) {
 	if (!existsSync(filePath)) return null;
 	const md = readFileSync(filePath, 'utf8');
-	return { label: factsName(filePath, md), href: extractViewer(md, kindId) || undefined };
+	return { label: factsName(filePath, md), href: extractViewer(md, kindId) || undefined, path: filePath };
 }
 
 function decodeAf1Name(url) {
@@ -256,6 +257,14 @@ function inventory() {
 	};
 }
 
+function factsPaths(row) {
+	return [
+		row.appPath,
+		...(row.toolItems ?? []).map((item) => item.path),
+		...(row.skillItems ?? []).map((item) => item.path),
+	].filter(Boolean);
+}
+
 function selected(ids) {
 	const inv = inventory();
 	const want = new Set(ids);
@@ -280,14 +289,18 @@ function plan(action, ids) {
 	if (action === 'reencode') {
 		return {
 			action,
-			note: 'Rewrite /v viewer links from current APP_FACTS frontmatter (no LLM).',
-			rows: rows.map((r) => ({
-				id: r.id,
-				app: r.app,
-				status: r.status,
-				writes: Boolean(r.appPath),
-				action: r.appPath ? 'reencode' : 'skip',
-			})),
+			note: 'Rewrite /v cards for app, tool, and skill files from frontmatter (no LLM).',
+			rows: rows.map((r) => {
+				const files = factsPaths(r);
+				return {
+					id: r.id,
+					app: r.app,
+					status: r.status,
+					files: files.length,
+					writes: files.length > 0,
+					action: files.length ? 'reencode' : 'skip',
+				};
+			}),
 		};
 	}
 	if (action === 'refresh') {
@@ -326,18 +339,53 @@ function runCheck(id) {
 	};
 }
 
+function resolvePython() {
+	if (process.env.PYTHON && existsSync(process.env.PYTHON)) return process.env.PYTHON;
+	const home = homedir();
+	for (const root of [join(home, '.pyenv', 'pyenv-win', 'versions'), join(home, '.pyenv', 'versions')]) {
+		if (!existsSync(root)) continue;
+		for (const ver of readdirSync(root).sort().reverse()) {
+			for (const name of ['python.exe', 'python3', 'python']) {
+				const exe = join(root, ver, name);
+				if (existsSync(exe)) return exe;
+			}
+		}
+	}
+	return null;
+}
+
+function runPython(args) {
+	const env = { ...process.env, PYTHONIOENCODING: 'utf-8' };
+	const tries = [];
+	const resolved = resolvePython();
+	if (resolved) tries.push({ bin: resolved, prefix: [] });
+	if (process.platform === 'win32') tries.push({ bin: 'py', prefix: ['-3'] });
+	tries.push({ bin: 'python3', prefix: [] }, { bin: 'python', prefix: [] });
+	let last = null;
+	for (const { bin, prefix } of tries) {
+		const result = spawnSync(bin, [...prefix, ...args], { encoding: 'utf8', windowsHide: true, env });
+		last = result;
+		if (!result.error && result.status === 0) return result;
+		if (!result.error && result.status !== null && result.stdout) return result;
+	}
+	return last;
+}
+
 function runReencode(id) {
-	const appPath = join(WORKSPACE, id, 'APP_FACTS.md');
-	if (!existsSync(appPath)) return { id, ok: false, detail: 'no APP_FACTS.md', writes: false };
-	const helper = join(XFACTS_ROOT, 'scripts', 'reencode_app_facts_viewer.py');
+	const files = factsPaths(inspectRepo(id));
+	const helper = join(XFACTS_ROOT, 'scripts', 'reencode_facts_viewer.py');
 	if (!existsSync(helper)) return { id, ok: false, detail: 'reencode helper missing', writes: false };
-	const result = spawnSync('python', [helper, appPath], { encoding: 'utf8', windowsHide: true });
-	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+	if (!files.length) return { id, ok: true, detail: 'no facts files', writes: false };
+	const result = runPython([helper, ...files]);
+	const out = `${result?.stdout || ''}${result?.stderr || ''}`.trim();
+	const err = result?.error ? String(result.error.message || result.error) : '';
+	const wrote = /^\s*reencoded /m.test(out);
+	const ok = Boolean(result && result.status === 0 && !result.error);
 	return {
 		id,
-		ok: result.status === 0,
-		detail: out.slice(0, 500) || (result.status === 0 ? 'reencoded' : `exit ${result.status}`),
-		writes: result.status === 0,
+		ok,
+		detail: (out || err).slice(0, 800) || (ok ? 'reencoded' : `exit ${result?.status}`),
+		writes: ok && wrote,
 	};
 }
 
