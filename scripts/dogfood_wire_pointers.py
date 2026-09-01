@@ -76,10 +76,10 @@ PRODUCTS = {
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts", "ToolFacts"],
     },
-    "aibreze": {
-        "github": "Catalyst-Forge-LLC/aibreze",
+    "smellcheck": {
+        "github": "Catalyst-Forge-LLC/smellcheck",
         "app_raw": "APP_FACTS.md",
-        "skill": ("aibreze", "skills/aibreze/SKILL_FACTS.md"),
+        "skill": ("smellcheck", "skills/smellcheck/SKILL_FACTS.md"),
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts", "SkillFacts"],
     },
@@ -298,7 +298,7 @@ def patch_shelf() -> None:
     # Map shelf project name -> (slug, optional extra labels)
     mapping = {
         "ForgeTrail": "forgetrail",
-        "aiBreze": "aibreze",
+        "Smell Check": "smellcheck",
         "TemperPass": "temper-pass",
         "EmberDossier": "ember-dossier",
         "anticonfab": "anticonfab",

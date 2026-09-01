@@ -407,25 +407,25 @@ def main() -> None:
             body_note="*Instruction-only TemperPass. No bundled scripts; no shell/network/fs reach claimed.*",
         )
 
-    # aiBreze
-    ab_ver = "0.1.0"
-    ab_pkg = Path("z:/workspace/aibreze/package.json")
+    # Smell Check
+    ab_ver = "0.2.0"
+    ab_pkg = Path("z:/workspace/smellcheck/package.json")
     if ab_pkg.exists():
         import json
 
         ab_ver = str(json.loads(ab_pkg.read_text(encoding="utf-8")).get("version") or ab_ver)
     write_skill_facts(
         dests=[
-            Path("z:/workspace/aibreze/skills/aibreze/SKILL_FACTS.md"),
-            Path("z:/workspace/skill-facts/examples/aibreze/SKILL_FACTS.md"),
-            Path("z:/workspace/skill-facts/site/examples/aibreze/SKILL_FACTS.md"),
+            Path("z:/workspace/smellcheck/skills/smellcheck/SKILL_FACTS.md"),
+            Path("z:/workspace/skill-facts/examples/smellcheck/SKILL_FACTS.md"),
+            Path("z:/workspace/skill-facts/site/examples/smellcheck/SKILL_FACTS.md"),
         ],
-        name="aibreze",
+        name="smellcheck",
         version=ab_ver,
         purpose="Editorial rules for publishable prose; spray, audit, and publish-pass workflows for AI-assisted writing",
         kind="cursor-skill",
-        homepage="https://aibreze.com",
-        repository="https://github.com/Catalyst-Forge-LLC/aibreze",
+        homepage="https://smellcheck.dev",
+        repository="https://github.com/Catalyst-Forge-LLC/smellcheck",
         shell="none",
         network="implied",
         filesystem="read",
@@ -435,7 +435,7 @@ def main() -> None:
             ("rules/audit.md", "rules"),
             ("rules/claims.md", "rules"),
         ],
-        body_note="*May fetch published rule files from aibreze.com as a last resort; otherwise reads local rules/.*",
+        body_note="*May fetch published rule files from smellcheck.dev as a last resort; otherwise reads local rules/.*",
     )
 
     # EmberDossier

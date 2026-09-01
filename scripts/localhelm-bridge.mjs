@@ -25,7 +25,7 @@ const APP_FACTS_GEN = join(WORKSPACE, 'app-facts', 'generator', 'generate_app_fa
 /** Open-source shelf products to surface on the LocalHelm board. */
 const SHELF = new Set([
 	'forgetrail',
-	'aibreze',
+	'smellcheck',
 	'temper-pass',
 	'ember-dossier',
 	'anticonfab',

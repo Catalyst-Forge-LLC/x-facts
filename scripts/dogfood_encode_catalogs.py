@@ -234,7 +234,7 @@ def update_skill_index() -> None:
         existing.add(slug)
 
     add("forgetrail", "forgetrail", "cursor-skill", "explicit", "implied", "read-write", 0)
-    add("aibreze", "aibreze", "cursor-skill", "none", "implied", "read", 3)
+    add("smellcheck", "smellcheck", "cursor-skill", "none", "implied", "read", 3)
     add("temper-pass-clarify-first", "clarify-first", "cursor-skill", "none", "none", "none", 0)
     add("temper-pass-red-team", "red-team", "cursor-skill", "none", "none", "none", 0)
     add("temper-pass-scope-lock", "scope-lock", "cursor-skill", "none", "none", "none", 0)
@@ -250,7 +250,7 @@ def update_skill_index() -> None:
         # dogfood shelf skills
         if e["slug"] in {
             "forgetrail",
-            "aibreze",
+            "smellcheck",
             "temper-pass-clarify-first",
             "temper-pass-red-team",
             "temper-pass-scope-lock",
@@ -284,7 +284,7 @@ def seed_app_examples() -> None:
         ("forgetrail", "ForgeTrail", "https://forgetrail.dev"),
         ("ollanet", "ollanet", "https://ollanet.dev"),
         ("dictawhisper", "DictaWhisper", "https://dictawhisper.com"),
-        ("aibreze", "aiBreze", "https://aibreze.com"),
+        ("smellcheck", "Smell Check", "https://smellcheck.dev"),
         ("temper-pass", "TemperPass", "https://temperpass.dev"),
         ("ember-dossier", "EmberDossier", "https://emberdossier.com"),
         ("anticonfab", "anticonfab", None),
