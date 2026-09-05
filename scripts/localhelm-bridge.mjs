@@ -7,8 +7,8 @@
  *   plan  --action check|reencode|refresh [--names a,b]
  *   apply --action check|reencode|refresh [--names a,b]
  *
- * Discovers sibling repos under the workspace parent (../ from x-facts).
- * Does not take a fleet list from LocalHelm — same posture as FilePress.
+ * Lists enrolled LocalHelm fleet projects (localhelm.fleet.json next to this
+ * workspace). Falls back to sibling git/package folders if no fleet file.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -22,22 +22,58 @@ const XFACTS_ROOT = resolve(__dirname, '..');
 const WORKSPACE = resolve(XFACTS_ROOT, '..');
 const APP_FACTS_GEN = join(WORKSPACE, 'app-facts', 'generator', 'generate_app_facts.js');
 
-/** Open-source shelf products to surface on the LocalHelm board. */
-const SHELF = new Set([
-	'forgetrail',
-	'smellcheck',
-	'temper-pass',
-	'ember-dossier',
-	'anticonfab',
-	'filepress',
-	'ingotvault',
-	'finetuna',
-	'ollanet',
-	'docupuncture',
-	'dictawhisper',
-	'localslip',
-	'localhelm',
-]);
+const SKIP_SIBLINGS = new Set(['__ARCHIVE', '__tmp', 'node_modules']);
+
+function readJson(file) {
+	try {
+		return JSON.parse(readFileSync(file, 'utf8'));
+	} catch {
+		return null;
+	}
+}
+
+function archivedIds() {
+	const raw = readJson(join(WORKSPACE, '.localhelm', 'archive.json'));
+	return new Set(Array.isArray(raw?.ids) ? raw.ids.filter((id) => typeof id === 'string' && id.trim()) : []);
+}
+
+/** Enrolled fleet rows. Paths stay relative to the workspace that holds the fleet file. */
+function loadFleetProjects() {
+	const file = join(WORKSPACE, 'localhelm.fleet.json');
+	const raw = existsSync(file) ? readJson(file) : null;
+	if (!raw || !Array.isArray(raw.projects)) return null;
+	const archived = archivedIds();
+	const rows = [];
+	for (const item of raw.projects) {
+		if (!item || typeof item.id !== 'string' || typeof item.path !== 'string') continue;
+		const id = item.id.trim();
+		const rel = String(item.path).replace(/\\/g, '/').replace(/^\.\//, '');
+		if (!id || !rel || archived.has(id)) continue;
+		if (!existsSync(join(WORKSPACE, rel))) continue;
+		rows.push({ id, path: rel });
+	}
+	return rows.length ? rows : null;
+}
+
+function siblingProjects() {
+	return readdirSync(WORKSPACE, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory())
+		.filter((entry) => !entry.name.startsWith('.') && !SKIP_SIBLINGS.has(entry.name))
+		.filter(
+			(entry) =>
+				existsSync(join(WORKSPACE, entry.name, '.git')) || existsSync(join(WORKSPACE, entry.name, 'package.json')),
+		)
+		.map((entry) => ({ id: entry.name, path: entry.name }));
+}
+
+function listProjects() {
+	const rows = loadFleetProjects() ?? siblingProjects();
+	return rows.toSorted((a, b) => a.id.localeCompare(b.id, undefined, { sensitivity: 'base' }));
+}
+
+function repoAbs(row) {
+	return join(WORKSPACE, row.path || row.id);
+}
 
 function parseArgs(argv) {
 	const out = { cmd: argv[0] || 'inventory', action: null, names: [] };
@@ -130,15 +166,9 @@ function decodeAf1Name(url) {
 	}
 }
 
-function listRepos() {
-	return readdirSync(WORKSPACE, { withFileTypes: true })
-		.filter((d) => d.isDirectory() && SHELF.has(d.name))
-		.map((d) => d.name)
-		.sort();
-}
-
-function inspectRepo(id) {
-	const root = join(WORKSPACE, id);
+function inspectRepo(project) {
+	const id = project.id;
+	const root = repoAbs(project);
 	const appPath = join(root, 'APP_FACTS.md');
 	const toolPaths = [join(root, 'TOOL_FACTS.md'), join(root, 'mcp-server', 'TOOL_FACTS.md')];
 	const skillHits = [];
@@ -229,6 +259,7 @@ function inspectRepo(id) {
 
 	return {
 		id,
+		path: project.path,
 		name,
 		app,
 		tool,
@@ -249,10 +280,13 @@ function inspectRepo(id) {
 }
 
 function inventory() {
-	const rows = listRepos().map(inspectRepo);
+	const rows = listProjects().map(inspectRepo);
+	const fromFleet = Boolean(loadFleetProjects());
 	return {
 		workspace: WORKSPACE,
-		note: `Shelf set (${SHELF.size}). Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`,
+		note: fromFleet
+			? `Enrolled fleet (${rows.length}). Check a row, then Add labels or Refresh. Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`
+			: `Sibling folders (${rows.length}; no localhelm.fleet.json). Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`,
 		rows,
 	};
 }
@@ -308,7 +342,7 @@ function plan(action, ids) {
 			action,
 			note: 'Re-run AppFacts generator (LLM) and rewrite APP_FACTS.md + /v.',
 			rows: rows.map((r) => {
-				const hasPkg = existsSync(join(WORKSPACE, r.id, 'package.json')) || existsSync(join(WORKSPACE, r.id, 'README.md'));
+				const hasPkg = existsSync(join(repoAbs(r), 'package.json')) || existsSync(join(repoAbs(r), 'README.md'));
 				return {
 					id: r.id,
 					app: r.app,
@@ -322,11 +356,12 @@ function plan(action, ids) {
 	throw new Error(`unknown action ${action}`);
 }
 
-function runCheck(id) {
-	const appPath = join(WORKSPACE, id, 'APP_FACTS.md');
+function runCheck(row) {
+	const id = row.id;
+	const appPath = join(repoAbs(row), 'APP_FACTS.md');
 	if (!existsSync(appPath)) return { id, ok: false, detail: 'no APP_FACTS.md' };
 	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'generator missing' };
-	const result = spawnSync(process.execPath, [APP_FACTS_GEN, join(WORKSPACE, id), '--check'], {
+	const result = spawnSync(process.execPath, [APP_FACTS_GEN, repoAbs(row), '--check'], {
 		encoding: 'utf8',
 		windowsHide: true,
 	});
@@ -371,8 +406,9 @@ function runPython(args) {
 	return last;
 }
 
-function runReencode(id) {
-	const files = factsPaths(inspectRepo(id));
+function runReencode(row) {
+	const id = row.id;
+	const files = factsPaths(row);
 	const helper = join(XFACTS_ROOT, 'scripts', 'reencode_facts_viewer.py');
 	if (!existsSync(helper)) return { id, ok: false, detail: 'reencode helper missing', writes: false };
 	if (!files.length) return { id, ok: true, detail: 'no facts files', writes: false };
@@ -389,13 +425,14 @@ function runReencode(id) {
 	};
 }
 
-function runRefresh(id) {
+function runRefresh(row) {
+	const id = row.id;
 	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'generator missing', writes: false };
 	const result = spawnSync(
 		process.execPath,
 		[
 			APP_FACTS_GEN,
-			join(WORKSPACE, id),
+			repoAbs(row),
 			'--provider',
 			'ollama',
 			'--model',
@@ -421,9 +458,9 @@ function apply(action, ids) {
 	const rows = selected(ids);
 	const results = [];
 	for (const r of rows) {
-		if (action === 'check') results.push(runCheck(r.id));
-		else if (action === 'reencode') results.push(runReencode(r.id));
-		else if (action === 'refresh') results.push(runRefresh(r.id));
+		if (action === 'check') results.push(runCheck(r));
+		else if (action === 'reencode') results.push(runReencode(r));
+		else if (action === 'refresh') results.push(runRefresh(r));
 		else throw new Error(`unknown action ${action}`);
 	}
 	return {

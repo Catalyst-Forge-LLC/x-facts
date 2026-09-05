@@ -50,6 +50,23 @@ const EXTRA_LABEL_COLS = [
 	{ id: 'model', label: 'model' },
 ];
 
+function rowActions(row) {
+	const addOrRefresh = {
+		id: 'refresh',
+		label: row.appPath ? 'Refresh' : 'Add labels',
+		write: true,
+		icon: 'lucide:refresh-cw',
+	};
+	if (!row.appPath && !row.hasTool && !row.skillCount) {
+		return [addOrRefresh];
+	}
+	return [
+		{ id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
+		{ id: 'reencode', label: 'Re-encode', write: true, icon: 'lucide:qr-code' },
+		addOrRefresh,
+	];
+}
+
 function labelColumns(rows) {
 	const extra = EXTRA_LABEL_COLS.filter((col) => rows.some((row) => (row[col.id] ?? '—') !== '—' || row.viewers?.[col.id]));
 	return [...CORE_LABEL_COLS, ...extra];
@@ -62,10 +79,10 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'Nutrition labels across the sibling workspace. The repo name opens the AppFacts card. Each tool or skill name is its own /v link.',
-			'Agent and model columns appear only when a shelf repo has those files.',
-			'Check compares fingerprints. Re-encode refreshes app, tool, and skill /v cards from frontmatter.',
-			'Refresh re-runs the AppFacts generator (needs Ollama or configured provider).',
+			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels or Refresh.',
+			'The repo name opens the AppFacts card. Each tool or skill name is its own /v link.',
+			'Rows without APP_FACTS.md show “no label” — Add labels runs the AppFacts generator.',
+			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',
 			inventory.note,
 		]
 			.filter(Boolean)
@@ -96,11 +113,7 @@ function boardFrom(inventory) {
 					name: row.name,
 					status: row.status,
 				},
-				actions: [
-					{ id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
-					{ id: 'reencode', label: 'Re-encode', write: true, icon: 'lucide:qr-code' },
-					{ id: 'refresh', label: 'Refresh', write: true, icon: 'lucide:refresh-cw' },
-				],
+				actions: rowActions(row),
 			};
 		}),
 	};
