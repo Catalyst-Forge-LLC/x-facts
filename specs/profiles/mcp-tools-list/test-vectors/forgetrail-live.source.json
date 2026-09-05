@@ -1,0 +1,547 @@
+{
+  "tools": [
+    {
+      "name": "ping",
+      "description": "Connectivity check: returns ok, package version, FORGETRAIL_ROOT, and whether WORKFLOW.md was found. Use format=json for headless pipelines. Lists complementary agent primitives (subagents, plan mode).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json for structured headless output"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getPhaseGuidance",
+      "description": "Get ForgeTrail methodology guidance for a specific development phase (1-7). Returns entry/exit criteria, playbook, prompt patterns, and anti-patterns.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "description": "Phase number (1-7) or keyword like 'architecture', 'scaffolding', 'hardening'"
+          }
+        },
+        "required": [
+          "phase"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "searchLessons",
+      "description": "Search ForgeTrail's lesson database by keyword. Returns battle-tested lessons, anti-patterns, and insights from real production development.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search keywords (e.g. 'PocketBase auth', 'silent failures', 'DOCX', 'billing')"
+          },
+          "limit": {
+            "type": "number",
+            "default": 10,
+            "description": "Max results to return (default 10)"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getTemplate",
+      "description": "Get a ForgeTrail document template from the single-source docs/*.md files. mode 'shell' strips blockquote callouts that start with ForgeTrail enrichment markers (💡 📝 🔧) so structure and placeholders remain without long lessons/examples; use mode 'full' for the complete file. Default mode follows FORGETRAIL_TEMPLATE_DEFAULT_MODE (shell if unset). Pass format=json or includeMetadata=true for structured headless output.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name (e.g. 'PHASE_1_BRIEF', 'CONTEXT_PROMPT', 'CODE_QUALITY', 'BRAND_AND_PRODUCT', 'DEPLOYMENT'). Omit the .md extension. Use 'list' to see all available templates."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "shell"
+            ],
+            "description": "'shell' = structure + instructions, enrichment blockquotes removed. 'full' = entire markdown as authored. Omit to use FORGETRAIL_TEMPLATE_DEFAULT_MODE env (defaults to shell)."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json — json returns name, mode, path, and content fields"
+          },
+          "includeMetadata": {
+            "type": "boolean",
+            "description": "When true with format=json, include template metadata (path, mode, name)"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "runAudit",
+      "description": "Get a ForgeTrail audit prompt to run against the current project. Returns the full structured prompt for security, pre-launch, brand copy, or other audits. Pass format=json or includeMetadata=true for structured headless output.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Audit type: 'black-hat' (security), 'pre-launch' (readiness), 'cialdini' (marketing), 'competitor' (competitive analysis), 'docs-alignment' (documentation consistency), 'brand-copy' (copy editing), 'landing-page' (landing page rewrite). Use 'list' to see all."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json"
+          },
+          "includeMetadata": {
+            "type": "boolean",
+            "description": "When true, response includes audit type, filename, and recommendedSubagentPersona hint"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getChecklist",
+      "description": "Get the ForgeTrail project checklist for a specific milestone or the full checklist. Covers everything from pre-session-1 through post-launch.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "type": "string",
+            "description": "Optional: 'before-session-1', 'session-1', 'session-2', 'features', 'strategic-review', 'refactoring', 'hardening', 'every-session', or 'full' (default)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getTrackingSchema",
+      "description": "Get the workflow_tracking.json schema reference (customer path: `.forgetrail/workflow_tracking.json`). Use this to understand how to read and update the project tracking file (phases, decisions, gotchas, sessions).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getAntiPatterns",
+      "description": "Get all documented anti-patterns from the ForgeTrail methodology. These are common failure modes with explanations of what went wrong and how to avoid them.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getProgressiveDocSchedule",
+      "description": "Returns WORKFLOW.md §1a: which ForgeTrail doc templates to create in each phase. Phase 1 = PHASE_1_BRIEF + `.forgetrail/workflow_tracking.json` decisions; Phase 2 = merge brief into CONTEXT_PROMPT + README + TODO + `.forgetrail/IDEAS.md` + full app spine; later phases add templates when warranted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getNewProjectKickoff",
+      "description": "One-call greenfield setup: bootstrap + starter .forgetrail/workflow_tracking.json + post-bootstrap user-message guidance + optional Cursor rules (phase status + lessons gate + lessons MCP detail). Prefer this over calling getNewProjectBootstrap, getInitialWorkflowTracking, getPostBootstrapUserMessage, getForgeTrailCursorPhaseRule, and getForgeTrailCursorLessonsRules separately. If your client does not list this tool, call kickoffGreenfield (identical bundle, no parameters).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "includeCursorRule": {
+            "type": "boolean",
+            "description": "Include the Cursor `.mdc` section; omit or true for full bundle, false to save tokens when not using Cursor"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "kickoffGreenfield",
+      "description": "Same payload as getNewProjectKickoff with includeCursorRule true, but **no parameters**—use when an MCP client omits or fails on getNewProjectKickoff.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "kickoffGreenfieldNoCursor",
+      "description": "Same as kickoffGreenfield but **without** the Cursor `.mdc` section (smaller payload when not using Cursor). No parameters.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getNewProjectBootstrap",
+      "description": "MCP-first: full instructions to start a greenfield project WITHOUT copying ForgeTrail into the repo. Tells the agent which phases to run, which MCP tools to call for templates/checklists/scaffolding, and what files belong in the customer project (`.forgetrail/workflow_tracking.json`, docs). For a single bundled response, use getNewProjectKickoff or kickoffGreenfield instead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getForgeTrailLite",
+      "description": "Returns the full FORGETRAIL_LITE.md portable kickoff protocol (no MCP required in the target project). Use when the user wants the single-file Lite artifact: save to `.forgetrail/FORGETRAIL_LITE.md` or paste into chat. Complements getNewProjectKickoff (MCP-first greenfield).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getForgeTrailLiteUpdates",
+      "description": "Returns the FORGETRAIL_LITE_UPDATES.md starter for logging Lite protocol gaps in `.forgetrail/` (§1.6). Optional local feedback file — merge accepted entries back into upstream FORGETRAIL_LITE.md.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getForgeTrailCursorPhaseRule",
+      "description": "Returns the optional Cursor IDE rule (`.mdc`) so agents show ForgeTrail phase / next actions from `.forgetrail/workflow_tracking.json`. Agent should write the output to `.cursor/rules/forgetrail-phase-status.mdc` when setting up a new project (Phase 1). Skip if not using Cursor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getForgeTrailCursorLessonsRules",
+      "description": "Returns two Cursor rules: forgetrail-lessons-gate.mdc (always-on: when to call getAntiPatterns + searchLessons before large work) and forgetrail-lessons-mcp.mdc (optional globs + tool reminders). Bundled in getNewProjectKickoff when includeCursorRule is true; use this tool alone when adding lessons workflow to an existing project.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getScaffoldInstallParams",
+      "description": "Returns JSON defaults for scripted Phase-2 setup (PocketBase version policy, default HTTP port, one-click launchers, pnpm script names). Resolve PocketBase latest at install unless POCKETBASE_VERSION is pinned in .env. Prefer setup.bat/setup.sh for humans; agents run setup when possible.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getGenesisSpecPrompt",
+      "description": "Pre-Phase-1 helper: a copy-paste prompt to run in ANY external LLM chat (not this MCP) to produce docs/GENESIS.md 'what, not how' build spec — market/prior-art check, underlying data/file-format research, functional + non-functional requirements, edge cases, milestones, acceptance criteria. Best for tools that wrap/extend an existing app's data format, but generalizes. Humans without MCP: see TRY_FORGETRAIL.md. Feed the result into ingestPlanArtifact to draft PHASE_1_BRIEF.md, or use alongside getGreenfieldIntakePrompt for delivery gaps.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getGreenfieldIntakePrompt",
+      "description": "Phase 1 helper: structured questions about exports (PDF/DOCX/PPTX, etc.), tenancy (e.g. consultants with many clients), hybrid vs full spec, compliance tier, and hero flow. Complements getChecklist(before-session-1). Agent should capture answers in PHASE_1_BRIEF.md and .forgetrail/workflow_tracking.json decisions[]. For a pre-written portable spec instead of in-session Q&A, see getGenesisSpecPrompt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getResumeSessionInstructions",
+      "description": "MCP-first: instructions for continuing work in a later session when ForgeTrail is MCP-only (no _forgetrail/ folder). Call at the start of a session after the user describes what to focus on.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getInitialWorkflowTracking",
+      "description": "Returns starter .forgetrail/workflow_tracking.json for a new repo, with exit-criteria strings rewritten for MCP (no _forgetrail/ paths). The agent should write this to `.forgetrail/workflow_tracking.json` and fill project metadata.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getPostBootstrapUserMessage",
+      "description": "After `.forgetrail/workflow_tracking.json` (and optional Cursor phase rule) is written: canonical guidance for a SHORT first reply to the user. Suppresses noisy 'Completed setup' dumps (no raw JSON, no MCP tool list, no bootstrap section paste).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getUserReplyFormat",
+      "description": "How to format options and next steps for users: numbered lists for ordered pipelines, bullets for parallel items, letters for pick-one. Baked into forgetrail-phase-status.mdc for Cursor; use this tool when the rule is not loaded.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "validateTracking",
+      "description": "Validate a .forgetrail/workflow_tracking.json file (or supplied JSON) against the schema and ForgeTrail phase rules. Returns issues + suggested fixes. Safe to call often. Pass format=json for structured output.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trackingJson": {
+            "type": "string",
+            "description": "Raw JSON string of the tracking file (if not supplying path)"
+          },
+          "path": {
+            "type": "string",
+            "description": "Filesystem path to .forgetrail/workflow_tracking.json (server will attempt to read)"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "suggestSubagentDecomposition",
+      "description": "Given a phase and task, returns recommended subagent spawn parameters (type, capability_mode, isolation, persona hints, and prompt seeds) plus a parent synthesis step. Designed for agents like Grok that support spawn_subagent. Pass format=json for structured output.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "description": "Current ForgeTrail phase (1-7 or name like 'hardening')"
+          },
+          "taskDescription": {
+            "type": "string",
+            "description": "What the subagents should accomplish"
+          },
+          "maxSubagents": {
+            "type": "number",
+            "default": 3
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json"
+          }
+        },
+        "required": [
+          "phase",
+          "taskDescription"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "ingestPlanArtifact",
+      "description": "Map an approved native plan artifact (plan.md, a GENESIS.md from getGenesisSpecPrompt, etc.) into a PHASE_1_BRIEF.md draft plus decisions[] entries for .forgetrail/workflow_tracking.json. Call after exit_plan_mode / user approval. Agent should review and lock the brief before Phase 2.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "planContent": {
+            "type": "string",
+            "description": "Full text of the approved plan.md or equivalent planning artifact"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "App/project name for the brief title"
+          },
+          "existingBrief": {
+            "type": "string",
+            "description": "Current PHASE_1_BRIEF.md content if merging into an existing draft"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json"
+          }
+        },
+        "required": [
+          "planContent"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getPlanModePatterns",
+      "description": "Returns guidance for using native agent plan modes as ForgeTrail Phase 1 (architecture). Covers Grok, Cursor, Claude, and generic plan-before-code flows.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getAgentIntegrationGuide",
+      "description": "Returns tailored ForgeTrail bootstrap + primitive mappings for a specific agent host (Grok, Cursor, Claude, or generic).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "string",
+            "enum": [
+              "grok",
+              "claude",
+              "cursor",
+              "generic"
+            ],
+            "default": "generic",
+            "description": "Agent host: grok | claude | cursor | generic"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getForgeTrailSkill",
+      "description": "Returns the canonical forgetrail SKILL.md for skill-capable agents (Grok ~/.grok/skills/, etc.). Copy to the host skill directory for persistent ForgeTrail discipline.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "string",
+            "description": "Optional hint (grok | claude | cursor | generic) — currently returns the same canonical skill"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    }
+  ]
+}

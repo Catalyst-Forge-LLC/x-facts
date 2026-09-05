@@ -1,0 +1,33 @@
+{
+  "profile": "mcp-tools-list",
+  "profile_version": "0.1.0",
+  "source_format": "mcp/tools-list",
+  "source_version": "2025-03-26",
+  "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
+  "verification": "derived",
+  "attribution": "Panel derived from MCP tools/list by xFacts. Not an official MCP artifact.",
+  "non_endorsement": "xFacts is not affiliated with or endorsed by the Model Context Protocol project.",
+  "rows": {
+    "kind": { "from": "protocol", "value": "mcp-server" },
+    "runtime": { "from": "transport_used" },
+    "transport": { "from": "transport_used" },
+    "credentials": { "from": "absent", "value": "undisclosed" },
+    "side_effects_worst": {
+      "from": "tools[].annotations",
+      "destructiveHint_true": "destructive",
+      "readOnlyHint_true": "read",
+      "readOnlyHint_false": "write"
+    },
+    "filesystem": { "from": "absent", "value": "undisclosed" },
+    "network": {
+      "from": "tools[].annotations.openWorldHint",
+      "true": "unrestricted",
+      "false_or_missing": "undisclosed"
+    },
+    "processes": { "from": "absent", "value": "undisclosed" },
+    "egress_destinations": { "from": "absent", "value": "undisclosed" },
+    "telemetry": { "from": "absent", "value": "undisclosed" },
+    "idempotent": { "from": "tools[].annotations.idempotentHint" },
+    "license": { "from": "absent", "value": "undisclosed" }
+  }
+}

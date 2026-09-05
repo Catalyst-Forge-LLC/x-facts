@@ -1,0 +1,23 @@
+{
+  "jsonrpc": "2.0",
+  "id": 17,
+  "result": {
+    "tools": [
+      {
+        "name": "ollanet_rm",
+        "description": "Remove a model from an Ollama host",
+        "inputSchema": { "type": "object" }
+      },
+      {
+        "name": "ollanet_scan",
+        "description": "Discover reachable Ollama hosts",
+        "inputSchema": { "type": "object" }
+      },
+      {
+        "name": "ollanet_prompt",
+        "description": "Send a prompt to an Ollama host",
+        "inputSchema": { "type": "object" }
+      }
+    ]
+  }
+}

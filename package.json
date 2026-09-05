@@ -1,0 +1,32 @@
+{
+  "name": "xfacts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "xFacts hub and Panel tooling: derived tool-surface views and drift checks.",
+  "license": "MIT",
+  "scripts": {
+    "panel": "tsx src/cli.ts panel",
+    "validate": "tsx src/cli.ts validate",
+    "integrity": "tsx src/cli.ts integrity",
+    "drift": "tsx src/cli.ts drift",
+    "encode": "tsx src/cli.ts encode",
+    "badge": "tsx src/cli.ts badge",
+    "test": "tsx --test src/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "canonicalize": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "panel_version": "0.1.0",
+  "layer": "tool",
+  "subject": {
+    "name": "Broken",
+    "canonical_url": "https://example.com"
+  },
+  "subject_identity": {
+    "identity_confidence": "unknown"
+  },
+  "rows": [
+    {
+      "key": "kind",
+      "label": "Kind",
+      "value": "mcp-server",
+      "type": "enum",
+      "severity": "info"
+    }
+  ],
+  "provenance": {
+    "profile": "mcp-tools-list",
+    "profile_version": "0.1.0",
+    "source_format": "mcp/tools-list",
+    "source_version": "2025-03-26",
+    "source_url": "stdio://x",
+    "fetched_at": "2026-09-04T20:00:00.000Z",
+    "content_digest": "not-a-digest",
+    "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
+    "verification": "derived",
+    "signature": "none"
+  },
+  "freshness": {
+    "ttl_seconds": 3600,
+    "stale": false
+  },
+  "unmapped_fields": []
+}

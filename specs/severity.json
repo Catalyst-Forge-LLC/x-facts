@@ -1,0 +1,64 @@
+{
+  "note": "Global per row key. Severity is assigned by this table, never by a label author. Undisclosed is always caution.",
+  "undisclosed": "caution",
+  "by_key": {
+    "kind": {
+      "mcp-server": "info"
+    },
+    "runtime": {
+      "local-process": "info",
+      "container": "info",
+      "remote-service": "caution"
+    },
+    "transport": {
+      "stdio": "info",
+      "sse": "info",
+      "streamable-http": "info"
+    },
+    "credentials": {
+      "none": "info",
+      "required": "caution",
+      "undisclosed": "caution"
+    },
+    "side_effects_worst": {
+      "none": "info",
+      "read": "info",
+      "write": "caution",
+      "destructive": "danger"
+    },
+    "filesystem": {
+      "none": "info",
+      "read": "info",
+      "scoped": "caution",
+      "read-write": "danger"
+    },
+    "network": {
+      "none": "info",
+      "allowlist": "caution",
+      "unrestricted": "danger"
+    },
+    "processes": {
+      "false": "info",
+      "true": "danger"
+    },
+    "egress_destinations": {
+      "none": "info",
+      "named": "caution",
+      "undisclosed": "caution"
+    },
+    "telemetry": {
+      "none": "info",
+      "anonymous": "caution",
+      "identified": "danger",
+      "undisclosed": "caution"
+    },
+    "idempotent": {
+      "true": "info",
+      "false": "caution"
+    },
+    "license": {
+      "*": "info",
+      "undisclosed": "caution"
+    }
+  }
+}

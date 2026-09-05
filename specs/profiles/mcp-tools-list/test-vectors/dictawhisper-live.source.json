@@ -1,0 +1,154 @@
+{
+  "tools": [
+    {
+      "name": "dictawhisper_search",
+      "description": "Search voice notes by words, tags, or filename. Returns paths, dates, tags, and a short preview. Use dictawhisper_get_note for the full cleaned text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Words to search in cleaned text, tags, or filename"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "AND filter: note must have all of these tags"
+          },
+          "since": {
+            "type": "string",
+            "description": "Inclusive start day YYYY-MM-DD"
+          },
+          "until": {
+            "type": "string",
+            "description": "Inclusive end day YYYY-MM-DD"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Max hits (default 10)"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "lex",
+              "semantic",
+              "hybrid"
+            ],
+            "description": "Search mode (default from config)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "dictawhisper_get_note",
+      "description": "Fetch one note by sidecar path (from search/recent) or a unique basename. Returns cleaned text and tags. Set includeRaw for the Whisper transcript.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Absolute sidecar path, or unique basename like 2026-08-15.json"
+          },
+          "includeRaw": {
+            "type": "boolean",
+            "description": "Include the raw Whisper transcript"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "dictawhisper_list_tags",
+      "description": "List tags in the journal with counts. Singletons are hidden unless includeSingletons is true.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "includeSingletons": {
+            "type": "boolean"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "description": "Max tags (default 200)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "dictawhisper_recent",
+      "description": "Newest notes first. Optional tag and day range filters.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Max notes (default 20)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "since": {
+            "type": "string",
+            "description": "Inclusive start day YYYY-MM-DD"
+          },
+          "until": {
+            "type": "string",
+            "description": "Inclusive end day YYYY-MM-DD"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    }
+  ]
+}

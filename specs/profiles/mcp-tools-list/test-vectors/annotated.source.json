@@ -1,0 +1,37 @@
+{
+  "tools": [
+    {
+      "name": "search",
+      "description": "Search the web",
+      "inputSchema": { "type": "object" },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "write_file",
+      "description": "Write a file",
+      "inputSchema": { "type": "object" },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "rm",
+      "description": "Delete a path",
+      "inputSchema": { "type": "object" },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    }
+  ]
+}

@@ -13,6 +13,12 @@
 | AgentFacts | Hands | What may this actor do, and on what leash? | https://agentfacts.dev/llms.txt |
 | SkillFacts | Playbook | What will this teach my agent to do? | https://skillfacts.dev/llms.txt |
 
+## Panel
+
+Derived tool-surface view (not a sixth label). Schema: https://xfacts.dev/schema/panel.schema.json
+Viewer: https://xfacts.dev/v/ (`pn1.` fragment). Profile: `mcp-tools-list` over a live or recorded `tools/list`.
+Missing facts are `undisclosed`. Drift is row-level, not digest-only.
+
 ## Dogfood
 
 Catalyst Forge ships the labels on its own tools. AppFacts on the open-source shelf, ToolFacts on ForgeTrail / ollanet / DictaWhisper MCP, SkillFacts on published skill packages. Catalogs mark those rows `dogfood: true`.

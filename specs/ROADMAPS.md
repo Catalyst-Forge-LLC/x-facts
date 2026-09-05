@@ -22,7 +22,7 @@ Maintainer analysis stays in
 | Priority | Focus | Why |
 |---|---|---|
 | P0 | **Deploy + discoverability** (**done:** all five labels + hub live) | Sites resolve; legacy natives stay published |
-| P1 | **Panel + `mcp-tools-list`** ([`PANEL.md`](./PANEL.md): consumer review → schema/profile loop → validator/drift → viewer → badge) | Derived tool-surface change detection is the load-bearing capability |
+| P1 | **Panel + `mcp-tools-list`** | **Code:** schema, profile, validator, drift, `/v`, badge. **Open:** external consumer review ([`reviews/`](../reviews/)). |
 | P2 | Native `tool-facts` Panel profile (marked stopgap) | Bridge from existing `TOOL_FACTS.md` without new authoring UX |
 | P3 | Further profiles (A2A / HF / SBOM) only after tool path has an external user | Depth over breadth |
 | Ongoing | Refuse new layers that fail admission; no “certified” without measurement; do not grow surface area to look complete |

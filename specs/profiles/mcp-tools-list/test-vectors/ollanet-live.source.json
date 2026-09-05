@@ -1,0 +1,253 @@
+{
+  "tools": [
+    {
+      "name": "ollanet_scan",
+      "description": "Discover reachable Ollama hosts and list their models. Use this before routing work to pick a host/model. Optional LAN TCP scan (off unless lan=true; equivalent to CLI --lan) and include offline Tailscale peers.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lan": {
+            "type": "boolean",
+            "description": "TCP-scan local LAN CIDRs for open Ollama ports (default false)"
+          },
+          "all": {
+            "type": "boolean",
+            "description": "Also probe offline Tailscale peers (default false)"
+          },
+          "last": {
+            "type": "boolean",
+            "description": "Return the last saved scan without probing the network (default false)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_prompt",
+      "description": "Send a prompt to an Ollama host on the network (or continue a saved chat by id). Returns the assistant reply and chat_id for follow-ups. Machine can be a discovered name, MagicDNS name, hostname, or IP[:port].",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "User message to send"
+          },
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP (required for new chats; optional override when continuing)"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model name (optional; uses config default or chat model)"
+          },
+          "chat_id": {
+            "type": "string",
+            "description": "Continue a saved chat by its hex hash id"
+          },
+          "system": {
+            "type": "string",
+            "description": "System prompt (new chats, or if the chat has none yet)"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "num_predict": {
+            "type": "integer"
+          },
+          "num_ctx": {
+            "type": "integer"
+          },
+          "keep_alive": {
+            "description": "Keep model loaded (e.g. \"5m\", 0, -1)"
+          },
+          "think": {
+            "type": "boolean",
+            "description": "Enable model thinking (default false)"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "Persist the transcript (default true)"
+          },
+          "file": {
+            "type": "string",
+            "description": "Read prompt body from a local .txt or .md file (joined with prompt if both set)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_compare",
+      "description": "Head-to-head: run the same prompt on 2–5 models on one Ollama host. Returns a summary plus saved markdown/JSON paths. Omit prompt/file to use the built-in mesh-host tasting prompt. Machine is a discovered name, MagicDNS name, hostname, or IP[:port].",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP"
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "2–5 model names on that host"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Prompt text (optional; default is the built-in mesh-host prompt)"
+          },
+          "file": {
+            "type": "string",
+            "description": "Read prompt from a local .txt or .md file"
+          },
+          "system": {
+            "type": "string"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "num_predict": {
+            "type": "integer"
+          },
+          "num_ctx": {
+            "type": "integer"
+          },
+          "think": {
+            "type": "boolean"
+          },
+          "unload": {
+            "type": "boolean",
+            "description": "Unload each model before the next (fairer tok/s)"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "Write compares/*.md and .json (default true)"
+          }
+        },
+        "required": [
+          "machine",
+          "models"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_pull",
+      "description": "Pull (or update) a model onto a reachable Ollama host. The named machine downloads from the registry onto its own disk — ollanet does not upload weights. Machine is a discovered name, MagicDNS name, hostname, or IP[:port].",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP that should download the model"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model to pull (e.g. gemma3:12b)"
+          },
+          "insecure": {
+            "type": "boolean",
+            "description": "Allow HTTP / self-signed model registries (default false)"
+          }
+        },
+        "required": [
+          "machine",
+          "model"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_show",
+      "description": "Inspect a model on a reachable Ollama host (Modelfile, parameters, capabilities). Marks Finetuna-style tuned names. Machine is a discovered name, MagicDNS name, hostname, or IP[:port].",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model to inspect"
+          }
+        },
+        "required": [
+          "machine",
+          "model"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_rm",
+      "description": "Delete a model from a reachable Ollama host's disk. Destructive. Requires confirm=true. Machine is a discovered name, MagicDNS name, hostname, or IP[:port].",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model to delete"
+          },
+          "confirm": {
+            "type": "boolean",
+            "description": "Must be true to actually delete (default false)"
+          }
+        },
+        "required": [
+          "machine",
+          "model",
+          "confirm"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_ps",
+      "description": "List models currently loaded in VRAM. Optional machine; omit to probe every discovered host. scan is on-disk inventory; ps is what is resident right now, with CPU/GPU %.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string",
+            "description": "Host name/IP (optional; omit for all discovered hosts)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_list_chats",
+      "description": "List saved ollanet chat transcripts (id, topic, machine, model, message count).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ollanet_get_chat",
+      "description": "Load one saved chat by id, including full message history.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "description": "Hex chat hash from a prior prompt"
+          }
+        },
+        "required": [
+          "chat_id"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

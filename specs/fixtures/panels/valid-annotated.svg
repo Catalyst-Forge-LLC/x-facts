@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="121" height="20" role="img" aria-label="xFacts Panel: danger · derived">
+  <title>xFacts Panel: danger · derived</title>
+  <rect width="121" height="20" fill="#101418"/>
+  <rect x="0" y="0" width="48" height="20" fill="#243040"/>
+  <text x="24" y="14" text-anchor="middle" fill="#c9d3de" font-family="ui-monospace, monospace" font-size="10">panel</text>
+  <rect x="48" y="0" width="73" height="20" fill="#b42318"/>
+  <text x="84.5" y="14" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10">danger · derived</text>
+</svg>

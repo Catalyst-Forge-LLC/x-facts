@@ -1,0 +1,25 @@
+{
+  "tools": [
+    {
+      "name": "getPhaseGuidance",
+      "description": "Return methodology guidance for a development phase",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "phase": { "type": "string" } }
+      }
+    },
+    {
+      "name": "ping",
+      "description": "Connectivity check",
+      "inputSchema": { "type": "object", "properties": {} }
+    },
+    {
+      "name": "validateTracking",
+      "description": "Validate workflow_tracking.json",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "json": { "type": "string" } }
+      }
+    }
+  ]
+}

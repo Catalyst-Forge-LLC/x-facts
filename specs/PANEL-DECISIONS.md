@@ -15,3 +15,5 @@ Short, dated entries. The point is traceability. Normative text lives in [`PANEL
 | 2026-08-17 | Validator splits integrity (digest) from row-level drift, separate exit codes. | Operators need "gained a destructive tool," not "bytes changed." |
 | 2026-08-17 | Consumer review (step 0) before freezing the schema. Record non-response. | A schema frozen before a harness author is heard gets rewritten. |
 | 2026-08-17 | Specs/schemas CC0, tooling MIT, permanently open. Hosted service is hypothesis, not plan. | Say the license posture before there are adopters. |
+| 2026-09-04 | Implement `mcp-tools-list` + schema + validator + `/v` + badge in this repo. Step 0 external review recorded as not yet asked. | Owner asked to build. §10.2 stays open. |
+| 2026-09-04 | `mcp-tools-list` maps only MCP annotations and the observed transport. Filesystem, processes, credentials, egress, license stay `undisclosed`. | Do not infer from tool names. |

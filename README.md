@@ -4,7 +4,7 @@
 
 The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): a family of small, validatable nutrition labels, one per layer of the AI stack, that make software legible at the moment someone decides whether to trust it.
 
-This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the five sibling repos; they are transitional natives. The next implementation cycle (schema, `mcp-tools-list`, validator, viewer) lands here.
+This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the five sibling repos; they are transitional natives.
 
 | Label | Layer | Site | Status |
 |---|---|---|---|
@@ -29,12 +29,47 @@ specs/
   PORTABLE-VIEWER-AND-FLIP.md  Suite plan: /v viewers + flip-to-raw (not ModelFacts)
   SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
   DISCOVERY-AND-PUBLICATION.md Pointer contract (canonical URL + host surface + /v)
-  PANEL.md                     Master Panel spec (derived views + drift; implement this)
+  PANEL.md                     Master Panel spec (derived views + drift)
+  panel.schema.json            Panel schema (tool layer)
+  enums.json                   Tool row keys
+  profiles/mcp-tools-list/     First profile
   PANEL-DECISIONS.md           Dated decision log for the Panel work
   ROADMAPS.md                  Suite sequencing
+src/                           Panel CLI and tests
+reviews/                       Consumer and upstream replies
 ```
 
 Static site, no build step. Point Cloudflare Pages at `site/`.
+
+## Panel
+
+Derived tool-surface view. Live `tools/list` in, JSON Panel out. No guessing: missing facts are `undisclosed`.
+
+```bash
+pnpm install
+pnpm test
+pnpm panel --source specs/profiles/mcp-tools-list/test-vectors/annotated.source.json \
+  --name "Annotated MCP" --out panel.json
+pnpm validate panel.json
+pnpm integrity panel.json --source specs/profiles/mcp-tools-list/test-vectors/annotated.source.json
+pnpm drift panel.json --source specs/profiles/mcp-tools-list/test-vectors/annotated.source.json
+pnpm encode panel.json          # https://xfacts.dev/v#pn1.…
+pnpm badge panel.json --out badge.svg
+pnpm panel --stdio -- node ../forgetrail/mcp-server/dist/index.js
+```
+
+| Path | Role |
+|---|---|
+| `specs/panel.schema.json` | Panel JSON Schema |
+| `specs/enums.json` | `tool` row keys only |
+| `specs/profiles/mcp-tools-list/` | First profile |
+| `src/` | Fetch, map, validate, integrity, drift |
+| `site/v/` | Portable viewer (`pn1.` fragment) |
+| `reviews/` | Consumer / upstream replies |
+
+Exit codes: `0` ok · `1` schema · `2` usage · `3` integrity · `4` severity-increasing drift · `5` other row drift.
+
+Native `tool-facts` profile is next (stopgap). Badge and viewer already distinguish native vs adapted.
 
 ## LocalHelm plugin
 

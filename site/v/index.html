@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>xFacts Panel</title>
+  <meta name="description" content="Portable xFacts Panel — derived tool-surface view, decoded from the URL fragment." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://xfacts.dev/v/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #101418;
+      --mute: #9aa8b8;
+      --line: #d7dee7;
+      --tool: #2dd4bf;
+      --danger: #f87171;
+      --caution: #fbbf24;
+      --info: #94a3b8;
+      --font-display: "Sora", sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-mono);
+      color: #e8eef5;
+      background:
+        radial-gradient(900px 480px at 15% -10%, rgba(45, 212, 191, 0.14), transparent 55%),
+        linear-gradient(180deg, #0c1015 0%, #101418 45%, #0a0e13 100%);
+      padding: 1.5rem 1rem 2.5rem;
+    }
+    .shell { width: min(100%, 36rem); margin: 0 auto; }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #5eead4;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 0.85rem;
+    }
+    .brand span { color: #fff; }
+    .err { color: var(--danger); font-size: 0.85rem; line-height: 1.5; }
+    .card {
+      background: #1a222c;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.1rem 1.15rem 1.25rem;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      margin: 0 0 0.25rem;
+    }
+    .sub { color: var(--mute); font-size: 0.78rem; margin: 0 0 0.85rem; }
+    .sub a { color: #c9d3de; }
+    .banner {
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 0.65rem 0.75rem;
+      margin: 0 0 0.75rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+    .banner strong { display: block; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .banner.derived { border-color: var(--tool); }
+    .banner.self-asserted { border-color: var(--caution); color: #fde68a; }
+    .banner.attested { border-color: #86efac; }
+    .banner.stale, .banner.unknown, .banner.native { border-color: var(--caution); }
+    .banner.invalid { border-color: var(--danger); color: var(--danger); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    th { text-align: left; color: var(--mute); font-weight: 400; padding: 0.35rem 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    td { padding: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+    tr.danger td { color: var(--danger); font-weight: 600; }
+    tr.caution td { color: #fde68a; }
+    .sev { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .meta { margin-top: 0.9rem; color: var(--mute); font-size: 0.72rem; line-height: 1.5; }
+    .meta code { color: #c9d3de; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <a class="brand" href="/"><span>x</span>Facts Panel</a>
+    <div id="app"></div>
+  </div>
+  <script>
+    const PREFIX = "pn1.";
+
+    function b64urlToBytes(b64url) {
+      const padded = b64url.replace(/-/g, "+").replace(/_/g, "/")
+        + "===".slice((b64url.length + 3) % 4);
+      const bin = atob(padded);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function inflateBytes(bytes) {
+      if (typeof DecompressionStream === "undefined") {
+        throw new Error("This browser cannot decode Panel payloads (needs DecompressionStream).");
+      }
+      const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate"));
+      const buf = await new Response(stream).arrayBuffer();
+      return new TextDecoder().decode(buf);
+    }
+
+    async function decodeHash(hash) {
+      const raw = (hash || "").replace(/^#/, "");
+      if (!raw) throw new Error("Missing Panel payload. Encode a Panel with pnpm encode, then open the /v URL.");
+      if (!raw.toLowerCase().startsWith(PREFIX)) {
+        throw new Error("This page understands pn1 Panel fragments only. Legacy AppFacts/ToolFacts cards stay on their own /v pages.");
+      }
+      const json = await inflateBytes(b64urlToBytes(raw.slice(PREFIX.length)));
+      const data = JSON.parse(json);
+      if (!data || data.panel_version !== "0.1.0" || !data.rows) {
+        throw new Error("Unrecognized or incomplete Panel.");
+      }
+      return data;
+    }
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function safeHttpUrl(raw) {
+      if (typeof raw !== "string") return null;
+      try {
+        const u = new URL(raw.trim());
+        if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+        return u.href;
+      } catch { return null; }
+    }
+
+    function isStale(panel) {
+      const fetched = Date.parse(panel.provenance?.fetched_at);
+      const ttl = Number(panel.freshness?.ttl_seconds);
+      if (Number.isNaN(fetched) || !Number.isFinite(ttl)) return Boolean(panel.freshness?.stale);
+      return fetched + ttl * 1000 < Date.now();
+    }
+
+    function render(panel) {
+      const ver = panel.provenance?.verification || "self-asserted";
+      const sig = panel.provenance?.signature;
+      const native = panel.provenance?.profile === "tool-facts";
+      const conf = panel.subject_identity?.identity_confidence;
+      const href = safeHttpUrl(panel.subject?.canonical_url);
+      const home = href
+        ? `<a href="${esc(href)}">${esc(panel.subject.canonical_url)}</a>`
+        : `<code>${esc(panel.subject?.canonical_url || "")}</code>`;
+
+      const rows = (panel.rows || []).map((r) => {
+        const sev = r.severity || "info";
+        return `<tr class="${esc(sev)}"><td>${esc(r.label)}</td><td>${esc(r.value)}</td><td class="sev">${esc(sev)}</td></tr>`;
+      }).join("");
+
+      return `
+        <article class="card">
+          <h1>${esc(panel.subject?.name || "Untitled")}</h1>
+          <p class="sub">${esc(panel.subject?.publisher || "")} ${esc(panel.subject?.version || "")} · source ${home}</p>
+          <div class="banner ${esc(ver)}" role="status">
+            <strong>Verification · ${esc(ver)}</strong>
+            ${esc(panel.provenance?.attribution || "Derived view. The source document stays canonical.")}
+          </div>
+          ${sig === "invalid" ? `<div class="banner invalid" role="alert"><strong>Signature invalid</strong> Do not treat this Panel as authentic.</div>` : ""}
+          ${isStale(panel) ? `<div class="banner stale" role="status"><strong>Stale</strong> fetched_at + ttl is in the past. Refetch before gating.</div>` : ""}
+          ${conf && conf !== "resolved" ? `<div class="banner unknown" role="status"><strong>Identity ${esc(conf)}</strong> The digest binds what the server said, not what the binary is.</div>` : ""}
+          ${native ? `<div class="banner native" role="status"><strong>Native / xFacts-defined</strong> Stopgap profile over TOOL_FACTS.md, not a live tools/list.</div>` : `<div class="banner derived"><strong>Adapted profile</strong> ${esc(panel.provenance?.profile || "")} @ ${esc(panel.provenance?.profile_version || "")}</div>`}
+          <table>
+            <thead><tr><th>Fact</th><th>Value</th><th>Severity</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <p class="meta">
+            digest <code>${esc(panel.provenance?.content_digest || "")}</code><br />
+            ${esc(panel.provenance?.digest_canonicalization || "")}<br />
+            fetched ${esc(panel.provenance?.fetched_at || "")}
+          </p>
+        </article>`;
+    }
+
+    const app = document.getElementById("app");
+    decodeHash(location.hash)
+      .then((panel) => { app.innerHTML = render(panel); })
+      .catch((err) => { app.innerHTML = `<p class="err">${esc(err.message)}</p>`; });
+    window.addEventListener("hashchange", () => location.reload());
+  </script>
+</body>
+</html>

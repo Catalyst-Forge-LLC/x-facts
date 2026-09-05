@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://xfacts.dev/schema/panel.schema.json",
+  "title": "xFacts Panel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "panel_version",
+    "layer",
+    "subject",
+    "subject_identity",
+    "rows",
+    "provenance",
+    "freshness",
+    "unmapped_fields"
+  ],
+  "properties": {
+    "panel_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "layer": {
+      "type": "string",
+      "const": "tool",
+      "description": "This cycle implements tool only."
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "canonical_url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "publisher": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "canonical_url": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Source document or its human-readable home. Not required to be http(s)."
+        }
+      }
+    },
+    "subject_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_confidence"],
+      "properties": {
+        "package": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "resolved_integrity": { "type": "string", "minLength": 1 },
+        "binary_digest": { "type": "string", "minLength": 1 },
+        "identity_confidence": {
+          "type": "string",
+          "enum": ["resolved", "partial", "unknown"]
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "label", "value", "type", "severity"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "kind",
+              "runtime",
+              "transport",
+              "credentials",
+              "side_effects_worst",
+              "filesystem",
+              "network",
+              "processes",
+              "egress_destinations",
+              "telemetry",
+              "idempotent",
+              "license"
+            ]
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "value": {
+            "type": ["string", "boolean", "number", "array"]
+          },
+          "type": {
+            "type": "string",
+            "enum": ["enum", "scalar", "list", "undisclosed"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "caution", "danger"]
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "profile_version",
+        "source_format",
+        "source_version",
+        "source_url",
+        "fetched_at",
+        "content_digest",
+        "digest_canonicalization",
+        "verification",
+        "signature"
+      ],
+      "properties": {
+        "profile": { "type": "string", "minLength": 1 },
+        "profile_version": { "type": "string", "minLength": 1 },
+        "source_format": { "type": "string", "minLength": 1 },
+        "source_version": { "type": "string", "minLength": 1 },
+        "source_url": { "type": "string", "minLength": 1 },
+        "fetched_at": { "type": "string", "format": "date-time" },
+        "content_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "digest_canonicalization": { "type": "string", "minLength": 1 },
+        "verification": {
+          "type": "string",
+          "enum": ["self-asserted", "derived", "attested"]
+        },
+        "signature": {
+          "type": "string",
+          "enum": ["none", "present-unverified", "verified", "invalid"]
+        },
+        "signature_detail": { "type": "string" },
+        "attribution": { "type": "string" },
+        "non_endorsement": { "type": "string" }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ttl_seconds", "stale"],
+      "properties": {
+        "etag": { "type": "string" },
+        "ttl_seconds": { "type": "integer", "minimum": 0 },
+        "stale": { "type": "boolean" }
+      }
+    },
+    "unmapped_fields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "layer": "tool",
+  "panel_version": "0.1.0",
+  "keys": {
+    "kind": {
+      "label": "Kind",
+      "members": ["mcp-server"]
+    },
+    "runtime": {
+      "label": "Runtime",
+      "members": ["local-process", "container", "remote-service"]
+    },
+    "transport": {
+      "label": "Transport",
+      "members": ["stdio", "sse", "streamable-http"]
+    },
+    "credentials": {
+      "label": "Credentials",
+      "members": ["none", "required", "undisclosed"]
+    },
+    "side_effects_worst": {
+      "label": "Worst side effect",
+      "members": ["none", "read", "write", "destructive"],
+      "harsher": ["none", "read", "write", "destructive"]
+    },
+    "filesystem": {
+      "label": "Filesystem",
+      "members": ["none", "read", "scoped", "read-write"],
+      "harsher": ["none", "read", "scoped", "read-write"]
+    },
+    "network": {
+      "label": "Network",
+      "members": ["none", "allowlist", "unrestricted"],
+      "harsher": ["none", "allowlist", "unrestricted"]
+    },
+    "processes": {
+      "label": "Processes",
+      "members": [false, true],
+      "harsher": [false, true]
+    },
+    "egress_destinations": {
+      "label": "Egress destinations",
+      "members": ["none", "named", "undisclosed"]
+    },
+    "telemetry": {
+      "label": "Telemetry",
+      "members": ["none", "anonymous", "identified", "undisclosed"],
+      "harsher": ["none", "anonymous", "identified"]
+    },
+    "idempotent": {
+      "label": "Idempotent",
+      "members": [true, false],
+      "harsher": [true, false]
+    },
+    "license": {
+      "label": "License",
+      "members": null
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "panel_version": "0.1.0",
+  "layer": "tool",
+  "subject": {
+    "name": "ForgeTrail MCP Server",
+    "canonical_url": "https://forgetrail.dev",
+    "publisher": "Catalyst Forge",
+    "version": "0.1.0"
+  },
+  "subject_identity": {
+    "identity_confidence": "partial",
+    "package": "npm:forgetrail-mcp",
+    "version": "0.1.0"
+  },
+  "rows": [
+    {
+      "key": "kind",
+      "label": "Kind",
+      "value": "mcp-server",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "runtime",
+      "label": "Runtime",
+      "value": "local-process",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "transport",
+      "label": "Transport",
+      "value": "stdio",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "credentials",
+      "label": "Credentials",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "side_effects_worst",
+      "label": "Worst side effect",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "filesystem",
+      "label": "Filesystem",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "network",
+      "label": "Network",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "processes",
+      "label": "Processes",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "egress_destinations",
+      "label": "Egress destinations",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "telemetry",
+      "label": "Telemetry",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "idempotent",
+      "label": "Idempotent",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "value": "undisclosed",
+      "type": "undisclosed",
+      "severity": "caution"
+    }
+  ],
+  "provenance": {
+    "profile": "mcp-tools-list",
+    "profile_version": "0.1.0",
+    "source_format": "mcp/tools-list",
+    "source_version": "2025-03-26",
+    "source_url": "stdio://node Z:/workspace/forgetrail/mcp-server/dist/index.js",
+    "fetched_at": "2026-09-04T23:00:00.000Z",
+    "content_digest": "sha256:4cfb6ad866ba5c3761689fec45614b4651b7c9ad708e0698390c53fe2c815478",
+    "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
+    "verification": "derived",
+    "signature": "none",
+    "attribution": "Panel derived from MCP tools/list by xFacts. Not an official MCP artifact.",
+    "non_endorsement": "xFacts is not affiliated with or endorsed by the Model Context Protocol project."
+  },
+  "freshness": {
+    "ttl_seconds": 3600,
+    "stale": false
+  },
+  "unmapped_fields": [
+    "tools[].description",
+    "tools[].inputSchema",
+    "tools[].name"
+  ]
+}
