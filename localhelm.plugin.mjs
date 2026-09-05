@@ -79,7 +79,7 @@ function boardFrom(inventory) {
 		note: [
 			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels or Refresh.',
 			'Columns are app, tool, skill, agent, and model. A name in a cell is that /v card.',
-			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts only.',
+			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model are not invented.',
 			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',
 			inventory.note,
 		]

@@ -13,9 +13,10 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateSync } from 'node:zlib';
+import { missingSkillFacts, writeMissingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const XFACTS_ROOT = resolve(__dirname, '..');
@@ -381,15 +382,20 @@ function plan(action, ids) {
 	if (action === 'refresh') {
 		return {
 			action,
-			note: 'Re-run AppFacts generator (LLM) and rewrite APP_FACTS.md + /v.',
+			note: 'Write AppFacts (LLM) and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model stay empty unless those facts files already exist — no generators for those kinds.',
 			rows: rows.map((r) => {
-				const hasPkg = existsSync(join(repoAbs(r), 'package.json')) || existsSync(join(repoAbs(r), 'README.md'));
+				const root = repoAbs(r);
+				const hasPkg = existsSync(join(root, 'package.json')) || existsSync(join(root, 'README.md'));
+				const skillFiles = missingSkillFacts(root).map((p) => relative(root, p).replace(/\\/g, '/'));
+				const writesApp = hasPkg && existsSync(APP_FACTS_GEN);
+				const writes = writesApp || skillFiles.length > 0;
 				return {
 					id: r.id,
 					app: r.app,
 					status: r.status,
-					writes: hasPkg && existsSync(APP_FACTS_GEN),
-					action: hasPkg && existsSync(APP_FACTS_GEN) ? 'refresh' : 'skip',
+					files: [...(writesApp ? ['APP_FACTS.md'] : []), ...skillFiles],
+					writes,
+					action: writes ? 'refresh' : 'skip',
 				};
 			}),
 		};
@@ -466,9 +472,9 @@ function runReencode(row) {
 	};
 }
 
-function runRefresh(row) {
+function runAppRefresh(row) {
 	const id = row.id;
-	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'generator missing', writes: false };
+	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'AppFacts generator missing', writes: false };
 	const result = spawnSync(
 		process.execPath,
 		[
@@ -490,8 +496,44 @@ function runRefresh(row) {
 	return {
 		id,
 		ok: result.status === 0,
-		detail: out.slice(-500) || (result.status === 0 ? 'refreshed' : `exit ${result.status}`),
+		detail: out.slice(-500) || (result.status === 0 ? 'AppFacts refreshed' : `AppFacts exit ${result.status}`),
 		writes: result.status === 0,
+	};
+}
+
+function runSkillRefresh(row) {
+	const root = repoAbs(row);
+	const result = writeMissingSkillFacts(root);
+	const wrote = result.wrote ?? [];
+	if (wrote.length) {
+		const helper = join(XFACTS_ROOT, 'scripts', 'reencode_facts_viewer.py');
+		if (existsSync(helper)) runPython([helper, ...wrote]);
+	}
+	return {
+		id: row.id,
+		ok: result.ok !== false,
+		detail: wrote.length
+			? `SkillFacts ${wrote.map((p) => relative(root, p).replace(/\\/g, '/')).join(', ')}`
+			: 'no missing SkillFacts',
+		writes: wrote.length > 0,
+	};
+}
+
+function runRefresh(row) {
+	const root = repoAbs(row);
+	const hasPkg = existsSync(join(root, 'package.json')) || existsSync(join(root, 'README.md'));
+	const skillMissing = missingSkillFacts(root);
+	const parts = [];
+	if (hasPkg && existsSync(APP_FACTS_GEN)) parts.push(runAppRefresh(row));
+	if (skillMissing.length) parts.push(runSkillRefresh(row));
+	if (!parts.length) {
+		return { id: row.id, ok: true, detail: 'nothing to label', writes: false };
+	}
+	return {
+		id: row.id,
+		ok: parts.every((p) => p.ok),
+		detail: parts.map((p) => p.detail).filter(Boolean).join(' · '),
+		writes: parts.some((p) => p.writes),
 	};
 }
 
