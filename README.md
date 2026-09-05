@@ -39,7 +39,7 @@ src/                           Panel CLI and tests
 reviews/                       Consumer and upstream replies
 ```
 
-Static site, no build step. Point Cloudflare Pages at `site/`.
+Static site for [xfacts.dev](https://xfacts.dev) lives in [`site/`](./site/). Publish with `pnpm ship` (Wrangler Pages project `x-facts`, no build step). Git-connected Pages can also use project root `site`.
 
 ## Panel
 
