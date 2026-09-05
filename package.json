@@ -14,7 +14,7 @@
     "badge": "tsx src/cli.ts badge",
     "test": "tsx --test src/*.test.ts",
     "typecheck": "tsc --noEmit",
-    "ship": "wrangler pages deploy site --project-name=x-facts"
+    "ship": "wrangler deploy --config site/wrangler.jsonc"
   },
   "engines": {
     "node": ">=20"
