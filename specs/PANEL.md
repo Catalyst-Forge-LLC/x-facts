@@ -122,7 +122,7 @@ A Panel is a JSON object. It MUST validate against `panel.schema.json` (JSON Sch
     "profile_version": "0.1.0",
     "source_format": "mcp/tools-list",
     "source_version": "2025-03-26",
-    "source_url": "stdio://forgekit-mcp",
+    "source_url": "stdio://forgetrail-mcp",
     "fetched_at": "2026-08-17T18:02:11Z",
     "content_digest": "sha256:9f2b…",
     "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
