@@ -41,11 +41,10 @@ function bridge(args) {
 	});
 }
 
-const CORE_LABEL_COLS = [
+const LABEL_COLS = [
+	{ id: 'app', label: 'app' },
 	{ id: 'tool', label: 'tool' },
 	{ id: 'skill', label: 'skill' },
-];
-const EXTRA_LABEL_COLS = [
 	{ id: 'agent', label: 'agent' },
 	{ id: 'model', label: 'model' },
 ];
@@ -57,7 +56,7 @@ function rowActions(row) {
 		write: true,
 		icon: 'lucide:refresh-cw',
 	};
-	if (!row.appPath && !row.hasTool && !row.skillCount) {
+	if (!row.appPath && !row.hasTool && !row.skillCount && !row.agentItems?.length && !row.modelItems?.length) {
 		return [addOrRefresh];
 	}
 	return [
@@ -67,9 +66,8 @@ function rowActions(row) {
 	];
 }
 
-function labelColumns(rows) {
-	const extra = EXTRA_LABEL_COLS.filter((col) => rows.some((row) => (row[col.id] ?? '—') !== '—' || row.viewers?.[col.id]));
-	return [...CORE_LABEL_COLS, ...extra];
+function labelColumns() {
+	return LABEL_COLS;
 }
 
 function boardFrom(inventory) {
@@ -80,28 +78,28 @@ function boardFrom(inventory) {
 		rowLabel: 'repo',
 		note: [
 			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels or Refresh.',
-			'The repo name opens the AppFacts card. Each tool or skill name is its own /v link.',
-			'Rows without APP_FACTS.md show “no label” — Add labels runs the AppFacts generator.',
+			'Columns are app, tool, skill, agent, and model. A name in a cell is that /v card.',
+			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts only.',
 			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',
 			inventory.note,
 		]
 			.filter(Boolean)
 			.join(' '),
-		columns: labelColumns(inventory.rows),
+		columns: labelColumns(),
 		rows: inventory.rows.map((row) => {
 			const links = { ...(row.viewers ?? {}) };
 			if (row.viewer && !links.app) links.app = row.viewer;
 			const linkGroups = {};
-			if (row.skillItems?.length) {
-				linkGroups.skill = row.skillItems.map(({ label, href }) => ({ label, href }));
-			}
-			if (row.toolItems?.length) {
-				linkGroups.tool = row.toolItems.map(({ label, href }) => ({ label, href }));
+			for (const kind of ['app', 'tool', 'skill', 'agent', 'model']) {
+				const items = row[`${kind}Items`];
+				if (items?.length) {
+					linkGroups[kind] = items.map(({ label, href }) => ({ label, href }));
+				}
 			}
 			return {
 				id: row.id,
 				label: row.id,
-				href: links.app || links.skill || links.tool || row.viewer || undefined,
+				href: links.app || links.skill || links.tool || links.agent || links.model || row.viewer || undefined,
 				links,
 				linkGroups,
 				cells: {

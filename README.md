@@ -84,7 +84,7 @@ localhelm plugin xfacts reencode --apply
 localhelm plugin xfacts refresh --apply # regenerates AppFacts via sibling generator
 ```
 
-The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports App/Tool/Skill presence, `/v` drift, and plan/apply for check · re-encode · refresh. Refresh creates `APP_FACTS.md` when a checked repo has none. Re-encode writes a `/v` card into each `APP_FACTS.md`, `TOOL_FACTS.md`, and `SKILL_FACTS.md` from frontmatter.
+The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, and model labels (any `*_FACTS.md` under the repo, skipping `node_modules` / `.git` / `dist` / `site` / fixtures), `/v` drift, and plan/apply for check · re-encode · refresh. Refresh creates `APP_FACTS.md` when a checked repo has none — it does not write SkillFacts or ToolFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter.
 
 ## Family footer
 

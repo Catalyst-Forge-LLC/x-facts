@@ -166,30 +166,49 @@ function decodeAf1Name(url) {
 	}
 }
 
+const FACTS_KINDS = {
+	'APP_FACTS.md': 'app',
+	'TOOL_FACTS.md': 'tool',
+	'SKILL_FACTS.md': 'skill',
+	'AGENT_FACTS.md': 'agent',
+	'MODEL_FACTS.md': 'model',
+};
+
+const SKIP_FACTS_DIRS = new Set([
+	'node_modules',
+	'.git',
+	'dist',
+	'.cursor',
+	'site',
+	'fixtures',
+	'coverage',
+	'__ARCHIVE',
+]);
+
+function walkFacts(root) {
+	const hits = { app: [], tool: [], skill: [], agent: [], model: [] };
+	function walk(dir, depth) {
+		if (depth > 4 || !existsSync(dir)) return;
+		for (const ent of readdirSync(dir, { withFileTypes: true })) {
+			if (SKIP_FACTS_DIRS.has(ent.name) || ent.name.startsWith('.')) continue;
+			const p = join(dir, ent.name);
+			if (ent.isFile()) {
+				const kind = FACTS_KINDS[ent.name];
+				if (kind && !(kind === 'app' && depth > 0)) hits[kind].push(p);
+				continue;
+			}
+			if (ent.isDirectory()) walk(p, depth + 1);
+		}
+	}
+	walk(root, 0);
+	return hits;
+}
+
 function inspectRepo(project) {
 	const id = project.id;
 	const root = repoAbs(project);
-	const appPath = join(root, 'APP_FACTS.md');
-	const toolPaths = [join(root, 'TOOL_FACTS.md'), join(root, 'mcp-server', 'TOOL_FACTS.md')];
-	const skillHits = [];
-	function walkSkills(dir, depth = 0) {
-		if (depth > 4 || !existsSync(dir)) return;
-		for (const ent of readdirSync(dir, { withFileTypes: true })) {
-			if (
-				ent.name === 'node_modules' ||
-				ent.name === '.git' ||
-				ent.name === 'dist' ||
-				ent.name === '.cursor' ||
-				ent.name === 'site'
-			) {
-				continue;
-			}
-			const p = join(dir, ent.name);
-			if (ent.isFile() && ent.name === 'SKILL_FACTS.md') skillHits.push(p);
-			else if (ent.isDirectory()) walkSkills(p, depth + 1);
-		}
-	}
-	walkSkills(root);
+	const found = walkFacts(root);
+	const appPath = found.app[0] ?? join(root, 'APP_FACTS.md');
 
 	let app = 'missing';
 	let name = '—';
@@ -198,7 +217,6 @@ function inspectRepo(project) {
 	let status = 'no label';
 	let fingerprint = null;
 	const viewers = {};
-	const extra = { agent: false, model: false };
 
 	if (existsSync(appPath)) {
 		const md = readFileSync(appPath, 'utf8');
@@ -226,46 +244,59 @@ function inspectRepo(project) {
 		}
 	}
 
-	const toolItems = uniqueFactsItems(toolPaths.map((p) => factsItem(p, 'tool')).filter(Boolean));
-	for (const item of toolItems) {
-		if (item.href && !viewers.tool) viewers.tool = item.href;
-	}
-	const skillItems = uniqueFactsItems(skillHits.map((p) => factsItem(p, 'skill')).filter(Boolean));
-	for (const item of skillItems) {
-		if (item.href && !viewers.skill) viewers.skill = item.href;
+	const toolItems = uniqueFactsItems(found.tool.map((p) => factsItem(p, 'tool')).filter(Boolean));
+	const skillItems = uniqueFactsItems(found.skill.map((p) => factsItem(p, 'skill')).filter(Boolean));
+	const agentItems = uniqueFactsItems(found.agent.map((p) => factsItem(p, 'agent')).filter(Boolean));
+	const modelItems = uniqueFactsItems(found.model.map((p) => factsItem(p, 'model')).filter(Boolean));
+	const appItems = uniqueFactsItems(
+		found.app.map((p) => factsItem(p, 'app')).filter(Boolean),
+	).map((item) => ({ ...item, label: name !== '—' ? name : item.label }));
+	for (const [kind, items] of [
+		['tool', toolItems],
+		['skill', skillItems],
+		['agent', agentItems],
+		['model', modelItems],
+		['app', appItems],
+	]) {
+		for (const item of items) {
+			if (item.href && !viewers[kind]) viewers[kind] = item.href;
+		}
 	}
 	const readme = join(root, 'README.md');
 	if (existsSync(readme)) {
 		const md = readFileSync(readme, 'utf8');
 		mergeViewers(md, viewers);
-		if (skillItems.length === 1 && !skillItems[0].href) {
-			const href = extractViewer(md, 'skill');
-			if (href) skillItems[0].href = href;
-		}
-		if (toolItems.length === 1 && !toolItems[0].href) {
-			const href = extractViewer(md, 'tool');
-			if (href) toolItems[0].href = href;
+		for (const [kind, items] of [
+			['skill', skillItems],
+			['tool', toolItems],
+			['agent', agentItems],
+			['model', modelItems],
+		]) {
+			if (items.length === 1 && !items[0].href) {
+				const href = extractViewer(md, kind);
+				if (href) items[0].href = href;
+			}
 		}
 	}
-	const tool = toolItems.length ? (toolItems.length === 1 ? 'yes' : String(toolItems.length)) : '—';
-	const skill = skillItems.length ? String(skillItems.length) : '—';
 
-	for (const kind of ['agent', 'model']) {
-		const p = join(root, `${kind === 'agent' ? 'AGENT' : 'MODEL'}_FACTS.md`);
-		if (!existsSync(p)) continue;
-		extra[kind] = true;
-		mergeViewers(readFileSync(p, 'utf8'), viewers);
-	}
+	const hasFacts =
+		Boolean(existsSync(appPath)) ||
+		toolItems.length > 0 ||
+		skillItems.length > 0 ||
+		agentItems.length > 0 ||
+		modelItems.length > 0;
+	if (!hasFacts) status = 'no label';
+	else if (app === 'missing') status = 'ok';
 
 	return {
 		id,
 		path: project.path,
 		name,
-		app,
-		tool,
-		skill,
-		agent: extra.agent || viewers.agent ? 'yes' : '—',
-		model: extra.model || viewers.model ? 'yes' : '—',
+		app: appItems[0]?.label ?? (existsSync(appPath) ? name : '—'),
+		tool: toolItems.length ? toolItems.map((item) => item.label).join(' · ') : '—',
+		skill: skillItems.length ? skillItems.map((item) => item.label).join(' · ') : '—',
+		agent: agentItems.length ? agentItems.map((item) => item.label).join(' · ') : '—',
+		model: modelItems.length ? modelItems.map((item) => item.label).join(' · ') : '—',
 		viewer,
 		viewers,
 		viewerStatus,
@@ -274,8 +305,11 @@ function inspectRepo(project) {
 		appPath: existsSync(appPath) ? appPath : null,
 		hasTool: toolItems.length > 0,
 		skillCount: skillItems.length,
+		appItems,
 		toolItems,
 		skillItems,
+		agentItems,
+		modelItems,
 	};
 }
 
@@ -293,10 +327,17 @@ function inventory() {
 
 function factsPaths(row) {
 	return [
-		row.appPath,
-		...(row.toolItems ?? []).map((item) => item.path),
-		...(row.skillItems ?? []).map((item) => item.path),
-	].filter(Boolean);
+		...new Set(
+			[
+				row.appPath,
+				...(row.appItems ?? []).map((item) => item.path),
+				...(row.toolItems ?? []).map((item) => item.path),
+				...(row.skillItems ?? []).map((item) => item.path),
+				...(row.agentItems ?? []).map((item) => item.path),
+				...(row.modelItems ?? []).map((item) => item.path),
+			].filter(Boolean),
+		),
+	];
 }
 
 function selected(ids) {
@@ -323,7 +364,7 @@ function plan(action, ids) {
 	if (action === 'reencode') {
 		return {
 			action,
-			note: 'Rewrite /v cards for app, tool, and skill files from frontmatter (no LLM).',
+			note: 'Rewrite /v cards for app, tool, skill, agent, and model files from frontmatter (no LLM).',
 			rows: rows.map((r) => {
 				const files = factsPaths(r);
 				return {
