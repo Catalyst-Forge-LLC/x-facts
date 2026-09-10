@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>xFacts · Nutrition labels for every layer of the AI stack</title>
-  <meta name="description" content="xFacts is a family of small, validatable nutrition labels, one per layer of the AI stack. AppFacts, ModelFacts, ToolFacts, AgentFacts, and SkillFacts." />
+  <title>xFacts · Small labels for apps, models, tools, agents, and skills</title>
+  <meta name="description" content="Small, structured labels for apps, models, tools, agents, and skills. Read, compare, and review declarations before you adopt something." />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="canonical" href="https://xfacts.dev/" />
   <meta property="og:title" content="xFacts" />
-  <meta property="og:description" content="x is a variable, not a social network. One nutrition label per layer of the AI stack." />
+  <meta property="og:description" content="Small, structured labels for apps, models, tools, agents, and skills." />
   <meta property="og:url" content="https://xfacts.dev/" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,11 +64,11 @@
 
     /* ----- Hero ----- */
     .hero {
-      min-height: 100svh;
+      min-height: auto;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 2.25rem 0 3.5rem;
+      justify-content: flex-start;
+      padding: 1.5rem 0 2rem;
       position: relative;
       overflow: hidden;
     }
@@ -91,13 +91,33 @@
       animation: fadeup 800ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
+    .hero-grid {
+      display: grid;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (min-width: 800px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem); }
+    }
+
+    .decision {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: #fff;
+      margin: 0 0 0.65rem;
+    }
+
     .brand {
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: clamp(3.2rem, 9vw, 5.5rem);
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
       letter-spacing: -0.04em;
       line-height: 0.95;
-      margin: 0 0 1.15rem;
+      margin: 0 0 0.75rem;
       color: #fff;
     }
 
@@ -109,17 +129,17 @@
     .lede {
       font-family: var(--font-display);
       font-weight: 500;
-      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
       line-height: 1.35;
       color: #e8eef5;
-      max-width: 28ch;
-      margin: 0 0 0.85rem;
+      max-width: 36ch;
+      margin: 0 0 0.7rem;
     }
 
     .sub {
       color: var(--mute);
       max-width: 48ch;
-      margin: 0 0 1.75rem;
+      margin: 0 0 1.15rem;
     }
 
     .marks {
@@ -362,6 +382,36 @@
       font-size: 0.9rem;
     }
 
+    .evidence {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 800px) {
+      .evidence { grid-template-columns: 1fr 1fr; }
+    }
+
+    .evidence li {
+      padding: 0.9rem 1rem;
+      background: rgba(26, 34, 44, 0.45);
+      border-left: 3px solid var(--tool);
+      color: #c9d3de;
+    }
+
+    .evidence li strong {
+      display: block;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-label .mini-label {
+      margin: 0;
+    }
+
     /* ----- Admission ----- */
     .admit-list {
       list-style: none;
@@ -503,30 +553,49 @@
 <body>
   <header class="hero">
     <div class="wrap hero-copy">
-      <h1 class="brand"><span class="x">x</span>Facts</h1>
-      <p class="lede">x is a variable, not a social network.</p>
-      <p class="sub">
-        A family of small, validatable nutrition labels, one per layer of the AI stack,
-        that make software legible at the moment someone decides whether to trust it.
-      </p>
-      <ul class="marks" aria-label="xFacts family accents">
-        <li class="app" title="AppFacts"></li>
-        <li class="model" title="ModelFacts"></li>
-        <li class="tool" title="ToolFacts"></li>
-        <li class="agent" title="AgentFacts"></li>
-        <li class="skill" title="SkillFacts"></li>
-      </ul>
+      <div class="hero-grid">
+        <div>
+          <p class="decision">What can this installed tool touch?</p>
+          <h1 class="brand"><span class="x">x</span>Facts</h1>
+          <p class="lede">Small, structured labels for apps, models, tools, agents, and skills.</p>
+          <p class="sub">
+            Read the declaration that matches the decision in front of you, then compare it with
+            the rest of the family. A validator checks structure. It does not prove the claims are
+            true, and it is not a safety certificate.
+          </p>
+          <ul class="marks" aria-label="xFacts family accents">
+            <li class="app" title="AppFacts"></li>
+            <li class="model" title="ModelFacts"></li>
+            <li class="tool" title="ToolFacts"></li>
+            <li class="agent" title="AgentFacts"></li>
+            <li class="skill" title="SkillFacts"></li>
+          </ul>
+        </div>
+        <div class="hero-label">
+          <article class="mini-label" data-label="tool" aria-label="Example ToolFacts label for runAudit">
+            <h3>Tool Facts</h3>
+            <p class="file">runAudit · ForgeTrail MCP</p>
+            <div class="row thick"><strong>Side effects</strong><span>none</span></div>
+            <div class="row"><strong>Filesystem</strong><span>none</span></div>
+            <div class="row thick"><strong>Network</strong><span>none</span></div>
+            <div class="row"><strong class="accent">Returns</strong><span>audit prompt</span></div>
+          </article>
+          <p class="panel-note" style="margin-top:0.75rem;max-width:36ch;">
+            Returns a packaged audit prompt. Does not scan the user workspace.
+          </p>
+        </div>
+      </div>
     </div>
   </header>
 
   <main>
     <section id="anatomy">
       <div class="wrap">
-        <h2 class="section-title">The anatomy</h2>
-        <p class="section-lead">Five labels. One question each. All live.</p>
+        <h2 class="section-title">Five labels, five objects</h2>
+        <p class="section-lead">Pick the label that matches the thing you are about to adopt. Metaphors are optional.</p>
         <div class="anatomy">
           <a class="label-card" data-label="app" href="https://appfacts.dev">
-            <p class="layer">Body</p>
+            <p class="layer">Application</p>
             <h3 class="name">App<span>Facts</span></h3>
             <p class="answers">What is this app built from?</p>
             <div class="meta">
@@ -536,9 +605,9 @@
           </a>
 
           <a class="label-card" data-label="model" href="https://modelfacts.dev">
-            <p class="layer">Brain</p>
+            <p class="layer">Model</p>
             <h3 class="name">Model<span>Facts</span></h3>
-            <p class="answers">What went into this model?</p>
+            <p class="answers">What does this model document about itself?</p>
             <div class="meta">
               <span class="status">Live</span>
               <span>modelfacts.dev</span>
@@ -546,9 +615,9 @@
           </a>
 
           <a class="label-card" data-label="tool" href="https://toolfacts.dev">
-            <p class="layer">Toolbelt</p>
+            <p class="layer">Tool</p>
             <h3 class="name">Tool<span>Facts</span></h3>
-            <p class="answers">What does this instrument touch when invoked?</p>
+            <p class="answers">What does this tool touch when invoked?</p>
             <div class="meta">
               <span class="status">Live</span>
               <span>toolfacts.dev</span>
@@ -556,9 +625,9 @@
           </a>
 
           <a class="label-card" data-label="agent" href="https://agentfacts.dev">
-            <p class="layer">Hands</p>
+            <p class="layer">Agent configuration</p>
             <h3 class="name">Agent<span>Facts</span></h3>
-            <p class="answers">What may this actor do, and on what leash?</p>
+            <p class="answers">What may this configuration do?</p>
             <div class="meta">
               <span class="status">Live</span>
               <span>agentfacts.dev</span>
@@ -566,9 +635,9 @@
           </a>
 
           <a class="label-card" data-label="skill" href="https://skillfacts.dev">
-            <p class="layer">Playbook</p>
+            <p class="layer">Skill package</p>
             <h3 class="name">Skill<span>Facts</span></h3>
-            <p class="answers">What will this teach my agent to do?</p>
+            <p class="answers">What will this skill teach an agent to do?</p>
             <div class="meta">
               <span class="status">Live</span>
               <span>skillfacts.dev</span>
@@ -586,33 +655,65 @@
           AppFacts on the <a href="https://www.catalystforge.com/tools">open-source shelf</a>.
           ToolFacts on the MCP servers we run: ForgeTrail, ollanet, DictaWhisper.
           SkillFacts on the skills: ForgeTrail, Smell Check, TemperPass, EmberDossier, DocuPuncture.
-          Each label site has a portable <code>/v</code> viewer; the card travels in the URL hash.
+          Each label site has a portable <code>/v</code> viewer. The card travels in the URL hash.
           The <a href="/v/">Panel viewer</a> is the derived tool-surface view: what a live MCP
-          server listed, and whether that changed.
+          server listed, and whether that listed surface changed.
         </p>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="wrap">
+        <h2 class="section-title">Structure, evidence, and enforcement</h2>
+        <p class="section-lead">Keep these four readings apart. Mixing them turns a useful label into a fake certificate.</p>
+        <ul class="evidence">
+          <li>
+            <strong>Schema-valid structure</strong>
+            The file matches the published schema and closed enums. A passing validator proves only that.
+          </li>
+          <li>
+            <strong>Source-backed claims</strong>
+            A named document, repository, or publisher field supports the value. Cite it, or mark the field undisclosed.
+          </li>
+          <li>
+            <strong>Observed behavior</strong>
+            Someone checked a specific implementation, version, or controlled run. One example is not a universal guarantee.
+          </li>
+          <li>
+            <strong>Enforced restrictions</strong>
+            A host or runtime actually prevents the action. Configured intent is not the same as enforced policy.
+          </li>
+        </ul>
+        <div class="prose" style="margin-top:1.25rem;">
+          <p>
+            ModelFacts qualitative ratings such as high or medium are assessments. They are not
+            objective measurements unless a method and source are attached. Child label sites own
+            their authoritative rows. This hub does not overwrite them.
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="rules">
       <div class="wrap">
         <h2 class="section-title">Shared rules</h2>
-        <p class="section-lead">Every label in the family keeps the same skeleton and the same teeth.</p>
+        <p class="section-lead">Every label in the family keeps the same skeleton.</p>
         <ul class="rules">
           <li>
-            <strong>The Golden Rule</strong>
-            Objective facts only. Subjective claims stay in READMEs and marketing pages.
+            <strong>Do not guess</strong>
+            Marketing language stays in READMEs. Missing evidence stays <code>undisclosed</code> or absent.
           </li>
           <li>
             <strong><code>undisclosed</code> over omission</strong>
-            Non-disclosure is itself a fact worth labeling. A column of <code>undisclosed</code> is a story.
+            Non-disclosure is itself worth labeling. A column of <code>undisclosed</code> is a story.
           </li>
           <li>
             <strong>Closed enums</strong>
-            Judgment fields use fixed vocabularies so labels compare across products.
+            Comparison fields use fixed vocabularies so two products can sit side by side.
           </li>
           <li>
             <strong>CC0 specs, MIT tooling</strong>
-            Specs and schemas are public domain. Generators and validators are MIT. Nothing to hesitate over.
+            Specs and schemas are public domain. Generators and validators are MIT.
           </li>
         </ul>
       </div>
@@ -667,20 +768,42 @@
           </article>
         </div>
         <p class="panel-note">
-          Compose them: the agent points at the model it thinks with, the tools it wields,
-          and the skills it installs; the app that ships them carries <code>APP_FACTS.md</code>.
-          That is the suite's picture.
+          Compose them when you have more than one object. The agent can point at the model it
+          uses, the tools it attaches, and the skills it installs. The app that ships them can
+          carry <code>APP_FACTS.md</code>.
+        </p>
+      </div>
+    </section>
+
+    <section id="provenance">
+      <div class="wrap prose">
+        <h2 class="section-title">Version and review provenance</h2>
+        <p class="section-lead">A label is useful only when you can tell what it describes, and when.</p>
+        <p>
+          Use the fields that already exist. Identity usually lives in <code>name</code>,
+          <code>version</code> or package version, <code>repository</code>, and
+          <code>generated.date</code>. AppFacts also has
+          <code>generated.inputs_fingerprint</code> for a stale-input check. SkillFacts has
+          <code>provenance.source</code> and <code>bundled_artifacts</code>. The Panel contract
+          adds <code>subject_identity</code> and a content digest for derived tool surfaces.
+        </p>
+        <p>
+          Unknown evidence stays unknown. Do not fill a gap with a guessed date or a silent
+          <code>none</code>. Proposed additions, including a shared review-status field, an
+          AppFacts application version, and a SkillFacts package digest, are documented in
+          <a href="https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/PROVENANCE.md">specs/PROVENANCE.md</a>
+          and are not runtime features until a compatible schema review lands.
         </p>
       </div>
     </section>
 
     <section id="admission">
       <div class="wrap prose">
-        <h2 class="section-title">How a label earns a domain</h2>
-        <p class="section-lead">The suite grows only when all three hold. Saying no in public is part of the brand.</p>
+        <h2 class="section-title">Design rationale</h2>
+        <p class="section-lead">How a label earns a domain. Saying no in public is part of the brand.</p>
         <ol class="admit-list">
           <li>Someone adopts or installs the thing and needs to trust it at that moment.</li>
-          <li>The essential facts are objective and at least partly machine-derivable.</li>
+          <li>The essential facts can be structured, compared, and at least partly derived from source material.</li>
           <li>No incumbent format already answers the question well.</li>
         </ol>
         <h3 class="section-title" style="font-size:1.15rem;margin-top:0.5rem;">Refused</h3>
@@ -704,7 +827,7 @@
         <h2 class="section-title">Why labels</h2>
         <p class="section-lead">A short read for people who use or publish the stack.</p>
         <p>
-          <a href="/essay/why-labels/">Why labels</a> —
+          <a href="/essay/why-labels/">Why labels</a>:
           what to check before you trust an app, model, tool, agent, or skill.
         </p>
       </div>

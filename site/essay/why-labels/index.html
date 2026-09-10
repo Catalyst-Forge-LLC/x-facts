@@ -224,13 +224,14 @@
     </p>
 
     <blockquote>
-      What are the objective facts that change whether I should trust this right now?
+      What facts change whether I should trust this right now, and what kind of evidence are they?
     </blockquote>
 
     <p>
       <a href="/">xFacts</a> is a family of small nutrition-style labels for that moment. One label
-      per layer. Same idea each time: structured facts you (or your tools) can check, plus a short
-      human skim. When something important is not disclosed, the file says so instead of going quiet.
+      per object. Same idea each time: structured declarations you (or your tools) can read, plus a
+      short human skim. When something important is not disclosed, the file says so instead of
+      going quiet.
     </p>
 
     <h2>Five questions, five labels</h2>
@@ -243,26 +244,26 @@
       </li>
       <li>
         <a href="https://modelfacts.dev">
-          <span class="layer">ModelFacts · brain</span>
-          <span class="q">What went into this model?</span>
+          <span class="layer">ModelFacts · model</span>
+          <span class="q">What does this model document about itself?</span>
         </a>
       </li>
       <li>
         <a href="https://toolfacts.dev">
-          <span class="layer">ToolFacts · toolbelt</span>
-          <span class="q">What does this instrument touch when invoked?</span>
+          <span class="layer">ToolFacts · tool</span>
+          <span class="q">What does this tool touch when invoked?</span>
         </a>
       </li>
       <li>
         <a href="https://agentfacts.dev">
-          <span class="layer">AgentFacts · hands</span>
-          <span class="q">What may this actor do, and on what leash?</span>
+          <span class="layer">AgentFacts · configuration</span>
+          <span class="q">What may this configuration do?</span>
         </a>
       </li>
       <li>
         <a href="https://skillfacts.dev">
-          <span class="layer">SkillFacts · playbook</span>
-          <span class="q">What will this teach my agent to do?</span>
+          <span class="layer">SkillFacts · skill package</span>
+          <span class="q">What will this skill teach an agent to do?</span>
         </a>
       </li>
     </ul>
@@ -284,8 +285,14 @@
     <h2>What a label is not</h2>
     <p>
       A label is not a certificate. Anyone can author one. A wrong claim that a tool has no side
-      effects is worse than no label at all. Treat published facts as claims you can validate and
+      effects is worse than no label at all. Treat published values as claims you can review and
       diff, not as a blessing from a central authority.
+    </p>
+    <p>
+      Keep four readings apart. Schema-valid structure means the file matches the schema.
+      Source-backed claims cite a named source. Observed behavior was checked on a specific
+      version or run. Enforced restrictions are limits a host actually applies. A validator
+      proves only the first of those.
     </p>
     <p>
       A shareable card or QR (the portable viewer on each site) is a convenient way to pass a label
@@ -297,7 +304,8 @@
       <p>
         Specs and schemas are public domain (CC0). You can adopt the format without asking.
         Tooling is MIT. The suite grows only when a new label earns its place: someone adopts the
-        thing, the facts are objective, and nothing better already answers the question.
+        thing, the essential facts can be structured and compared, and nothing better already
+        answers the question.
       </p>
     </div>
 

@@ -7,11 +7,11 @@
 
 | Label | Layer | Question | Agent entry |
 |---|---|---|---|
-| AppFacts | Body | What is this app built from? | https://appfacts.dev/ |
-| ModelFacts | Brain | What went into this model? | https://modelfacts.dev/llms.txt |
-| ToolFacts | Toolbelt | What does this instrument touch when invoked? | https://toolfacts.dev/llms.txt |
-| AgentFacts | Hands | What may this actor do, and on what leash? | https://agentfacts.dev/llms.txt |
-| SkillFacts | Playbook | What will this teach my agent to do? | https://skillfacts.dev/llms.txt |
+| AppFacts | Application | What is this app built from? | https://appfacts.dev/ |
+| ModelFacts | Model | What does this model document about itself? | https://modelfacts.dev/llms.txt |
+| ToolFacts | Tool | What does this tool touch when invoked? | https://toolfacts.dev/llms.txt |
+| AgentFacts | Agent configuration | What may this configuration do? | https://agentfacts.dev/llms.txt |
+| SkillFacts | Skill package | What will this skill teach an agent to do? | https://skillfacts.dev/llms.txt |
 
 ## Panel
 
@@ -25,9 +25,12 @@ Catalyst Forge ships the labels on its own tools. AppFacts on the open-source sh
 
 ## Shared rules
 
-- YAML frontmatter is the sole source of truth; Markdown body is the human skim.
-- Objective facts only. Prefer `undisclosed` over guessing.
-- Specs and schemas are CC0; tooling is MIT.
+- YAML frontmatter is the sole source of truth. Markdown body is the human skim.
+- Schema validation checks structure, not truth or safety.
+- Prefer `undisclosed` over guessing. ModelFacts qualitative ratings are assessments unless a method and source are attached.
+- ForgeTrail `runAudit` returns a packaged audit prompt and does not scan the user workspace.
+- Specs and schemas are CC0. Tooling is MIT.
+- Provenance fields and proposals: https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/PROVENANCE.md
 
 ## Hub
 
