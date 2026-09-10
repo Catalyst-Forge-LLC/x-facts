@@ -82,9 +82,10 @@ localhelm plugin xfacts                 # board
 localhelm plugin xfacts check           # plan fingerprint checks
 localhelm plugin xfacts reencode --apply
 localhelm plugin xfacts refresh --apply # regenerates AppFacts via sibling generator
+localhelm plugin xfacts ship x-facts --apply
 ```
 
-The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, and model labels (any `*_FACTS.md` under the repo, skipping `node_modules` / `.git` / `dist` / `site` / fixtures), `/v` drift, and plan/apply for check · re-encode · refresh. Refresh writes `APP_FACTS.md` via the AppFacts generator and any missing `SKILL_FACTS.md` next to `SKILL.md` packs. It does not invent ToolFacts, AgentFacts, or ModelFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter.
+The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, and model labels (any `*_FACTS.md` under the repo, skipping `node_modules` / `.git` / `dist` / `site` / fixtures), `/v` drift, and plan/apply for check · re-encode · refresh · ship. Refresh writes `APP_FACTS.md` via the AppFacts generator and any missing `SKILL_FACTS.md` next to `SKILL.md` packs. It does not invent ToolFacts, AgentFacts, or ModelFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter. Ship runs `pnpm ship` when that script exists (wrangler / Pages), not FilePress Land.
 
 ## Family footer
 

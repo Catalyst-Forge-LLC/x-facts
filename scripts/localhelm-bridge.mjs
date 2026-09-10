@@ -4,8 +4,8 @@
  *
  * Commands (stdout = JSON):
  *   inventory
- *   plan  --action check|reencode|refresh [--names a,b]
- *   apply --action check|reencode|refresh [--names a,b]
+ *   plan  --action check|reencode|refresh|ship [--names a,b]
+ *   apply --action check|reencode|refresh|ship [--names a,b]
  *
  * Lists enrolled LocalHelm fleet projects (localhelm.fleet.json next to this
  * workspace). Falls back to sibling git/package folders if no fleet file.
@@ -289,6 +289,12 @@ function inspectRepo(project) {
 	if (!hasFacts) status = 'no label';
 	else if (app === 'missing') status = 'ok';
 
+	const rootPkg = readJson(join(root, 'package.json'));
+	const sitePkg = readJson(join(root, 'site', 'package.json'));
+	const rootShip = typeof rootPkg?.scripts?.ship === 'string' && rootPkg.scripts.ship.trim();
+	const siteShip = typeof sitePkg?.scripts?.ship === 'string' && sitePkg.scripts.ship.trim();
+	const shipDir = rootShip ? 'root' : siteShip ? 'site' : null;
+
 	return {
 		id,
 		path: project.path,
@@ -311,6 +317,8 @@ function inspectRepo(project) {
 		skillItems,
 		agentItems,
 		modelItems,
+		hasShip: Boolean(shipDir),
+		shipDir,
 	};
 }
 
@@ -320,7 +328,7 @@ function inventory() {
 	return {
 		workspace: WORKSPACE,
 		note: fromFleet
-			? `Enrolled fleet (${rows.length}). Check a row, then Add labels or Refresh. Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`
+			? `Enrolled fleet (${rows.length}). Check a row, then Add labels, Refresh, or Ship when the repo has scripts.ship. Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`
 			: `Sibling folders (${rows.length}; no localhelm.fleet.json). Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`,
 		rows,
 	};
@@ -377,6 +385,22 @@ function plan(action, ids) {
 					action: files.length ? 'reencode' : 'skip',
 				};
 			}),
+		};
+	}
+	if (action === 'ship') {
+		return {
+			action,
+			note: 'Run pnpm ship in each named checkout that has scripts.ship (wrangler / Pages). Not FilePress Land.',
+			rows: rows.map((r) => ({
+				id: r.id,
+				app: r.app,
+				status: r.status,
+				writes: Boolean(r.hasShip),
+				action: r.hasShip ? 'ship' : 'skip',
+				reason: r.hasShip ? undefined : 'no scripts.ship',
+				ship: r.hasShip ? 'pnpm run ship' : undefined,
+				proposedCwd: r.shipDir === 'site' ? `${r.path.replace(/\\/g, '/')}/site` : r.path,
+			})),
 		};
 	}
 	if (action === 'refresh') {
@@ -537,13 +561,40 @@ function runRefresh(row) {
 	};
 }
 
+function runShip(row) {
+	if (!row.hasShip) return { id: row.id, ok: false, detail: 'no scripts.ship', writes: false };
+	const root = repoAbs(row);
+	const cwd = row.shipDir === 'site' ? join(root, 'site') : root;
+	const win = process.platform === 'win32';
+	const result = spawnSync(win ? 'pnpm.cmd' : 'pnpm', ['run', 'ship'], {
+		cwd,
+		encoding: 'utf8',
+		windowsHide: true,
+		shell: win,
+		timeout: 600_000,
+	});
+	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+	const err = result.error ? String(result.error.message || result.error) : '';
+	const ok = Boolean(result && result.status === 0 && !result.error);
+	return {
+		id: row.id,
+		ok,
+		detail: (out || err).slice(-800) || (ok ? 'shipped' : `pnpm ship exit ${result.status}`),
+		writes: ok,
+	};
+}
+
 function apply(action, ids) {
+	if (action === 'ship' && !ids.length) {
+		throw new Error('name the project id(s) to ship. xFacts will not ship the whole fleet in one apply.');
+	}
 	const rows = selected(ids);
 	const results = [];
 	for (const r of rows) {
 		if (action === 'check') results.push(runCheck(r));
 		else if (action === 'reencode') results.push(runReencode(r));
 		else if (action === 'refresh') results.push(runRefresh(r));
+		else if (action === 'ship') results.push(runShip(r));
 		else throw new Error(`unknown action ${action}`);
 	}
 	return {

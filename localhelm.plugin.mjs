@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const win = process.platform === 'win32';
-const ACTIONS = new Set(['check', 'refresh', 'reencode']);
+const ACTIONS = new Set(['check', 'refresh', 'reencode', 'ship']);
 
 function bridge(args) {
 	return new Promise((resolve, reject) => {
@@ -56,13 +56,17 @@ function rowActions(row) {
 		write: true,
 		icon: 'lucide:refresh-cw',
 	};
+	const ship = row.hasShip
+		? { id: 'ship', label: 'Ship', write: true, icon: 'lucide:ship' }
+		: null;
 	if (!row.appPath && !row.hasTool && !row.skillCount && !row.agentItems?.length && !row.modelItems?.length) {
-		return [addOrRefresh];
+		return ship ? [addOrRefresh, ship] : [addOrRefresh];
 	}
 	return [
 		{ id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
 		{ id: 'reencode', label: 'Re-encode', write: true, icon: 'lucide:qr-code' },
 		addOrRefresh,
+		...(ship ? [ship] : []),
 	];
 }
 
@@ -77,10 +81,11 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels or Refresh.',
+			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels, Refresh, or Ship.',
 			'Columns are app, tool, skill, agent, and model. A name in a cell is that /v card.',
 			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model are not invented.',
 			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',
+			'Ship runs that repo’s pnpm ship script (wrangler / Pages). Not FilePress Land.',
 			inventory.note,
 		]
 			.filter(Boolean)
