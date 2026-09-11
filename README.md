@@ -2,17 +2,17 @@
 
 **x is a variable, not a social network.**
 
-The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): small, structured labels for apps, models, tools, agents, and skills. Read, compare, and review declarations before you adopt something. A validator checks structure. It does not prove truth or safety.
+The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): a family of small, validatable nutrition labels, one per layer of the AI stack, that make software legible at the moment someone decides whether to trust it.
 
 This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the five sibling repos; they are transitional natives.
 
-| Label | Object | Site | Status |
+| Label | Layer | Site | Status |
 |---|---|---|---|
-| [AppFacts](https://appfacts.dev) | Application | appfacts.dev | Live |
-| [ModelFacts](https://modelfacts.dev) | Model | modelfacts.dev | Live |
-| [ToolFacts](https://toolfacts.dev) | Tool | toolfacts.dev | Live |
-| [AgentFacts](https://agentfacts.dev) | Agent configuration | agentfacts.dev | Live |
-| [SkillFacts](https://skillfacts.dev) | Skill package | skillfacts.dev | Live |
+| [AppFacts](https://appfacts.dev) | Body | appfacts.dev | Live |
+| [ModelFacts](https://modelfacts.dev) | Brain | modelfacts.dev | Live |
+| [ToolFacts](https://toolfacts.dev) | Toolbelt | toolfacts.dev | Live |
+| [AgentFacts](https://agentfacts.dev) | Hands | agentfacts.dev | Live |
+| [SkillFacts](https://skillfacts.dev) | Playbook | skillfacts.dev | Live |
 
 ## What's in here
 
@@ -30,7 +30,6 @@ specs/
   SUITE-VALUE-AND-NETWORK-EFFECTS.md  Utility, timing, network effects, hard doubts
   DISCOVERY-AND-PUBLICATION.md Pointer contract (canonical URL + host surface + /v)
   PANEL.md                     Master Panel spec (derived views + drift)
-  PROVENANCE.md                Current identity fields and compatible proposals
   panel.schema.json            Panel schema (tool layer)
   enums.json                   Tool row keys
   profiles/mcp-tools-list/     First profile
