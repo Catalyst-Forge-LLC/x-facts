@@ -3,7 +3,7 @@
 How to tell what an xFacts label describes, and when. This is suite guidance, not a
 new schema and not a certification program.
 
-**Status:** documentation of current fields, plus compatible proposals.  
+**Status:** documentation of current fields, plus implemented optional additions and later proposals.  
 **Date:** 2026-09-10.
 
 ## Use the fields that already exist
@@ -43,18 +43,19 @@ Suite summaries must follow child owners, not the other way around.
   They are not objective facts unless a method and source are attached. Do not
   rewrite child rows from this document.
 
-## Compatible proposals (not implemented)
+## Compatible additions (2026-09-10)
 
-These would be additive optional fields. They need a compatibility review before
-any generator or validator requires them. Existing files stay valid without them.
+These are optional. Generators and validators must not require them. Existing
+files stay valid.
 
 ### A. AppFacts `version` (optional string)
 
-Application or package version the label describes. Today AppFacts has no product
-version field, so freshness depends on `generated.date` and `inputs_fingerprint`.
-Adding optional `version` would not break current files.
+Implemented. Application or package version the label describes. Freshness still
+uses `generated.date` and `inputs_fingerprint` when `version` is omitted.
 
 ### B. Shared `reviewed` object (optional)
+
+Implemented on AppFacts, ModelFacts, ToolFacts, AgentFacts, and SkillFacts.
 
 ```yaml
 reviewed:
@@ -63,26 +64,31 @@ reviewed:
   status: publisher-authored | independently-reviewed | stale
 ```
 
-Compatibility: optional object, closed `status` enum. Files without it remain
-publisher-authored by default. Do not treat presence as certification.
+Files without it remain publisher-authored by default. Do not treat presence as
+certification.
 
 ### C. AgentFacts `undisclosed` on `reach.filesystem` and `reach.network`
 
-Those enums currently omit `undisclosed`. Host-unknown reach is forced into `none`
-or another concrete value. Adding `undisclosed` is a compatible enum extension
-only if validators accept the new member without rejecting older files.
+Implemented. Older files stay valid. Use `undisclosed` when host reach is unknown
+instead of forcing `none`.
 
-### D. SkillFacts package digest (optional)
+### D. SkillFacts package digest (later)
 
 A digest over a defined set of packaged files (`SKILL.md` plus `bundled_artifacts`
 paths). Must define canonicalization, path order, and exclusion of mutable remote
 URLs. This is not a substitute for listing artifacts. Do not add the field until
 those rules exist.
 
-### E. AgentFacts configuration digest (optional)
+### E. AgentFacts configuration digest (later)
 
 A digest over the labeled configuration document, not the agent binary. Needs the
 same canonicalization review as D.
+
+### F. ModelFacts `capability_basis` in the label schema (later)
+
+Directory files already record `capability_basis`. Do not copy that field into
+native ModelFacts labels until a separate compatibility review. Assessment enums
+now accept `unresolved`.
 
 ## Non-goals
 
