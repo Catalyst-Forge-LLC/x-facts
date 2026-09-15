@@ -1,6 +1,6 @@
 /**
  * xFacts plugin for LocalHelm.
- * Sites board over sibling repos' nutrition labels. Heavy work lives in the bridge.
+ * Sites board over sibling repos' xFacts labels. Heavy work lives in the bridge.
  */
 import { spawn } from 'node:child_process';
 import { dirname } from 'node:path';
@@ -81,7 +81,7 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'Nutrition labels for the enrolled fleet. Check rows like Fleet, then Add labels, Refresh, or Ship.',
+			'xFacts labels for the enrolled fleet. Check rows like Fleet, then Add labels, Refresh, or Ship.',
 			'Columns are app, tool, skill, agent, and model. A name in a cell is that /v card.',
 			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model are not invented.',
 			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',

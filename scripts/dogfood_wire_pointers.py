@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wire README + FilePress footer + catalyst-forge shelf pointers to nutrition labels."""
+"""Wire README + FilePress footer + catalyst-forge shelf pointers to xFacts labels."""
 from __future__ import annotations
 
 import json
@@ -135,8 +135,8 @@ PRODUCTS = {
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts", "SkillFacts"],
     },
-    "localberth": {
-        "github": "Catalyst-Forge-LLC/localberth",
+    "localslip": {
+        "github": "Catalyst-Forge-LLC/localslip",
         "app_raw": "APP_FACTS.md",
         "filepress": "site/filepress.config.ts",
         "footer_labels": ["AppFacts"],
@@ -148,7 +148,19 @@ PRODUCTS = {
     },
 }
 
-MARKER = "<!-- xfacts-nutrition-label -->"
+MARKER = "<!-- xfacts-label -->"
+LEGACY_MARKERS = ("<!-- xfacts-nutrition-label -->",)
+HEADING = "## xFacts label"
+HEADING_STOP = r"(?:xFacts label|Nutrition label)"
+
+
+def existing_marker(text: str) -> str | None:
+    if MARKER in text:
+        return MARKER
+    for marker in LEGACY_MARKERS:
+        if marker in text:
+            return marker
+    return None
 
 
 def nutrition_block(slug: str, cfg: dict) -> str:
@@ -158,7 +170,7 @@ def nutrition_block(slug: str, cfg: dict) -> str:
     lines = [
         MARKER,
         "",
-        "## Nutrition label",
+        HEADING,
         "",
         f"- **AppFacts:** [viewer]({app_v}) · [raw]({app_raw})",
     ]
@@ -190,10 +202,11 @@ def patch_readme(slug: str, cfg: dict) -> None:
         return
     text = path.read_text(encoding="utf-8")
     block = nutrition_block(slug, cfg)
-    if MARKER in text:
+    found = existing_marker(text)
+    if found:
         # replace existing block through next ## or EOF
         text = re.sub(
-            rf"{re.escape(MARKER)}\n(?:.*?\n)*?(?=\n## (?!Nutrition label))",
+            rf"{re.escape(found)}\n(?:.*?\n)*?(?=\n## (?!{HEADING_STOP}))",
             block + "\n",
             text,
             count=1,
@@ -308,7 +321,7 @@ def patch_shelf() -> None:
         "ollanet": "ollanet",
         "Docupuncture": "docupuncture",
         "DictaWhisper": "dictawhisper",
-        "LocalBerth": "localberth",
+        "LocalSlip": "localslip",
         "LocalHelm": "localhelm",
     }
 
