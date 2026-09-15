@@ -311,7 +311,77 @@
       margin-bottom: 0.25rem;
     }
 
-    /* ----- Full panel ----- */
+    /* ----- Derived Panel ----- */
+    .derived-panel {
+      max-width: 40rem;
+      background: rgba(26, 34, 44, 0.55);
+      border: 1px solid rgba(45, 212, 191, 0.28);
+      padding: 1.1rem 1.15rem 1.2rem;
+    }
+    .derived-panel h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      margin: 0 0 0.2rem;
+      color: #fff;
+    }
+    .derived-panel .sub { margin: 0 0 0.85rem; font-size: 0.8rem; }
+    .derived-panel .sub a { color: var(--tool-soft); }
+    .derived-panel .banner {
+      border: 1px solid rgba(45, 212, 191, 0.45);
+      padding: 0.65rem 0.75rem;
+      margin: 0 0 0.75rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #c9d3de;
+    }
+    .derived-panel .banner strong {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tool-soft);
+      margin-bottom: 0.2rem;
+    }
+    .derived-panel .banner.caution { border-color: #fbbf24; }
+    .derived-panel .banner.caution strong { color: #fde68a; }
+    .derived-panel table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .derived-panel th {
+      text-align: left;
+      color: var(--mute);
+      font-weight: 400;
+      padding: 0.35rem 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .derived-panel td {
+      padding: 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+      color: #e8eef5;
+    }
+    .derived-panel tr.caution td { color: #fde68a; }
+    .derived-panel .sev {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .derived-panel .meta {
+      margin: 0.9rem 0 0;
+      color: var(--mute);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+    .derived-panel .meta code { color: #c9d3de; }
+    .derived-panel .err { color: #f87171; }
+    .derived-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem 1.25rem;
+      margin: 0.9rem 0 0;
+      font-size: 0.85rem;
+    }
+
+    /* ----- Family sketch ----- */
     .panel {
       display: grid;
       gap: 0.75rem;
@@ -656,8 +726,9 @@
           ToolFacts on the MCP servers we run: ForgeTrail, ollanet, DictaWhisper.
           SkillFacts on the skills: ForgeTrail, Smell Check, TemperPass, EmberDossier, DocuPuncture.
           Each label site has a portable <code>/v</code> viewer. The card travels in the URL hash.
-          The <a href="/v/">Panel viewer</a> is the derived tool-surface view: what a live MCP
-          server listed, and whether that listed surface changed.
+          The <a href="#panel">Panel on this page</a> is the derived tool-surface view: what a live MCP
+          server listed. Portable copy:
+          <a href="/v/">/v</a>.
           Example:
           <a href="/v#pn1.eNqtVl1v2zoM_SuCXuckzpeb-LVYgeHeDcVdgQusKAxFohK1smSIdNrcoP_9gs6XO-xlWN6sI5KHJmke72WjAvhqCwldDLKU-XA8zGUmvdpBkqWkGL3MJLarZ9Aky70MqgZZyruY1vCQlPPi6-29-A5pC0lmUqsQg9PKV23yspQbogbL0ciyPbH90MBWZrJpV97hpmO5VaT8Dkl0UWUmf07o_ZxC5QwEcrTjXE7PlY7B8kFzao1K5BSn3Sj9otaMhaYuLykMat38miXFV5Tl416-wE6W8sUF01VjBfwyfx2OW-VbDlrrZoCnF6ddwxiEtuaCwRZSl6V0wUb5np1CpjaQq6EX9Z8zcgrso1Z-0KSoAfE3YlNSAZuYqBf9oYed4iMZF38jrk7QVVp57EW-_YCeYrfBONQ-IpgLw0ewR6RVS9yCCxc6AxVYC5qweo0J-y_zL58Fm4iDyRWJrfOAOySoe4R3ffBaTAHoNaaXHs23M3ItjuPwQL9h9z3sWjywToBYGUByQfFln_Fzdyt-ur0WN4GHGijt-uPew67F4wzUTSQI_VH80gevxeSdhoD95fD3GflDjqeMZ2ILQXVbcs8nHvnjHuNFjwPvus_tePULXcDYJg2VjalWdHAdfXA9Glw8J_lkPsing0lxuT1IQ7eFytEoRAPiRzniLwAbpaEnFqPLjh0ZhzRywcDb8JnHyALpDZiqS2SST4pBvhzks4fJtMzzMs-HeZ7_YEmKgdtUGbcGZFvcqMm8KGfargplFkWxUnM9vSnGxWJpQc_mxXi2mhXz8epGL5W5yReQF8vFdJnr-dTCRC_G89nNQmbyELI6i577rxtyWcpnjYNk9eJmMf8EYQs-NjBASq5pwHw6lAxjoq5f3C3r9MnXQHLbQyPdOihqUydhMfAYKKLkVu3R9J71WxwdhE2x7uS4iz_ilojVTrzdKU04FN8iCRVEtNZppw7CzVpplaahzJihgmBiQqh5rkt58BQORWBfa513isCIV0cbEZM4mhumoQ2Ir9GAF7dc8TcS9ylS1NGLJkUW7yFLrE2Am8DCVu4lka8QdAwGZTkt8jyTSIqn0iqP8J7JNtSKa1ZZB56tHrufEnx8GhpAnVzTlSI7oy40LX3XG6hVD-1-W57e_weCYg9N">ForgeTrail MCP</a>.
         </p>
@@ -723,11 +794,27 @@
 
     <section id="panel">
       <div class="wrap">
-        <h2 class="section-title">The full panel</h2>
+        <h2 class="section-title">The Panel</h2>
         <p class="section-lead">
-          A serious AI product can ship five files side by side and be more transparent than any incumbent.
+          Derived from a recorded MCP <code>tools/list</code>. Missing facts stay
+          <code>undisclosed</code>. This page does not re-fetch the server.
         </p>
-        <div class="panel" aria-label="Full panel of five xFacts labels">
+        <div id="hub-panel" class="derived-panel" aria-live="polite">Loading ForgeTrail Panel…</div>
+        <p class="derived-actions">
+          <a href="/examples/forgetrail-mcp.panel.json">Raw JSON</a>
+          <a href="/v#pn1.eNqtVl1v2zoM_SuCXuckzpeb-LVYgeHeDcVdgQusKAxFohK1smSIdNrcoP_9gs6XO-xlWN6sI5KHJmke72WjAvhqCwldDLKU-XA8zGUmvdpBkqWkGL3MJLarZ9Aky70MqgZZyruY1vCQlPPi6-29-A5pC0lmUqsQg9PKV23yspQbogbL0ciyPbH90MBWZrJpV97hpmO5VaT8Dkl0UWUmf07o_ZxC5QwEcrTjXE7PlY7B8kFzao1K5BSn3Sj9otaMhaYuLykMat38miXFV5Tl416-wE6W8sUF01VjBfwyfx2OW-VbDlrrZoCnF6ddwxiEtuaCwRZSl6V0wUb5np1CpjaQq6EX9Z8zcgrso1Z-0KSoAfE3YlNSAZuYqBf9oYed4iMZF38jrk7QVVp57EW-_YCeYrfBONQ-IpgLw0ewR6RVS9yCCxc6AxVYC5qweo0J-y_zL58Fm4iDyRWJrfOAOySoe4R3ffBaTAHoNaaXHs23M3ItjuPwQL9h9z3sWjywToBYGUByQfFln_Fzdyt-ur0WN4GHGijt-uPew67F4wzUTSQI_VH80gevxeSdhoD95fD3GflDjqeMZ2ILQXVbcs8nHvnjHuNFjwPvus_tePULXcDYJg2VjalWdHAdfXA9Glw8J_lkPsing0lxuT1IQ7eFytEoRAPiRzniLwAbpaEnFqPLjh0ZhzRywcDb8JnHyALpDZiqS2SST4pBvhzks4fJtMzzMs-HeZ7_YEmKgdtUGbcGZFvcqMm8KGfargplFkWxUnM9vSnGxWJpQc_mxXi2mhXz8epGL5W5yReQF8vFdJnr-dTCRC_G89nNQmbyELI6i577rxtyWcpnjYNk9eJmMf8EYQs-NjBASq5pwHw6lAxjoq5f3C3r9MnXQHLbQyPdOihqUydhMfAYKKLkVu3R9J71WxwdhE2x7uS4iz_ilojVTrzdKU04FN8iCRVEtNZppw7CzVpplaahzJihgmBiQqh5rkt58BQORWBfa513isCIV0cbEZM4mhumoQ2Ir9GAF7dc8TcS9ylS1NGLJkUW7yFLrE2Am8DCVu4lka8QdAwGZTkt8jyTSIqn0iqP8J7JNtSKa1ZZB56tHrufEnx8GhpAnVzTlSI7oy40LX3XG6hVD-1-W57e_weCYg9N">Portable /v card</a>
+          <a href="https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md">Hand-authored ToolFacts</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="family-sketch">
+      <div class="wrap">
+        <h2 class="section-title">The family, composed</h2>
+        <p class="section-lead">
+          A serious AI product can ship five files side by side. This grid is a sketch of that idea, not a derived Panel and not our stack.
+        </p>
+        <div class="panel" aria-label="Sketch of five xFacts labels">
           <article class="mini-label" data-label="app">
             <h3>App Facts</h3>
             <p class="file">APP_FACTS.md</p>
@@ -770,9 +857,8 @@
           </article>
         </div>
         <p class="panel-note">
-          Compose them when you have more than one object. The agent can point at the model it
-          uses, the tools it attaches, and the skills it installs. The app that ships them can
-          carry <code>APP_FACTS.md</code>.
+          Compose them when you have more than one object. The numbers here are invented for
+          layout. The derived ForgeTrail rows live in <a href="#panel">The Panel</a>.
         </p>
       </div>
     </section>
@@ -853,5 +939,69 @@
       </div>
     </div>
   </footer>
+  <script>
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function safeHttpUrl(raw) {
+      if (typeof raw !== "string") return null;
+      try {
+        const u = new URL(raw.trim());
+        if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+        return u.href;
+      } catch { return null; }
+    }
+    function renderHubPanel(panel) {
+      const href = safeHttpUrl(panel.subject?.canonical_url);
+      const home = href
+        ? `<a href="${esc(href)}">${esc(panel.subject.canonical_url)}</a>`
+        : `<code>${esc(panel.subject?.canonical_url || "")}</code>`;
+      const fetched = panel.provenance?.fetched_at
+        ? new Date(panel.provenance.fetched_at).toISOString().slice(0, 10)
+        : "unknown date";
+      const rows = (panel.rows || []).map((r) => {
+        const sev = r.severity || "info";
+        return `<tr class="${esc(sev)}"><td>${esc(r.label)}</td><td>${esc(r.value)}</td><td class="sev">${esc(sev)}</td></tr>`;
+      }).join("");
+      const conf = panel.subject_identity?.identity_confidence;
+      return `
+        <h3>${esc(panel.subject?.name || "Untitled")}</h3>
+        <p class="sub">${esc(panel.subject?.publisher || "")} ${esc(panel.subject?.version || "")} · source ${home}</p>
+        <div class="banner" role="status">
+          <strong>Verification · ${esc(panel.provenance?.verification || "self-asserted")}</strong>
+          ${esc(panel.provenance?.attribution || "Derived view. The source document stays canonical.")}
+          Recorded ${esc(fetched)}. Not a live drift monitor.
+        </div>
+        ${conf && conf !== "resolved" ? `<div class="banner caution" role="status"><strong>Identity ${esc(conf)}</strong> The digest binds what the server said that day, not what the binary is now.</div>` : ""}
+        <table>
+          <thead><tr><th>Fact</th><th>Value</th><th>Severity</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <p class="meta">
+          digest <code>${esc(panel.provenance?.content_digest || "")}</code><br />
+          ${esc(panel.provenance?.digest_canonicalization || "")}<br />
+          profile ${esc(panel.provenance?.profile || "")} @ ${esc(panel.provenance?.profile_version || "")}
+        </p>`;
+    }
+    const mount = document.getElementById("hub-panel");
+    fetch("/examples/forgetrail-mcp.panel.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load the recorded Panel JSON.");
+        return res.json();
+      })
+      .then((panel) => {
+        if (!panel || panel.panel_version !== "0.1.0" || !panel.rows) {
+          throw new Error("Unrecognized or incomplete Panel.");
+        }
+        mount.innerHTML = renderHubPanel(panel);
+      })
+      .catch((err) => {
+        mount.innerHTML = `<p class="err">${esc(err.message)} Open the <a href="/v/">portable viewer</a>.</p>`;
+      });
+  </script>
 </body>
 </html>
