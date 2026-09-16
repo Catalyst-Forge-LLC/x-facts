@@ -95,6 +95,39 @@ test("three live shelf MCP sources each produce a valid Panel", () => {
   assert.equal(digests.size, 3);
 });
 
+test("forgetrail-live annotations collapse to read and idempotent", () => {
+  const panel = buildPanel(source("forgetrail-live.source.json"), {
+    transport: "stdio",
+    sourceUrl: "stdio://forgetrail-mcp",
+    fetchedAt: "2026-09-04T23:00:00.000Z",
+  });
+  assert.equal(row(panel, "side_effects_worst").value, "read");
+  assert.equal(row(panel, "idempotent").value, true);
+  assert.equal(row(panel, "network").value, "undisclosed");
+});
+
+test("ollanet-live annotations collapse to destructive and unrestricted", () => {
+  const panel = buildPanel(source("ollanet-live.source.json"), {
+    transport: "stdio",
+    sourceUrl: "stdio://ollanet mcp",
+    fetchedAt: "2026-09-04T23:00:00.000Z",
+  });
+  assert.equal(row(panel, "side_effects_worst").value, "destructive");
+  assert.equal(row(panel, "network").value, "unrestricted");
+  assert.equal(row(panel, "idempotent").value, false);
+});
+
+test("dictawhisper-live annotations collapse to read and idempotent", () => {
+  const panel = buildPanel(source("dictawhisper-live.source.json"), {
+    transport: "stdio",
+    sourceUrl: "stdio://dictawhisper",
+    fetchedAt: "2026-09-04T23:00:00.000Z",
+  });
+  assert.equal(row(panel, "side_effects_worst").value, "read");
+  assert.equal(row(panel, "idempotent").value, true);
+  assert.equal(row(panel, "network").value, "undisclosed");
+});
+
 test("three structurally different sources each produce a valid Panel", () => {
   const files = [
     "forgetrail-like.source.json",

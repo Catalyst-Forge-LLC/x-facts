@@ -5,12 +5,12 @@
     "name": "ForgeTrail MCP Server",
     "canonical_url": "https://forgetrail.dev",
     "publisher": "Catalyst Forge",
-    "version": "0.1.0"
+    "version": "0.3.10"
   },
   "subject_identity": {
     "identity_confidence": "partial",
     "package": "npm:forgetrail-mcp",
-    "version": "0.1.0"
+    "version": "0.3.10"
   },
   "rows": [
     {
@@ -44,9 +44,9 @@
     {
       "key": "side_effects_worst",
       "label": "Worst side effect",
-      "value": "undisclosed",
-      "type": "undisclosed",
-      "severity": "caution"
+      "value": "read",
+      "type": "enum",
+      "severity": "info"
     },
     {
       "key": "filesystem",
@@ -86,9 +86,9 @@
     {
       "key": "idempotent",
       "label": "Idempotent",
-      "value": "undisclosed",
-      "type": "undisclosed",
-      "severity": "caution"
+      "value": true,
+      "type": "enum",
+      "severity": "info"
     },
     {
       "key": "license",
@@ -104,8 +104,8 @@
     "source_format": "mcp/tools-list",
     "source_version": "2025-03-26",
     "source_url": "stdio://node Z:/workspace/forgetrail/mcp-server/dist/index.js",
-    "fetched_at": "2026-09-04T23:00:00.000Z",
-    "content_digest": "sha256:4cfb6ad866ba5c3761689fec45614b4651b7c9ad708e0698390c53fe2c815478",
+    "fetched_at": "2026-09-16T04:41:23.909Z",
+    "content_digest": "sha256:cfb9eff475244fb17abd5ef0fac2c935ce981fd2aeca59bc4ab734e1fe7454e5",
     "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
     "verification": "derived",
     "signature": "none",

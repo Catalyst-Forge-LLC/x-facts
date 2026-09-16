@@ -2,7 +2,7 @@
   "tools": [
     {
       "name": "ollanet_scan",
-      "description": "Discover reachable Ollama hosts and list their models. Use this before routing work to pick a host/model. Optional LAN TCP scan (off unless lan=true; equivalent to CLI --lan) and include offline Tailscale peers.",
+      "description": "Discover configured or selected Ollama hosts and list their models. A responding host is reachable, not automatically trusted. Optional LAN TCP scan is off unless lan=true (CLI --lan). all=true also probes offline Tailscale peers.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -20,6 +20,12 @@
           }
         },
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
       }
     },
     {
@@ -74,6 +80,12 @@
           }
         },
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
       }
     },
     {
@@ -132,6 +144,12 @@
           "models"
         ],
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
       }
     },
     {
@@ -158,6 +176,12 @@
           "model"
         ],
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
       }
     },
     {
@@ -180,6 +204,12 @@
           "model"
         ],
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
       }
     },
     {
@@ -207,6 +237,12 @@
           "confirm"
         ],
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
       }
     },
     {
@@ -221,6 +257,12 @@
           }
         },
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
       }
     },
     {
@@ -230,6 +272,12 @@
         "type": "object",
         "properties": {},
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -247,6 +295,12 @@
           "chat_id"
         ],
         "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     }
   ]

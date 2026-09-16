@@ -18,13 +18,19 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
     },
     {
       "name": "getPhaseGuidance",
-      "description": "Get ForgeTrail methodology guidance for a specific development phase (1-7). Returns entry/exit criteria, playbook, prompt patterns, and anti-patterns.",
+      "description": "Get ForgeTrail methodology guidance for a specific development phase (1-7). Returns entry/exit criteria, playbook, prompt patterns, anti-patterns, and an optional companions footer.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -38,6 +44,12 @@
         ],
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -64,6 +76,12 @@
         ],
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -106,6 +124,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -139,6 +163,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -157,6 +187,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -168,6 +204,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -181,6 +223,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -192,6 +240,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -211,6 +265,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -222,6 +282,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -235,6 +301,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -246,6 +318,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -259,6 +337,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -270,6 +354,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -283,6 +373,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -294,6 +390,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -307,6 +409,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -319,17 +427,29 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
     },
     {
       "name": "getGreenfieldIntakePrompt",
-      "description": "Phase 1 helper: structured questions about exports (PDF/DOCX/PPTX, etc.), tenancy (e.g. consultants with many clients), hybrid vs full spec, compliance tier, and hero flow. Complements getChecklist(before-session-1). Agent should capture answers in PHASE_1_BRIEF.md and .forgetrail/workflow_tracking.json decisions[]. For a pre-written portable spec instead of in-session Q&A, see getGenesisSpecPrompt.",
+      "description": "Phase 1 helper: structured questions about exports (PDF/DOCX/PPTX, etc.), tenancy (e.g. consultants with many clients), hybrid vs full spec, compliance tier, hero flow, and registrar/DNS/git/hosting. Complements getChecklist(before-session-1). Agent should capture answers in PHASE_1_BRIEF.md and .forgetrail/workflow_tracking.json decisions[]. For a pre-written portable spec instead of in-session Q&A, see getGenesisSpecPrompt.",
       "inputSchema": {
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -343,6 +463,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -354,6 +480,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -367,6 +499,12 @@
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -378,6 +516,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -408,6 +552,12 @@
         },
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -447,6 +597,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -484,6 +640,69 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "getCompanionSuggestions",
+      "description": "Return optional Catalyst Forge companion tools for a ForgeTrail phase or situation (FilePress, LocalSlip, LocalHelm, practice skills, xFacts, and others). Suggestions only: never required, never install unless the user asked. Omit filters to list situation ids. Use format=json for structured output.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "description": "Phase number 1–7 or keyword (architecture, scaffolding, hardening, …)"
+          },
+          "situation": {
+            "type": "string",
+            "enum": [
+              "markdown-site",
+              "static-publish",
+              "dns-hosting",
+              "multi-app-local",
+              "local-ollama",
+              "ollama-vram",
+              "copy-review",
+              "docs-drift",
+              "newcomer-readiness",
+              "quality-review",
+              "hard-to-undo",
+              "unclear-cause",
+              "ship-label",
+              "git-backup",
+              "voice-journal",
+              "chat-export",
+              "briefing",
+              "cli-desktop",
+              "google-edit"
+            ],
+            "description": "Situation id from companion-tools.json (e.g. markdown-site, quality-review, ship-label)"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "json"
+            ],
+            "description": "text (default) or json for structured headless output"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -495,6 +714,12 @@
         "type": "object",
         "properties": {},
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"
@@ -521,6 +746,12 @@
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
       "execution": {
         "taskSupport": "forbidden"
       }
@@ -538,6 +769,12 @@
         },
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       },
       "execution": {
         "taskSupport": "forbidden"

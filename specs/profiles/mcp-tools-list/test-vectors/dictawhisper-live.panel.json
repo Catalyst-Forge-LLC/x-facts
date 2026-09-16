@@ -5,12 +5,12 @@
     "name": "DictaWhisper MCP Server",
     "canonical_url": "https://dictawhisper.com",
     "publisher": "Catalyst Forge",
-    "version": "0.0.8"
+    "version": "0.1.1"
   },
   "subject_identity": {
     "identity_confidence": "partial",
     "package": "npm:dictawhisper",
-    "version": "0.0.8"
+    "version": "0.1.1"
   },
   "rows": [
     {
@@ -86,9 +86,9 @@
     {
       "key": "idempotent",
       "label": "Idempotent",
-      "value": "undisclosed",
-      "type": "undisclosed",
-      "severity": "caution"
+      "value": true,
+      "type": "enum",
+      "severity": "info"
     },
     {
       "key": "license",
@@ -104,8 +104,8 @@
     "source_format": "mcp/tools-list",
     "source_version": "2025-03-26",
     "source_url": "stdio://node --experimental-strip-types Z:/workspace/dictawhisper/src/mcp.ts",
-    "fetched_at": "2026-09-04T23:00:00.000Z",
-    "content_digest": "sha256:f3218c3493ca7f2738b30450326103a49e457c46d5b6cea5660c99d211ada8a8",
+    "fetched_at": "2026-09-16T04:41:23.909Z",
+    "content_digest": "sha256:f4a20bc166e296e4872201e06a014e836577b63ae565e919928bab8fd5db57be",
     "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
     "verification": "derived",
     "signature": "none",

@@ -5,12 +5,12 @@
     "name": "ollanet MCP Server",
     "canonical_url": "https://ollanet.dev",
     "publisher": "Catalyst Forge",
-    "version": "0.6.8"
+    "version": "0.6.13"
   },
   "subject_identity": {
     "identity_confidence": "partial",
     "package": "npm:ollanet",
-    "version": "0.6.8"
+    "version": "0.6.13"
   },
   "rows": [
     {
@@ -44,9 +44,9 @@
     {
       "key": "side_effects_worst",
       "label": "Worst side effect",
-      "value": "undisclosed",
-      "type": "undisclosed",
-      "severity": "caution"
+      "value": "destructive",
+      "type": "enum",
+      "severity": "danger"
     },
     {
       "key": "filesystem",
@@ -58,9 +58,9 @@
     {
       "key": "network",
       "label": "Network",
-      "value": "undisclosed",
-      "type": "undisclosed",
-      "severity": "caution"
+      "value": "unrestricted",
+      "type": "enum",
+      "severity": "danger"
     },
     {
       "key": "processes",
@@ -86,8 +86,8 @@
     {
       "key": "idempotent",
       "label": "Idempotent",
-      "value": "undisclosed",
-      "type": "undisclosed",
+      "value": false,
+      "type": "enum",
       "severity": "caution"
     },
     {
@@ -104,8 +104,8 @@
     "source_format": "mcp/tools-list",
     "source_version": "2025-03-26",
     "source_url": "stdio://node Z:/workspace/ollanet/dist/cli.js mcp",
-    "fetched_at": "2026-09-04T23:00:00.000Z",
-    "content_digest": "sha256:3fd0278deb5f98ce623ff8bafc098dbc271c86f0a6e1713912678fa993004880",
+    "fetched_at": "2026-09-16T04:41:23.909Z",
+    "content_digest": "sha256:fd4d6a4712d0d6068c7c7b44fd82f0f3ebd33ce67446ec98fadb3dab04db4ecc",
     "digest_canonicalization": "jcs-rfc8785+envelope-stripped+tools-sorted",
     "verification": "derived",
     "signature": "none",
