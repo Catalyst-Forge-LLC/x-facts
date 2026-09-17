@@ -1,0 +1,34 @@
+{
+  "profile": "tool-facts",
+  "profile_version": "0.1.0",
+  "source_format": "tool-facts/md",
+  "source_version": "0.1.0",
+  "digest_canonicalization": "jcs-rfc8785+frontmatter-only+tools-sorted",
+  "verification": "self-asserted",
+  "native": true,
+  "attribution": "Panel projected from TOOL_FACTS.md by xFacts. Native / xFacts-defined stopgap, not a live tools/list.",
+  "non_endorsement": "This profile reads an xFacts-defined format. It is not an MCP artifact and is not a certificate.",
+  "rows": {
+    "kind": { "from": "kind" },
+    "runtime": { "from": "runtime.execution" },
+    "transport": { "from": "runtime.transport" },
+    "credentials": {
+      "from": "credentials.required",
+      "empty": "none",
+      "nonempty": "required"
+    },
+    "side_effects_worst": { "from": "tools[].side_effects" },
+    "filesystem": { "from": "tools[].reach.filesystem" },
+    "network": { "from": "tools[].reach.network" },
+    "processes": { "from": "tools[].reach.processes" },
+    "egress_destinations": {
+      "from": "egress.destinations",
+      "empty": "none",
+      "named": "named",
+      "undisclosed_member": "undisclosed"
+    },
+    "telemetry": { "from": "egress.telemetry" },
+    "idempotent": { "from": "tools[].idempotent" },
+    "license": { "from": "license" }
+  }
+}

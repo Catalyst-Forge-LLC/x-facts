@@ -312,11 +312,28 @@
     }
 
     /* ----- Derived Panel ----- */
+    .panel-compare {
+      display: grid;
+      gap: 1.25rem;
+    }
+    @media (min-width: 52rem) {
+      .panel-compare { grid-template-columns: 1fr 1fr; }
+    }
+    .compare-kicker {
+      margin: 0 0 0.45rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
     .derived-panel {
-      max-width: 40rem;
+      max-width: none;
       background: rgba(26, 34, 44, 0.55);
       border: 1px solid rgba(45, 212, 191, 0.28);
       padding: 1.1rem 1.15rem 1.2rem;
+    }
+    .derived-panel.native {
+      border-color: rgba(251, 191, 36, 0.4);
     }
     .derived-panel h3 {
       font-family: var(--font-display);
@@ -344,6 +361,8 @@
     }
     .derived-panel .banner.caution { border-color: #fbbf24; }
     .derived-panel .banner.caution strong { color: #fde68a; }
+    .derived-panel .banner.native { border-color: #fbbf24; }
+    .derived-panel .banner.native strong { color: #fde68a; }
     .derived-panel table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
     .derived-panel th {
       text-align: left;
@@ -796,14 +815,25 @@
       <div class="wrap">
         <h2 class="section-title">The Panel</h2>
         <p class="section-lead">
-          Derived from a recorded MCP <code>tools/list</code>. Missing facts stay
-          <code>undisclosed</code>. This page does not re-fetch the server.
+          Two views of the same ForgeTrail MCP server, same row keys. Left is
+          derived from a recorded <code>tools/list</code>. Right is the native
+          stopgap over the reviewed <code>TOOL_FACTS.md</code>. They do not have
+          to agree. This page does not re-fetch the server.
         </p>
-        <div id="hub-panel" class="derived-panel" aria-live="polite">Loading ForgeTrail Panel…</div>
+        <div class="panel-compare">
+          <div>
+            <p class="compare-kicker">Derived · mcp-tools-list</p>
+            <div id="hub-panel" class="derived-panel" aria-live="polite">Loading derived Panel…</div>
+          </div>
+          <div>
+            <p class="compare-kicker">Native · tool-facts</p>
+            <div id="hub-panel-native" class="derived-panel native" aria-live="polite">Loading native Panel…</div>
+          </div>
+        </div>
         <p class="derived-actions">
-          <a href="/examples/forgetrail-mcp.panel.json">Raw JSON</a>
-          <a href="/v#pn1.eNqtVl1v6zYM_SuCXq-dOM5X49diBYbtXhS7BQbcojBkiUrUypIh0mmzoP99kPOlXmzAiuUtOiLPoUiG9J53woGttxDQeMcrXowmo4Jn3IodBF5x8t7yjGPfPIMkXu25Ey3wit_5sIaHIIxlX2_v2XcIWwg841I474wUtu6D5RXfEHVYjcc62lO0HynY8ox3fWMNbgaVW0HC7pDYwMozngY0HU0K_n6OoTYKHBnaxWBOv2vpnY4HGWPrRCAjYtydkC9iHTHXtdUlhryV3b_IBP-KvHrc8xfY8Yq_GKeGfDQQn_Pb4bgVto-srexyPD2ddl3EwPVtTBlsIQxhcuO05-_ZiTL0jkwLCesfZ-REbL0UNu-Cl4D4CW4KwmHnAyXsDwl24kdSxn-CVwYYUi0sJsy3H9ATd--UQWk9groofAQTISl6ijW4aKFRUIPWIAnrVx8wfcyf8cyiCTuYJMIBhPrEm7SxgDskaBP-uxS81osc0KsPL4nMtzNyLY1jr0Ban_sEu5YOrAMg1gqQjBPxMlX8ZbhlP91eS5vAQgsUdml3J9i1dIyCtvMELu28X1PwqEShh__ecNZIcJj-8X8_I_8z9KcsNsAWnBhG4D6eYn8fZ1Qc45hbM_yVjlf_MPXR90FCrX1oBR1cxx9cjwYXz7Io53kxzcvF5fYw-IcJU43HzitgP6pxbHfshIRkFYwv83OsDNLYOAVvo-fYMxpIbkDVQyBlUS7yYpVPFg_FrJpNqnI6WhWrH3HheBdrUiuzBoy2uBHlfFFJ3axA69lyXs5mupksRaPmoAstZClX07mE1c1Eq1KAFPNVI2eiWU5nMNGwnM1nMOcZP1DW55Vm_ho6mlf8WWIetLxZ3sy_gNuC9R3kSMF0Hagvh5ShDzTUK1ZLG3nyVRDM9lBIs3aC-jDsJ-9iGwiiYJr-aHoftzM7OjAdfDss24F_HEvCmh17uxOScMS-eWLCMa-1kUYc1nJchFpIGvEsKtTglA8IbWziih88mUHmoq_WxhpBoNiroQ3zgR3NVZShDbCvXoFltzHjb8TugycvvWVd8HEzj-L61AFw4-LSqvacyNYI0juFvJouiiLjSCJ2pRYW4T3jvWtFzFmtDdho9Th8cuDj00gBymC6IRXZGTWu6-m73EArEnT4KHl6_xs7wwN8">Portable /v card</a>
-          <a href="https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md">Hand-authored ToolFacts</a>
+          <a href="/examples/forgetrail-mcp.panel.json">Derived JSON</a>
+          <a href="/examples/forgetrail-mcp.native.panel.json">Native JSON</a>
+          <a href="https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md">Reviewed TOOL_FACTS.md</a>
         </p>
       </div>
     </section>
@@ -976,6 +1006,7 @@
           ${esc(panel.provenance?.attribution || "Derived view. The source document stays canonical.")}
           Recorded ${esc(fetched)}. Not a live drift monitor.
         </div>
+        ${panel.provenance?.profile === "tool-facts" ? `<div class="banner native" role="status"><strong>Native / xFacts-defined</strong> Stopgap over TOOL_FACTS.md, not a live tools/list.</div>` : ""}
         ${conf && conf !== "resolved" ? `<div class="banner caution" role="status"><strong>Identity ${esc(conf)}</strong> The digest binds what the server said that day, not what the binary is now.</div>` : ""}
         <table>
           <thead><tr><th>Fact</th><th>Value</th><th>Severity</th></tr></thead>
@@ -987,21 +1018,25 @@
           profile ${esc(panel.provenance?.profile || "")} @ ${esc(panel.provenance?.profile_version || "")}
         </p>`;
     }
-    const mount = document.getElementById("hub-panel");
-    fetch("/examples/forgetrail-mcp.panel.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Could not load the recorded Panel JSON.");
-        return res.json();
-      })
-      .then((panel) => {
-        if (!panel || panel.panel_version !== "0.1.0" || !panel.rows) {
-          throw new Error("Unrecognized or incomplete Panel.");
-        }
-        mount.innerHTML = renderHubPanel(panel);
-      })
-      .catch((err) => {
-        mount.innerHTML = `<p class="err">${esc(err.message)} Open the <a href="/v/">portable viewer</a>.</p>`;
-      });
+    function mountPanel(id, url) {
+      const mount = document.getElementById(id);
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error("Could not load the recorded Panel JSON.");
+          return res.json();
+        })
+        .then((panel) => {
+          if (!panel || panel.panel_version !== "0.1.0" || !panel.rows) {
+            throw new Error("Unrecognized or incomplete Panel.");
+          }
+          mount.innerHTML = renderHubPanel(panel);
+        })
+        .catch((err) => {
+          mount.innerHTML = `<p class="err">${esc(err.message)} Open the <a href="/v/">portable viewer</a>.</p>`;
+        });
+    }
+    mountPanel("hub-panel", "/examples/forgetrail-mcp.panel.json");
+    mountPanel("hub-panel-native", "/examples/forgetrail-mcp.native.panel.json");
   </script>
 </body>
 </html>

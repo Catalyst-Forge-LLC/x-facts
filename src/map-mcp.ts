@@ -1,4 +1,5 @@
-import { harshness, rowLabel, severityFor } from "./spec.ts";
+import { collapseStated } from "./collapse.ts";
+import { rowLabel, severityFor } from "./spec.ts";
 import type {
   FetchContext,
   McpTool,
@@ -18,21 +19,6 @@ function row(key: string, value: RowValue, type?: RowType): PanelRow {
     type: t,
     severity: severityFor(key, value),
   };
-}
-
-function collapseStated<T>(
-  key: string,
-  stated: T[],
-  silent: boolean,
-  harshest: T,
-): T | "undisclosed" {
-  if (stated.length === 0) return "undisclosed";
-  let worst = stated[0];
-  for (const v of stated.slice(1)) {
-    if (harshness(key, v) > harshness(key, worst)) worst = v;
-  }
-  if (silent && worst !== harshest) return "undisclosed";
-  return worst;
 }
 
 function sideEffects(tools: McpTool[]): RowValue {

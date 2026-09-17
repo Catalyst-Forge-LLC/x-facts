@@ -32,7 +32,8 @@ specs/
   PANEL.md                     Master Panel spec (derived views + drift)
   panel.schema.json            Panel schema (tool layer)
   enums.json                   Tool row keys
-  profiles/mcp-tools-list/     First profile
+  profiles/mcp-tools-list/     First profile (derived)
+  profiles/tool-facts/         Native stopgap over TOOL_FACTS.md
   PANEL-DECISIONS.md           Dated decision log for the Panel work
   ROADMAPS.md                  Suite sequencing
 src/                           Panel CLI and tests
@@ -56,20 +57,23 @@ pnpm drift panel.json --source specs/profiles/mcp-tools-list/test-vectors/annota
 pnpm encode panel.json          # https://xfacts.dev/v#pn1.…
 pnpm badge panel.json --out badge.svg
 pnpm panel --stdio -- node ../forgetrail/mcp-server/dist/index.js
+pnpm panel --source ../tool-facts/examples/forgetrail-mcp/TOOL_FACTS.md \
+  --out forgetrail.native.panel.json
 ```
 
 | Path | Role |
 |---|---|
 | `specs/panel.schema.json` | Panel JSON Schema |
 | `specs/enums.json` | `tool` row keys only |
-| `specs/profiles/mcp-tools-list/` | First profile |
+| `specs/profiles/mcp-tools-list/` | Derived profile |
+| `specs/profiles/tool-facts/` | Native stopgap over `TOOL_FACTS.md` |
 | `src/` | Fetch, map, validate, integrity, drift |
 | `site/v/` | Portable viewer (`pn1.` fragment) |
 | `reviews/` | Consumer / upstream replies |
 
 Exit codes: `0` ok · `1` schema · `2` usage · `3` integrity · `4` severity-increasing drift · `5` other row drift.
 
-Native `tool-facts` profile is next (stopgap). Badge and viewer already distinguish native vs adapted.
+The native `tool-facts` profile is a stopgap. Viewer and badge mark it **native / xFacts-defined**.
 
 ## LocalHelm plugin
 

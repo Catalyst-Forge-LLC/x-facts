@@ -22,6 +22,7 @@ def write_tool_facts(
     repository: str,
     tools: list[tuple],
     note: str,
+    license: str = "Apache-2.0",
 ) -> None:
     lines = [
         "---",
@@ -30,7 +31,7 @@ def write_tool_facts(
         "developer: Catalyst Forge",
         f"version: {q(version)}",
         "status: active",
-        "license: Apache-2.0",
+        f"license: {license}",
         "kind: mcp-server",
         f"homepage: {homepage}",
         f"repository: {repository}",
@@ -71,7 +72,7 @@ def write_tool_facts(
         "| **Developer** | Catalyst Forge |",
         f"| **Version** | {version} |",
         "| **Status** | active |",
-        "| **License** | Apache-2.0 |",
+        f"| **License** | {license} |",
         "| **Kind** | mcp-server |",
         "",
         "## Runtime",
@@ -279,6 +280,7 @@ def main() -> None:
         ("validateTracking", "Validate .forgetrail/workflow_tracking.json (inline JSON or optional filesystem path) against schema and phase rules", "read", "scoped", "none", False, True),
         ("suggestSubagentDecomposition", "Return recommended subagent spawn parameters for a phase and task", "none", "none", "none", False, True),
         ("ingestPlanArtifact", "Map an approved plan artifact into a PHASE_1_BRIEF.md draft plus decisions[] entries", "none", "none", "none", False, True),
+        ("getCompanionSuggestions", "Return optional Catalyst Forge companion tools for a ForgeTrail phase or situation", "none", "none", "none", False, True),
         ("getPlanModePatterns", "Return guidance for using native agent plan modes as Phase 1", "none", "none", "none", False, True),
         ("getAgentIntegrationGuide", "Return tailored ForgeTrail bootstrap mappings for a specific agent host", "none", "none", "none", False, True),
         ("getForgeTrailSkill", "Return the canonical forgetrail SKILL.md for skill-capable agents", "none", "none", "none", False, True),
@@ -290,11 +292,11 @@ def main() -> None:
             Path("z:/workspace/tool-facts/site/examples/forgetrail-mcp/TOOL_FACTS.md"),
         ],
         name="ForgeTrail MCP Server",
-        version="0.2.2",
+        version="0.3.10",
         homepage="https://forgetrail.dev",
         repository="https://github.com/Catalyst-Forge-LLC/forgetrail",
         tools=ft_tools,
-        note="tools inventory from forgetrail-mcp 0.2.2",
+        note="tools inventory from forgetrail-mcp 0.3.10",
     )
 
     write_skill_facts(
@@ -345,11 +347,12 @@ def main() -> None:
             Path("z:/workspace/tool-facts/site/examples/ollanet-mcp/TOOL_FACTS.md"),
         ],
         name="ollanet MCP Server",
-        version="0.6.6",
+        version="0.6.13",
+        license="MIT",
         homepage="https://ollanet.dev",
         repository="https://github.com/Catalyst-Forge-LLC/ollanet",
         tools=ol_tools,
-        note="tools inventory from ollanet mcp 0.6.6",
+        note="tools inventory from ollanet mcp 0.6.13",
     )
 
     # dictawhisper MCP (real read-only journal server)
@@ -366,11 +369,12 @@ def main() -> None:
             Path("z:/workspace/tool-facts/site/examples/dictawhisper-mcp/TOOL_FACTS.md"),
         ],
         name="DictaWhisper MCP Server",
-        version="0.0.3",
+        version="0.1.2",
+        license="MIT",
         homepage="https://dictawhisper.com",
         repository="https://github.com/Catalyst-Forge-LLC/dictawhisper",
         tools=dw_tools,
-        note="tools inventory from dictawhisper mcp (read-only journal)",
+        note="tools inventory from dictawhisper mcp 0.1.2, read-only journal",
     )
 
     # TemperPass x4

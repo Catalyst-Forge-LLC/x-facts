@@ -23,7 +23,7 @@ Maintainer analysis stays in
 |---|---|---|
 | P0 | **Deploy + discoverability** (**done:** all five labels + hub live) | Sites resolve; legacy natives stay published |
 | P1 | **Panel + `mcp-tools-list`** | **Code:** schema, profile, validator, drift, `/v`, badge. **Open:** external consumer review ([`reviews/`](../reviews/)). |
-| P2 | Native `tool-facts` Panel profile (marked stopgap) | Bridge from existing `TOOL_FACTS.md` without new authoring UX |
+| P2 | Native `tool-facts` Panel profile (marked stopgap) | **Code:** `TOOL_FACTS.md` → same `tool` rows as `mcp-tools-list`. Viewer/badge mark native. |
 | P3 | Further profiles (A2A / HF / SBOM) only after tool path has an external user | Depth over breadth |
 | Ongoing | Refuse new layers that fail admission; no “certified” without measurement; do not grow surface area to look complete |
 

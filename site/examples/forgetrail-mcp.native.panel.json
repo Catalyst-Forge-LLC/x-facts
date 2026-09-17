@@ -1,0 +1,132 @@
+{
+  "panel_version": "0.1.0",
+  "layer": "tool",
+  "subject": {
+    "name": "ForgeTrail MCP Server",
+    "canonical_url": "https://forgetrail.dev",
+    "publisher": "Catalyst Forge",
+    "version": "0.3.10"
+  },
+  "subject_identity": {
+    "identity_confidence": "partial",
+    "package": "npm:forgetrail-mcp",
+    "version": "0.3.10"
+  },
+  "rows": [
+    {
+      "key": "kind",
+      "label": "Kind",
+      "value": "mcp-server",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "runtime",
+      "label": "Runtime",
+      "value": "local-process",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "transport",
+      "label": "Transport",
+      "value": "stdio",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "credentials",
+      "label": "Credentials",
+      "value": "none",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "side_effects_worst",
+      "label": "Worst side effect",
+      "value": "read",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "filesystem",
+      "label": "Filesystem",
+      "value": "scoped",
+      "type": "enum",
+      "severity": "caution"
+    },
+    {
+      "key": "network",
+      "label": "Network",
+      "value": "none",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "processes",
+      "label": "Processes",
+      "value": false,
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "egress_destinations",
+      "label": "Egress destinations",
+      "value": "none",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "telemetry",
+      "label": "Telemetry",
+      "value": "none",
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "idempotent",
+      "label": "Idempotent",
+      "value": true,
+      "type": "enum",
+      "severity": "info"
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "value": "Apache-2.0",
+      "type": "scalar",
+      "severity": "info"
+    }
+  ],
+  "provenance": {
+    "profile": "tool-facts",
+    "profile_version": "0.1.0",
+    "source_format": "tool-facts/md",
+    "source_version": "0.1.0",
+    "source_url": "https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md",
+    "fetched_at": "2026-09-16T00:00:00.000Z",
+    "content_digest": "sha256:3efed80a2bad81ccdfd1a43a2dc17cf4b0446b620b67d7a2aa5050d6e0778916",
+    "digest_canonicalization": "jcs-rfc8785+frontmatter-only+tools-sorted",
+    "verification": "self-asserted",
+    "signature": "none",
+    "attribution": "Panel projected from TOOL_FACTS.md by xFacts. Native / xFacts-defined stopgap, not a live tools/list.",
+    "non_endorsement": "This profile reads an xFacts-defined format. It is not an MCP artifact and is not a certificate."
+  },
+  "freshness": {
+    "ttl_seconds": 3600,
+    "stale": false
+  },
+  "unmapped_fields": [
+    "credits",
+    "developer",
+    "generated",
+    "homepage",
+    "name",
+    "repository",
+    "status",
+    "tool_facts_version",
+    "tools[].name",
+    "tools[].purpose",
+    "version"
+  ]
+}

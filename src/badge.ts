@@ -18,7 +18,8 @@ export function worstSeverity(panel: Panel): Severity {
 export function badgeSvg(panel: Panel): string {
   const sev = worstSeverity(panel);
   const ver = panel.provenance.verification;
-  const label = `${sev} · ${ver}`;
+  const native = panel.provenance.profile === "tool-facts";
+  const label = native ? `${sev} · ${ver} · native` : `${sev} · ${ver}`;
   const color = COLORS[sev];
   const width = 18 + label.length * 6.4;
   return `<?xml version="1.0" encoding="UTF-8"?>

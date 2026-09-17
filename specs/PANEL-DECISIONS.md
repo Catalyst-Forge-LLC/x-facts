@@ -5,6 +5,7 @@ Short, dated entries. The point is traceability. Normative text lives in [`PANEL
 | Date | Decision | Why |
 |---|---|---|
 | 2026-08-17 | Single master spec in x-facts (`PANEL.md`). No per-label Panel specs this cycle. | One implementable contract. Per-profile docs appear when a profile ships. |
+| 2026-09-16 | Native `tool-facts` profile ships as a stopgap over YAML frontmatter. Same `tool` row keys as `mcp-tools-list`. | Lets a reviewed file and a derived `tools/list` sit in one shape. No authoring UX. Deprecate if MCP grows equivalent fields. |
 | 2026-08-17 | Tool path first. `mcp-tools-list` is the demonstration. App / model / skill / agent enums deferred. | Depth over breadth. Derived tool-surface drift is the edge; other layers are presentation of facts already available elsewhere. |
 | 2026-08-17 | Five live `{LABEL}_FACTS.md` formats stay published as transitional natives. Only `tool-facts` gets a Panel profile this cycle, marked native/stopgap. | Public sites remain useful. They are not the next product surface. |
 | 2026-08-17 | Severity tables: global per row key, documented per-profile overrides. | Comparability across profiles; honesty when source semantics differ. Revisit at the second profile. |

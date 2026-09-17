@@ -16,9 +16,10 @@
 ## Panel
 
 Derived tool-surface view (not a sixth label). Hub embed: https://xfacts.dev/#panel
-Recorded JSON: https://xfacts.dev/examples/forgetrail-mcp.panel.json
+Derived JSON (`mcp-tools-list`): https://xfacts.dev/examples/forgetrail-mcp.panel.json
+Native JSON (`tool-facts` stopgap): https://xfacts.dev/examples/forgetrail-mcp.native.panel.json
 Schema: https://xfacts.dev/schema/panel.schema.json
-Viewer: https://xfacts.dev/v/ (`pn1.` fragment). Profile: `mcp-tools-list` over a recorded `tools/list`.
+Viewer: https://xfacts.dev/v/ (`pn1.` fragment).
 Missing facts are `undisclosed`. The hub does not re-fetch or run a live drift monitor.
 
 ## Dogfood

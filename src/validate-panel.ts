@@ -24,11 +24,18 @@ export function validatePanel(data: unknown): ValidateIssue[] {
     return issues;
   }
   const panel = data as Panel;
-  if (panel.provenance.digest_canonicalization !== "jcs-rfc8785+envelope-stripped+tools-sorted" &&
-      panel.provenance.profile === "mcp-tools-list") {
+  if (panel.provenance.profile === "mcp-tools-list" &&
+      panel.provenance.digest_canonicalization !== "jcs-rfc8785+envelope-stripped+tools-sorted") {
     issues.push({
       path: "/provenance/digest_canonicalization",
       message: "mcp-tools-list must use jcs-rfc8785+envelope-stripped+tools-sorted",
+    });
+  }
+  if (panel.provenance.profile === "tool-facts" &&
+      panel.provenance.digest_canonicalization !== "jcs-rfc8785+frontmatter-only+tools-sorted") {
+    issues.push({
+      path: "/provenance/digest_canonicalization",
+      message: "tool-facts must use jcs-rfc8785+frontmatter-only+tools-sorted",
     });
   }
   if (!panel.provenance.content_digest) {

@@ -13,7 +13,7 @@ import { validatePanel } from "./validate-panel.ts";
 function usage(): never {
   console.error(`xFacts Panel
 
-  pnpm panel --source tools.json [--name NAME] [--url CANONICAL] [--out panel.json]
+  pnpm panel --source tools.json|TOOL_FACTS.md [--name NAME] [--url CANONICAL] [--out panel.json]
   pnpm panel --stdio -- <command> [args…]
   pnpm panel --http URL
   pnpm validate panel.json
@@ -70,6 +70,12 @@ function loadJson(path: string): unknown {
   return JSON.parse(readFileSync(resolve(path), "utf8"));
 }
 
+function loadSourceFile(path: string): unknown {
+  const resolved = resolve(path);
+  if (resolved.endsWith(".md")) return readFileSync(resolved, "utf8");
+  return loadJson(resolved);
+}
+
 function writeOut(path: string | undefined, text: string) {
   if (!path) {
     process.stdout.write(text);
@@ -92,7 +98,7 @@ function overlayCtx(base: FetchContext, args: ReturnType<typeof parseArgs>): Fet
 
 async function loadSource(args: ReturnType<typeof parseArgs>): Promise<{ source: unknown; ctx: FetchContext }> {
   if (args.source) {
-    const source = loadJson(args.source);
+    const source = loadSourceFile(args.source);
     const ctx: FetchContext = {
       sourceUrl: args.url ?? `file://${resolve(args.source)}`,
       canonicalUrl: args.url ?? `file://${resolve(args.source)}`,
@@ -152,7 +158,7 @@ async function main() {
       printIssues(issues);
       process.exit(EXIT.schema);
     }
-    const result = checkIntegrity(panel, loadJson(args.source));
+    const result = checkIntegrity(panel, loadSourceFile(args.source));
     if (!result.ok) {
       console.error(`integrity fail: panel ${result.actual} != source ${result.expected}`);
       process.exit(EXIT.integrity);
