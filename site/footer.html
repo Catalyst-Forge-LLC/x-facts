@@ -8,7 +8,7 @@
   1. Copy the CSS into the page <style> (or link a shared sheet later).
   2. Paste the <footer> markup at the bottom of the page.
   3. Mark the current site: replace its <a> with <span class="current">…</span>
-     and set data-current on the footer to hub|app|model|tool|agent|skill.
+     and set data-current on the footer to hub|app|model|tool|agent|skill|feature.
   4. Accent CSS variables below assume a dark AppFacts-family page. If a sibling
      already defines --app/--model/etc, omit the :root block and keep the rest.
   5. In the hero lede (under the brand), mention the suite with lowercase x:
@@ -31,6 +31,8 @@
     --xf-agent-soft: #fbd38d;
     --xf-skill: #f472b6;
     --xf-skill-soft: #f9a8d4;
+    --xf-feature: #8a9a40;
+    --xf-feature-soft: #c4d06a;
     --xf-mute: #9aa8b8;
     --xf-max: 68rem;
   }
@@ -78,6 +80,7 @@
   .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"] { color: var(--xf-tool-soft); }
   .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"] { color: var(--xf-agent-soft); }
   .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"] { color: var(--xf-skill-soft); }
+  .xfacts-family-footer .xfacts-footer-nav a[data-label="feature"] { color: var(--xf-feature-soft); }
 
   .xfacts-family-footer .xfacts-footer-nav a:hover { color: #fff; }
 
@@ -113,6 +116,7 @@
       <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
       <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
       <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+      <li><a data-label="feature" href="https://featurefacts.dev">FeatureFacts</a></li>
     </ul>
     <div class="xfacts-footer-credit">
       <div>© 2026 xFacts</div>
@@ -133,6 +137,7 @@
         <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
         <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
         <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+        <li><a data-label="feature" href="https://featurefacts.dev">FeatureFacts</a></li>
       </ul>
       <div class="xfacts-footer-credit">
         <div>© 2026 AppFacts</div>

@@ -173,6 +173,7 @@ const FACTS_KINDS = {
 	'SKILL_FACTS.md': 'skill',
 	'AGENT_FACTS.md': 'agent',
 	'MODEL_FACTS.md': 'model',
+	'FEATURE_FACTS.md': 'feature',
 };
 
 const SKIP_FACTS_DIRS = new Set([
@@ -187,7 +188,7 @@ const SKIP_FACTS_DIRS = new Set([
 ]);
 
 function walkFacts(root) {
-	const hits = { app: [], tool: [], skill: [], agent: [], model: [] };
+	const hits = { app: [], tool: [], skill: [], agent: [], model: [], feature: [] };
 	function walk(dir, depth) {
 		if (depth > 4 || !existsSync(dir)) return;
 		for (const ent of readdirSync(dir, { withFileTypes: true })) {
@@ -249,6 +250,7 @@ function inspectRepo(project) {
 	const skillItems = uniqueFactsItems(found.skill.map((p) => factsItem(p, 'skill')).filter(Boolean));
 	const agentItems = uniqueFactsItems(found.agent.map((p) => factsItem(p, 'agent')).filter(Boolean));
 	const modelItems = uniqueFactsItems(found.model.map((p) => factsItem(p, 'model')).filter(Boolean));
+	const featureItems = uniqueFactsItems(found.feature.map((p) => factsItem(p, 'feature')).filter(Boolean));
 	const appItems = uniqueFactsItems(
 		found.app.map((p) => factsItem(p, 'app')).filter(Boolean),
 	).map((item) => ({ ...item, label: name !== '—' ? name : item.label }));
@@ -257,6 +259,7 @@ function inspectRepo(project) {
 		['skill', skillItems],
 		['agent', agentItems],
 		['model', modelItems],
+		['feature', featureItems],
 		['app', appItems],
 	]) {
 		for (const item of items) {
@@ -285,7 +288,8 @@ function inspectRepo(project) {
 		toolItems.length > 0 ||
 		skillItems.length > 0 ||
 		agentItems.length > 0 ||
-		modelItems.length > 0;
+		modelItems.length > 0 ||
+		featureItems.length > 0;
 	if (!hasFacts) status = 'no label';
 	else if (app === 'missing') status = 'ok';
 
@@ -304,6 +308,7 @@ function inspectRepo(project) {
 		skill: skillItems.length ? skillItems.map((item) => item.label).join(' · ') : '—',
 		agent: agentItems.length ? agentItems.map((item) => item.label).join(' · ') : '—',
 		model: modelItems.length ? modelItems.map((item) => item.label).join(' · ') : '—',
+		feature: featureItems.length ? featureItems.map((item) => item.label).join(' · ') : '—',
 		viewer,
 		viewers,
 		viewerStatus,
@@ -317,6 +322,7 @@ function inspectRepo(project) {
 		skillItems,
 		agentItems,
 		modelItems,
+		featureItems,
 		hasShip: Boolean(shipDir),
 		shipDir,
 	};
@@ -344,6 +350,7 @@ function factsPaths(row) {
 				...(row.skillItems ?? []).map((item) => item.path),
 				...(row.agentItems ?? []).map((item) => item.path),
 				...(row.modelItems ?? []).map((item) => item.path),
+				...(row.featureItems ?? []).map((item) => item.path),
 			].filter(Boolean),
 		),
 	];

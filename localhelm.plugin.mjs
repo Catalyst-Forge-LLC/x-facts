@@ -47,6 +47,7 @@ const LABEL_COLS = [
 	{ id: 'skill', label: 'skill' },
 	{ id: 'agent', label: 'agent' },
 	{ id: 'model', label: 'model' },
+	{ id: 'feature', label: 'feature' },
 ];
 
 function rowActions(row) {

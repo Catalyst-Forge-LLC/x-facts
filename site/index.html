@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>xFacts · Small labels for apps, models, tools, agents, and skills</title>
-  <meta name="description" content="Small, structured labels for apps, models, tools, agents, and skills. Read, compare, and review declarations before you adopt something." />
+  <title>xFacts · Small labels for apps, models, tools, agents, skills, and features</title>
+  <meta name="description" content="Small, structured labels for apps, models, tools, agents, skills, and product features. Read, compare, and review declarations before you adopt something." />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="canonical" href="https://xfacts.dev/" />
   <meta property="og:title" content="xFacts" />
-  <meta property="og:description" content="Small, structured labels for apps, models, tools, agents, and skills." />
+  <meta property="og:description" content="Small, structured labels for apps, models, tools, agents, skills, and product features." />
   <meta property="og:url" content="https://xfacts.dev/" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,6 +32,8 @@
       --agent-soft: #fbd38d;
       --skill: #f472b6;
       --skill-soft: #f9a8d4;
+      --feature: #8a9a40;
+      --feature-soft: #c4d06a;
       --radius: 2px;
       --font-display: "Sora", sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -162,6 +164,7 @@
     .marks .tool { background: var(--tool); }
     .marks .agent { background: var(--agent); }
     .marks .skill { background: var(--skill); }
+    .marks .feature { background: var(--feature); }
 
     @keyframes fadeup {
       from { opacity: 0; transform: translateY(10px); }
@@ -283,6 +286,7 @@
     .label-card[data-label="tool"] { --mark: var(--tool); --mark-soft: var(--tool-soft); }
     .label-card[data-label="agent"] { --mark: var(--agent); --mark-soft: var(--agent-soft); }
     .label-card[data-label="skill"] { --mark: var(--skill); --mark-soft: var(--skill-soft); }
+    .label-card[data-label="feature"] { --mark: var(--feature); --mark-soft: var(--feature-soft); }
 
     /* ----- Rules ----- */
     .rules {
@@ -463,6 +467,7 @@
     .mini-label[data-label="tool"] { --mark: var(--tool); }
     .mini-label[data-label="agent"] { --mark: var(--agent); }
     .mini-label[data-label="skill"] { --mark: var(--skill); }
+    .mini-label[data-label="feature"] { --mark: var(--feature); }
 
     .panel-note {
       margin: 1.25rem 0 0;
@@ -614,6 +619,8 @@
     .xfacts-family-footer .xfacts-footer-nav span[data-label="agent"] { color: var(--agent-soft); }
     .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"],
     .xfacts-family-footer .xfacts-footer-nav span[data-label="skill"] { color: var(--skill-soft); }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="feature"],
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="feature"] { color: var(--feature-soft); }
 
     .xfacts-family-footer .xfacts-footer-nav a:hover { color: #fff; }
 
@@ -646,7 +653,7 @@
         <div>
           <p class="decision">What can this installed tool touch?</p>
           <h1 class="brand"><span class="x">x</span>Facts</h1>
-          <p class="lede">Small, structured labels for apps, models, tools, agents, and skills.</p>
+          <p class="lede">Small, structured labels for apps, models, tools, agents, skills, and features.</p>
           <p class="sub">
             Read the declaration that matches the decision in front of you, then compare it with
             the rest of the family. A validator checks structure. It does not prove the claims are
@@ -658,6 +665,7 @@
             <li class="tool" title="ToolFacts"></li>
             <li class="agent" title="AgentFacts"></li>
             <li class="skill" title="SkillFacts"></li>
+            <li class="feature" title="FeatureFacts"></li>
           </ul>
         </div>
         <div class="hero-label">
@@ -680,7 +688,7 @@
   <main>
     <section id="anatomy">
       <div class="wrap">
-        <h2 class="section-title">Five labels, five objects</h2>
+        <h2 class="section-title">Six labels, six objects</h2>
         <p class="section-lead">Pick the label that matches the thing you are about to adopt. Metaphors are optional.</p>
         <div class="anatomy">
           <a class="label-card" data-label="app" href="https://appfacts.dev">
@@ -730,6 +738,16 @@
             <div class="meta">
               <span class="status">Live</span>
               <span>skillfacts.dev</span>
+            </div>
+          </a>
+
+          <a class="label-card" data-label="feature" href="https://featurefacts.dev">
+            <p class="layer">Terrain</p>
+            <h3 class="name">Feature<span>Facts</span></h3>
+            <p class="answers">What can this product do?</p>
+            <div class="meta">
+              <span class="status">Draft</span>
+              <span>featurefacts.dev</span>
             </div>
           </a>
         </div>
@@ -842,9 +860,9 @@
       <div class="wrap">
         <h2 class="section-title">The family, composed</h2>
         <p class="section-lead">
-          A serious AI product can ship five files side by side. This grid is a sketch of that idea, not a derived Panel and not our stack.
+          A serious AI product can ship six files side by side. This grid is a sketch of that idea, not a derived Panel and not our stack.
         </p>
-        <div class="panel" aria-label="Sketch of five xFacts labels">
+        <div class="panel" aria-label="Sketch of six xFacts labels">
           <article class="mini-label" data-label="app">
             <h3>App Facts</h3>
             <p class="file">APP_FACTS.md</p>
@@ -884,6 +902,14 @@
             <div class="row"><strong>Shell</strong><span>none</span></div>
             <div class="row thick"><strong>Network</strong><span>none</span></div>
             <div class="row"><strong class="accent">Playbook</strong><span>teach · reach</span></div>
+          </article>
+          <article class="mini-label" data-label="feature">
+            <h3>Feature Facts</h3>
+            <p class="file">FEATURE_FACTS.md</p>
+            <div class="row thick"><strong>Mode</strong><span>map-backed</span></div>
+            <div class="row"><strong>Rows</strong><span>0–12 curated</span></div>
+            <div class="row thick"><strong>Register</strong><span>.featurefacts/</span></div>
+            <div class="row"><strong class="accent">Terrain</strong><span>can do · evidence</span></div>
           </article>
         </div>
         <p class="panel-note">
@@ -962,6 +988,7 @@
         <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
         <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
         <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+        <li><a data-label="feature" href="https://featurefacts.dev">FeatureFacts</a></li>
       </ul>
       <div class="xfacts-footer-credit">
         <div>© 2026 xFacts</div>

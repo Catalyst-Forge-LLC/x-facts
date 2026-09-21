@@ -12,6 +12,7 @@
 | ToolFacts | Tool | What does this tool touch when invoked? | https://toolfacts.dev/llms.txt |
 | AgentFacts | Agent configuration | What may this configuration do? | https://agentfacts.dev/llms.txt |
 | SkillFacts | Skill package | What will this skill teach an agent to do? | https://skillfacts.dev/llms.txt |
+| FeatureFacts | Terrain | What can this product do? | https://featurefacts.dev/llms.txt |
 
 ## Panel
 
