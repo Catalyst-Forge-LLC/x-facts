@@ -2,7 +2,7 @@
 
 **x is a variable, not a social network.**
 
-The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): a family of small, validatable nutrition labels, one per layer of the AI stack, that make software legible at the moment someone decides whether to trust it.
+The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): small, validatable nutrition labels for software, one per question you have at adoption time. AppFacts and FeatureFacts fit any app. ToolFacts fits tools (v0.1: MCP servers). ModelFacts, AgentFacts, and SkillFacts cover the AI layers when a system has them. A given system may need only two.
 
 This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the six sibling repos; they are transitional natives.
 
@@ -13,7 +13,7 @@ This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](
 | [ToolFacts](https://toolfacts.dev) | Toolbelt | toolfacts.dev | Live |
 | [AgentFacts](https://agentfacts.dev) | Hands | agentfacts.dev | Live |
 | [SkillFacts](https://skillfacts.dev) | Playbook | skillfacts.dev | Live |
-| [FeatureFacts](https://featurefacts.dev) | Terrain | featurefacts.dev | Live |
+| [FeatureFacts](https://featurefacts.dev) | Terrain (product capabilities) | featurefacts.dev | Live |
 
 ## What's in here
 

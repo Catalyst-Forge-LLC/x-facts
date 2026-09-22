@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>xFacts · Small labels for apps, models, tools, agents, skills, and features</title>
-  <meta name="description" content="Small, structured labels for apps, models, tools, agents, skills, and product features. Read, compare, and review declarations before you adopt something." />
+  <title>xFacts · Small labels for apps, features, tools, models, agents, and skills</title>
+  <meta name="description" content="Small, structured labels for software: apps, product features, tools, and the AI layers when a system has them. Read, compare, and review declarations before you adopt something." />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="canonical" href="https://xfacts.dev/" />
   <meta property="og:title" content="xFacts" />
-  <meta property="og:description" content="Small, structured labels for apps, models, tools, agents, skills, and product features." />
+  <meta property="og:description" content="Small, structured labels for software: apps, product features, tools, and the AI layers when a system has them." />
   <meta property="og:url" content="https://xfacts.dev/" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -394,7 +394,8 @@
       font-size: 0.72rem;
       line-height: 1.5;
     }
-    .derived-panel .meta code { color: #c9d3de; }
+    .derived-panel .meta code { color: #c9d3de; overflow-wrap: anywhere; }
+    .panel-compare > div { min-width: 0; }
     .derived-panel .err { color: #f87171; }
     .derived-actions {
       display: flex;
@@ -651,13 +652,14 @@
     <div class="wrap hero-copy">
       <div class="hero-grid">
         <div>
-          <p class="decision">What can this installed tool touch?</p>
+          <p class="decision">What is this app built from?</p>
           <h1 class="brand"><span class="x">x</span>Facts</h1>
-          <p class="lede">Small, structured labels for apps, models, tools, agents, skills, and features.</p>
+          <p class="lede">Small, structured labels for software, one per question you have before you adopt it.</p>
           <p class="sub">
-            Read the declaration that matches the decision in front of you, then compare it with
-            the rest of the family. A validator checks structure. It does not prove the claims are
-            true, and it is not a safety certificate.
+            Any app can carry AppFacts and FeatureFacts. Tools carry ToolFacts. ModelFacts,
+            AgentFacts, and SkillFacts cover the AI layers when a system has them. Read the label
+            that matches the decision in front of you. A validator checks structure. It does not
+            prove the claims are true, and it is not a safety certificate.
           </p>
           <ul class="marks" aria-label="xFacts family accents">
             <li class="app" title="AppFacts"></li>
@@ -669,16 +671,21 @@
           </ul>
         </div>
         <div class="hero-label">
-          <article class="mini-label" data-label="tool" aria-label="Example ToolFacts label for runAudit">
-            <h3>Tool Facts</h3>
-            <p class="file">runAudit · ForgeTrail MCP</p>
-            <div class="row thick"><strong>Side effects</strong><span>none</span></div>
-            <div class="row"><strong>Filesystem</strong><span>none</span></div>
-            <div class="row thick"><strong>Network</strong><span>none</span></div>
-            <div class="row"><strong class="accent">Returns</strong><span>audit prompt</span></div>
+          <article class="mini-label" data-label="app" aria-label="AppFacts label for ForeBalance">
+            <h3>App Facts</h3>
+            <p class="file">ForeBalance 0.2.0 · APP_FACTS.md · 2026-09-17</p>
+            <div class="row thick"><strong>Type</strong><span>web app (SPA)</span></div>
+            <div class="row"><strong>Language</strong><span>TypeScript</span></div>
+            <div class="row"><strong>Framework</strong><span>SvelteKit</span></div>
+            <div class="row"><strong>Storage</strong><span>localStorage</span></div>
+            <div class="row thick"><strong>Hosting</strong><span>Cloudflare Pages</span></div>
+            <div class="row"><strong class="accent">License</strong><span>MIT</span></div>
           </article>
           <p class="panel-note" style="margin-top:0.75rem;max-width:36ch;">
-            Returns a packaged audit prompt. Does not scan the user workspace.
+            ForeBalance is a browser app that projects a checking balance. No model inside it.
+            Values come from its published label:
+            <a href="https://appfacts.dev/examples/forebalance/APP_FACTS.md">raw file</a> ·
+            <a href="https://appfacts.dev/v#af1.eNptkk1v2zAMhv-KwdMKKA161WldgG7FWqBAul2GYaAlxlYtS4JIJzOC_PdBtvNx2E0iH5IvX-kIe9APCgL2BBqeYqYv6DEYAgUyphI8UF1hStWn7dvjHShgQRkYNKARty-gd4YCF_b1-X0mTAf6CB5DM2BTMu9joq3JLgkoyEMQN02sczwwZVCwy9jTIeYONGz35IW-O5majd6FpkSRGRSQdRIzaNhES68u55gnLOZ5ko8G_Xa5Kmgjy1y_8XGwO4-ZqjdsqPSqB-ctaPjphOCkwFJi0L-OEEDDZ55kfPC6m5SkW2WTJdyS93BSMz_jC_jj-RK_9kGLSSivioXOLOR8qehvilkuRSZa6s_LFUwyBi6Wx1AtFpxZi-MHL5hFoapHaS_ZHnNHdkm7sCrCW_KpwmArrONwHcqzw7Oq0RPD6bcC3puLJ__xMF93OHtdqhZrj5DQdNjQnx4DNlToFFJf_hexgIa9mw4KjAMNX518G-rqcVqUy5u0sac0P20rkliv17uYqZ7_6T2mVERQilxMGW-wxkk71Pcm9usNCvqRZfUUc0Orl5fNbRM4_QOCAQLO">visual label</a>.
           </p>
         </div>
       </div>
@@ -689,7 +696,11 @@
     <section id="anatomy">
       <div class="wrap">
         <h2 class="section-title">Six labels, six objects</h2>
-        <p class="section-lead">Pick the label that matches the thing you are about to adopt. Metaphors are optional.</p>
+        <p class="section-lead">
+          Pick the label that matches the thing you are about to adopt. Some will not apply. A
+          spreadsheet app with no model inside it needs AppFacts and FeatureFacts, and that is a
+          complete set.
+        </p>
         <div class="anatomy">
           <a class="label-card" data-label="app" href="https://appfacts.dev">
             <p class="layer">Application</p>
@@ -714,7 +725,7 @@
           <a class="label-card" data-label="tool" href="https://toolfacts.dev">
             <p class="layer">Tool</p>
             <h3 class="name">Tool<span>Facts</span></h3>
-            <p class="answers">What does this tool touch when invoked?</p>
+            <p class="answers">What does this tool touch when invoked? Version 0.1 covers MCP servers.</p>
             <div class="meta">
               <span class="status">Live</span>
               <span>toolfacts.dev</span>
@@ -742,7 +753,7 @@
           </a>
 
           <a class="label-card" data-label="feature" href="https://featurefacts.dev">
-            <p class="layer">Terrain</p>
+            <p class="layer">Product capabilities</p>
             <h3 class="name">Feature<span>Facts</span></h3>
             <p class="answers">What can this product do?</p>
             <div class="meta">
@@ -759,7 +770,8 @@
         <h2 class="section-title">We wear them</h2>
         <p class="section-lead">The suite is not a proposal. We ship the labels on the tools we publish.</p>
         <p>
-          AppFacts on the <a href="https://www.catalystforge.com/tools">open-source shelf</a>.
+          AppFacts on the <a href="https://www.catalystforge.com/tools">open-source shelf</a>,
+          including the ForeBalance label at the top of this page.
           ToolFacts on the MCP servers we run: ForgeTrail, ollanet, DictaWhisper.
           SkillFacts on the skills: ForgeTrail, Smell Check, TemperPass, EmberDossier, DocuPuncture.
           Each label site has a portable <code>/v</code> viewer. The card travels in the URL hash.
@@ -796,8 +808,15 @@
         </ul>
         <div class="prose" style="margin-top:1.25rem;">
           <p>
+            Factual declarations and assessments stay distinct. A context window is a declaration.
             ModelFacts qualitative ratings such as high or medium are assessments. They are not
-            objective measurements unless a method and source are attached. Child label sites own
+            objective measurements unless a method and source are attached.
+          </p>
+          <p>
+            Where a machine-readable source exists, our generators extract the value directly:
+            package manifests for AppFacts, model config and metadata for ModelFacts, a
+            server's recorded <code>tools/list</code> for the Panel. Declarations a person writes
+            name their sources and stay separate from extracted values. Child label sites own
             their authoritative rows. This hub does not overwrite them.
           </p>
         </div>
@@ -815,7 +834,8 @@
           </li>
           <li>
             <strong><code>undisclosed</code> over omission</strong>
-            Non-disclosure is itself worth labeling. A column of <code>undisclosed</code> is a story.
+            When a fact is not disclosed, the file says so. That records absence, not intent.
+            A column of <code>undisclosed</code> still tells you what you cannot compare.
           </li>
           <li>
             <strong>Closed enums</strong>
@@ -833,10 +853,11 @@
       <div class="wrap">
         <h2 class="section-title">The Panel</h2>
         <p class="section-lead">
-          Two views of the same ForgeTrail MCP server, same row keys. Left is
-          derived from a recorded <code>tools/list</code>. Right is the native
-          stopgap over the reviewed <code>TOOL_FACTS.md</code>. They do not have
-          to agree. This page does not re-fetch the server.
+          The Panel is a derived view of a tool server: rows computed from what the
+          server lists when asked, not written by hand. This example is ForgeTrail,
+          one of our MCP servers. Left is derived from a recorded <code>tools/list</code>.
+          Right uses the same row keys over its reviewed <code>TOOL_FACTS.md</code>, as a
+          stopgap. They do not have to agree. This page does not re-fetch the server.
         </p>
         <div class="panel-compare">
           <div>
@@ -860,7 +881,8 @@
       <div class="wrap">
         <h2 class="section-title">The family, composed</h2>
         <p class="section-lead">
-          A serious AI product can ship six files side by side. This grid is a sketch of that idea, not a derived Panel and not our stack.
+          A product with an AI layer can ship all six files side by side. An app without one
+          ships fewer. This grid is a sketch of the full set, not a derived Panel and not our stack.
         </p>
         <div class="panel" aria-label="Sketch of six xFacts labels">
           <article class="mini-label" data-label="app">
@@ -969,10 +991,10 @@
     <section id="essay">
       <div class="wrap prose">
         <h2 class="section-title">Why labels</h2>
-        <p class="section-lead">A short read for people who use or publish the stack.</p>
+        <p class="section-lead">A short read for people who adopt or publish software.</p>
         <p>
           <a href="/essay/why-labels/">Why labels</a>:
-          what to check before you trust an app, model, tool, agent, or skill.
+          what to check before you trust an app, feature list, tool, model, agent, or skill.
         </p>
       </div>
     </section>

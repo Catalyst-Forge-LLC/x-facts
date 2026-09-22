@@ -7,7 +7,7 @@
   <meta name="description" content="Before you attach a tool, pick a model, or unclip an agent: what objective facts should you be able to read in under a minute? How xFacts helps." />
   <link rel="canonical" href="https://xfacts.dev/essay/why-labels/" />
   <meta property="og:title" content="Why labels · xFacts" />
-  <meta property="og:description" content="Nutrition-style facts for the AI stack, at the moment you decide whether to trust something." />
+  <meta property="og:description" content="Nutrition-style facts for software, at the moment you decide whether to trust something." />
   <meta property="og:url" content="https://xfacts.dev/essay/why-labels/" />
   <meta property="og:type" content="article" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,6 +23,7 @@
       --model: #7c5cf0;
       --agent: #f6ad55;
       --skill: #f472b6;
+      --feature: #8a9a40;
       --font-display: "Sora", sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
       --max: 42rem;
@@ -73,6 +74,7 @@
     .marks .tool { background: var(--tool); }
     .marks .agent { background: var(--agent); }
     .marks .skill { background: var(--skill); }
+    .marks .feature { background: var(--feature); }
 
     article.essay {
       padding: 2.25rem 0 4rem;
@@ -202,7 +204,7 @@
   <div class="top wrap">
     <a class="brand" href="/"><span class="x">x</span>Facts</a>
     <ul class="marks" aria-hidden="true">
-      <li class="app"></li><li class="model"></li><li class="tool"></li><li class="agent"></li><li class="skill"></li>
+      <li class="app"></li><li class="model"></li><li class="tool"></li><li class="agent"></li><li class="skill"></li><li class="feature"></li>
     </ul>
   </div>
 
@@ -210,17 +212,18 @@
     <p class="kicker">Essay</p>
     <h1>Why labels</h1>
     <p class="deck">Before you trust an app, model, tool, agent, skill, or capability list, you should be able to read the facts that matter in under a minute.</p>
-    <p class="meta">For people who use or publish the AI stack · Catalyst Forge · August 2026</p>
+    <p class="meta">For people who adopt or publish software · Catalyst Forge · August 2026</p>
 
     <p>
       You already do this with food. The box has a nutrition label. Not a novel. Not a press release.
       A short list of facts that change whether you put it in the cart.
     </p>
     <p>
-      The AI stack mostly still asks you to decide from READMEs, marketing pages, model cards of
-      uneven quality, and marketplace blurbs. Optional tool annotations exist and almost nobody
-      sets them. When you attach an MCP server, install a skill, pick a model, or let an agent run
-      on a real workspace, the question is the same every time:
+      Software mostly still asks you to decide from READMEs, manifests, marketing pages, model
+      cards of uneven quality, and marketplace blurbs. Optional tool annotations exist and almost
+      nobody sets them. When you adopt a web app, compare feature lists, attach an MCP server,
+      install a skill, pick a model, or let an agent run on a real workspace, the question is the
+      same every time:
     </p>
 
     <blockquote>
@@ -268,21 +271,22 @@
       </li>
       <li>
         <a href="https://featurefacts.dev">
-          <span class="layer">FeatureFacts · terrain</span>
+          <span class="layer">FeatureFacts · product capabilities</span>
           <span class="q">What can this product do?</span>
         </a>
       </li>
     </ul>
     <p>
-      A serious product can publish more than one. The app, the model it thinks with, the tools it
-      wields, the agent configuration, the skills it installs, and the capabilities it actually
-      offers. That full panel is clearer than any single landing page.
+      Some labels will not apply. Any app can carry AppFacts and FeatureFacts, and a spreadsheet
+      app with no model inside it is fully labeled with those two. A product with an AI layer can
+      add the model it calls, the tools it uses, the agent configuration, and the skills it
+      installs. Either set is clearer than any single landing page.
     </p>
 
     <h2>How to use a label</h2>
     <ul>
       <li><strong>Skim the nutrition face</strong> for the decision in front of you: write access, network, leash, egress, and so on.</li>
-      <li><strong>Prefer <code>undisclosed</code> over guesswork.</strong> Silence is information. If a publisher will not say what leaves the machine, treat that as a signal.</li>
+      <li><strong>Prefer <code>undisclosed</code> over guesswork.</strong> An <code>undisclosed</code> value tells you the fact is not published. It does not tell you why. If your decision depends on what leaves the machine, ask, or treat the value as unknown in your policy.</li>
       <li><strong>Compare like with like.</strong> The fields use shared vocabularies so two tools or two agents can sit side by side.</li>
       <li><strong>If you ship software,</strong> put the label next to the thing people adopt: the repo, the MCP server, the skill package, the shipped agent config.</li>
       <li><strong>If you build with agents,</strong> point them at the label files and schemas. Marketing HTML is the wrong place to learn the facts.</li>

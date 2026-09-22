@@ -1,6 +1,6 @@
 # xFacts
 
-> Family hub for nutrition labels across the AI stack. x is a variable, not a social network.
+> Family hub for nutrition labels for software, one per adoption question. AppFacts and FeatureFacts fit any app; ToolFacts fits tools (v0.1: MCP servers); ModelFacts, AgentFacts, and SkillFacts cover AI layers when present. x is a variable, not a social network.
 > This hub does not host per-label schemas or exemplars. Go to each label domain.
 
 ## Labels
@@ -12,7 +12,7 @@
 | ToolFacts | Tool | What does this tool touch when invoked? | https://toolfacts.dev/llms.txt |
 | AgentFacts | Agent configuration | What may this configuration do? | https://agentfacts.dev/llms.txt |
 | SkillFacts | Skill package | What will this skill teach an agent to do? | https://skillfacts.dev/llms.txt |
-| FeatureFacts | Terrain | What can this product do? | https://featurefacts.dev/llms.txt |
+| FeatureFacts | Product capabilities | What can this product do? | https://featurefacts.dev/llms.txt |
 
 ## Panel
 
@@ -31,7 +31,7 @@ Catalyst Forge ships the labels on its own tools. AppFacts on the open-source sh
 
 - YAML frontmatter is the sole source of truth. Markdown body is the human skim.
 - Schema validation checks structure, not truth or safety.
-- Prefer `undisclosed` over guessing. ModelFacts qualitative ratings are assessments unless a method and source are attached.
+- Prefer `undisclosed` over guessing. `undisclosed` records absence, not intent. ModelFacts qualitative ratings are assessments unless a method and source are attached.
 - ForgeTrail `runAudit` returns a packaged audit prompt and does not scan the user workspace.
 - Specs and schemas are CC0. Tooling is MIT.
 - Provenance fields and proposals: https://github.com/Catalyst-Forge-LLC/x-facts/blob/main/specs/PROVENANCE.md
