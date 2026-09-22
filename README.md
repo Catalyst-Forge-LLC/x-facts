@@ -4,7 +4,7 @@
 
 The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): a family of small, validatable nutrition labels, one per layer of the AI stack, that make software legible at the moment someone decides whether to trust it.
 
-This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the five sibling repos; they are transitional natives.
+This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the six sibling repos; they are transitional natives.
 
 | Label | Layer | Site | Status |
 |---|---|---|---|
@@ -13,6 +13,7 @@ This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](
 | [ToolFacts](https://toolfacts.dev) | Toolbelt | toolfacts.dev | Live |
 | [AgentFacts](https://agentfacts.dev) | Hands | agentfacts.dev | Live |
 | [SkillFacts](https://skillfacts.dev) | Playbook | skillfacts.dev | Live |
+| [FeatureFacts](https://featurefacts.dev) | Terrain | featurefacts.dev | Live |
 
 ## What's in here
 
