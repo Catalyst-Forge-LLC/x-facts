@@ -22,14 +22,15 @@ The valuable thing is **not** another publisher-filled form. Transparency artifa
 
 The **Panel** is the data structure that makes that possible. It is instrumental, not the point.
 
-### 0.1 Relation to the five live labels
+### 0.1 Relation to the six live labels
 
-The five `{LABEL}_FACTS.md` formats and `*.dev` sites remain live. They are **transitional natives**, not the next product surface.
+The six `{LABEL}_FACTS.md` formats and `*.dev` sites remain live. They are **transitional natives**, not the next product surface.
 
 | Existing format | Role under this spec |
 |---|---|
 | `TOOL_FACTS.md` | The one native profile still justified (`tool-facts`). Stopgap. Marked native in every renderer. Deprecated if MCP grows equivalent fields. |
 | `APP_FACTS.md`, `MODEL_FACTS.md`, `AGENT_FACTS.md`, `SKILL_FACTS.md` | Legacy natives. Stay published. Do **not** get new enum vocabularies, generators, or Panel profiles in this cycle. |
+| `FEATURE_FACTS.md` | Terrain. When an agent is pointed at a product (its API, MCP server, or repo), the product's capabilities are what the agent can reach through it. ToolFacts says what a tool touches; FeatureFacts says what the product behind it can do, with evidence. The register is derived by scan and fingerprinted, so a changed capability shows up as a changed projection. No Panel profile in this cycle. |
 
 Do not add layers, labels, or domains to make the family look complete. Depth over breadth, without exception.
 
