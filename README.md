@@ -105,3 +105,5 @@ Always **xFacts**, lowercase x. Never "XFacts" or "X Facts".
 The hub page is documentation for an open suite. Specs and schemas in the label repos are CC0; tooling there is MIT.
 
 Maintained by [Catalyst Forge](https://www.catalystforge.com/).
+
+[See the rest of the Catalyst Forge shelf.](https://catalystforge.com/tools/)
