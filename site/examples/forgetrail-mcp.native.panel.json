@@ -105,7 +105,7 @@
     "source_version": "0.1.0",
     "source_url": "https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md",
     "fetched_at": "2026-09-28T00:00:00.000Z",
-    "content_digest": "sha256:a23f3424357d0c9ef99c71e9eaea01a1599eaf9e793609f3bb2d2409ab495002",
+    "content_digest": "sha256:8a7ed80b4db6d81cef5807d0807561d839e29c63d4083aa51506d94bece15597",
     "digest_canonicalization": "jcs-rfc8785+frontmatter-only+tools-sorted",
     "verification": "self-asserted",
     "signature": "none",
