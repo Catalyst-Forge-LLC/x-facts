@@ -5,12 +5,12 @@
     "name": "ForgeTrail MCP Server",
     "canonical_url": "https://forgetrail.dev",
     "publisher": "Catalyst Forge",
-    "version": "0.3.10"
+    "version": "0.4.3"
   },
   "subject_identity": {
     "identity_confidence": "partial",
     "package": "npm:forgetrail-mcp",
-    "version": "0.3.10"
+    "version": "0.4.3"
   },
   "rows": [
     {
@@ -104,8 +104,8 @@
     "source_format": "tool-facts/md",
     "source_version": "0.1.0",
     "source_url": "https://toolfacts.dev/examples/forgetrail-mcp/TOOL_FACTS.md",
-    "fetched_at": "2026-09-16T00:00:00.000Z",
-    "content_digest": "sha256:3efed80a2bad81ccdfd1a43a2dc17cf4b0446b620b67d7a2aa5050d6e0778916",
+    "fetched_at": "2026-09-28T00:00:00.000Z",
+    "content_digest": "sha256:a23f3424357d0c9ef99c71e9eaea01a1599eaf9e793609f3bb2d2409ab495002",
     "digest_canonicalization": "jcs-rfc8785+frontmatter-only+tools-sorted",
     "verification": "self-asserted",
     "signature": "none",
