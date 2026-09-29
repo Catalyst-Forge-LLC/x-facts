@@ -1,6 +1,6 @@
 # npm names for the xFacts families
 
-**Status:** Draft. The operator chose a single npm scope on 2026-09-28. Nothing is renamed or published yet.
+**Status:** Draft. The `@xfacts` org exists. Nothing is renamed or published yet.
 **Date:** 2026-09-28
 **Related:** ForgeTrail `specs/suite-cohesion-prelaunch-review.md` P1-6
 
@@ -36,7 +36,7 @@ A family's validator is the package people install first, so it takes the family
 
 ## 4. Order of work
 
-1. **Operator:** create the `@xfacts` org on npmjs.com, or `@catalyst-forge` if `@xfacts` is taken. Record which one here.
+1. **Operator:** done on 2026-09-29. The org is `@xfacts`. `acmegeek` is the owner and the only member. The default team is `developers`, and new packages under the scope join that team. `@catalyst-forge` is not needed.
 2. **Agent, one repository at a time:** rename the package, remove `"private": true`, add `bin`, `files`, `engines`, `repository`, and `publishConfig.access: public`, and move script entry points behind the command. `pnpm pack --dry-run` must list only the intended files, and the family's validator must still pass its examples. Do not publish.
 3. **Operator:** publish each package.
 4. **Agent, after each publish:** change the site's install section from `git clone` to `npx @xfacts/<name>`. Remove the FeatureFacts line saying the CLI "is not on npm yet". Update catalyst-forge `src/lib/product-facts.js` npm fields and run `pnpm versions`. Update the ForgeTrail `content/companion-tools.json` xFacts entry if it names an install command.
