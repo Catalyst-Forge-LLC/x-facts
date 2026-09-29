@@ -13,7 +13,7 @@
     "badge": "node bin/xfacts-panel.mjs badge",
     "build": "node scripts/build.mjs src/cli.ts",
     "prepack": "pnpm build",
-    "test": "tsx --test src/*.test.ts",
+    "test": "tsx --test src/*.test.ts && node --test scripts/label-audit.test.mjs",
     "typecheck": "tsc --noEmit",
     "ship": "wrangler deploy --config site/wrangler.jsonc"
   },

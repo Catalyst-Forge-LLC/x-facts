@@ -17,6 +17,7 @@ import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateSync } from 'node:zlib';
 import { missingSkillFacts, writeMissingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
+import { auditLabels, featureSummary, labelGaps, writePackageCandidate } from './label-audit.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const XFACTS_ROOT = resolve(__dirname, '..');
@@ -250,7 +251,13 @@ function inspectRepo(project) {
 	const skillItems = uniqueFactsItems(found.skill.map((p) => factsItem(p, 'skill')).filter(Boolean));
 	const agentItems = uniqueFactsItems(found.agent.map((p) => factsItem(p, 'agent')).filter(Boolean));
 	const modelItems = uniqueFactsItems(found.model.map((p) => factsItem(p, 'model')).filter(Boolean));
+	const register = featureSummary(root);
 	const featureItems = uniqueFactsItems(found.feature.map((p) => factsItem(p, 'feature')).filter(Boolean));
+	if (!featureItems.length && register.exists) {
+		const label = register.count === 0 ? 'empty' : register.count <= 4 ? register.names.join(' · ') : `${register.count} features`;
+		featureItems.push({ label, href: undefined, path: join(root, '.featurefacts', 'features.yaml') });
+	}
+	const gaps = labelGaps(root);
 	const appItems = uniqueFactsItems(
 		found.app.map((p) => factsItem(p, 'app')).filter(Boolean),
 	).map((item) => ({ ...item, label: name !== '—' ? name : item.label }));
@@ -292,6 +299,9 @@ function inspectRepo(project) {
 		featureItems.length > 0;
 	if (!hasFacts) status = 'no label';
 	else if (app === 'missing') status = 'ok';
+	if (!existsSync(appPath)) status = 'no label';
+	else if (!register.exists || register.count === 0) status = 'no features';
+	else if (gaps.some((gap) => gap.endsWith('SKILL_FACTS.md'))) status = 'no skill facts';
 
 	const rootPkg = readJson(join(root, 'package.json'));
 	const sitePkg = readJson(join(root, 'site', 'package.json'));
@@ -323,6 +333,7 @@ function inspectRepo(project) {
 		agentItems,
 		modelItems,
 		featureItems,
+		labelGaps: gaps,
 		hasShip: Boolean(shipDir),
 		shipDir,
 	};
@@ -334,7 +345,7 @@ function inventory() {
 	return {
 		workspace: WORKSPACE,
 		note: fromFleet
-			? `Enrolled fleet (${rows.length}). Check a row, then Add labels, Refresh, or Ship when the repo has scripts.ship. Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`
+			? `Enrolled fleet (${rows.length}). Check validates labels. Add labels writes what is missing. Ship runs when the repo has scripts.ship. Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`
 			: `Sibling folders (${rows.length}; no localhelm.fleet.json). Generator ${existsSync(APP_FACTS_GEN) ? 'found' : 'MISSING'}.`,
 		rows,
 	};
@@ -367,13 +378,14 @@ function plan(action, ids) {
 	if (action === 'check') {
 		return {
 			action,
-			note: 'Compare AppFacts fingerprint to a fresh scan (no write).',
+			note: 'Validate AppFacts, FeatureFacts, and any SkillFacts, ToolFacts, AgentFacts, or ModelFacts on disk. Compare the AppFacts fingerprint when that file exists. A missing AppFacts file, an empty FeatureFacts register, or a SKILL.md without SkillFacts fails. No write.',
 			rows: rows.map((r) => ({
 				id: r.id,
 				app: r.app,
 				status: r.status,
 				writes: false,
-				action: r.appPath ? 'check' : 'skip',
+				action: 'check',
+				gaps: r.labelGaps ?? [],
 			})),
 		};
 	}
@@ -413,20 +425,16 @@ function plan(action, ids) {
 	if (action === 'refresh') {
 		return {
 			action,
-			note: 'Write AppFacts (LLM) and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model stay empty unless those facts files already exist — no generators for those kinds.',
+			note: 'Write a missing APP_FACTS.md from the repo scan (no model), fill a missing or empty FeatureFacts register, and write any missing SkillFacts next to SKILL.md. Existing labels stay. A ledger manifest is bound when appledger is available. Tool, agent, and model files are not invented.',
 			rows: rows.map((r) => {
-				const root = repoAbs(r);
-				const hasPkg = existsSync(join(root, 'package.json')) || existsSync(join(root, 'README.md'));
-				const skillFiles = missingSkillFacts(root).map((p) => relative(root, p).replace(/\\/g, '/'));
-				const writesApp = hasPkg && existsSync(APP_FACTS_GEN);
-				const writes = writesApp || skillFiles.length > 0;
+				const files = r.labelGaps ?? labelGaps(repoAbs(r));
 				return {
 					id: r.id,
 					app: r.app,
 					status: r.status,
-					files: [...(writesApp ? ['APP_FACTS.md'] : []), ...skillFiles],
-					writes,
-					action: writes ? 'refresh' : 'skip',
+					files,
+					writes: files.length > 0,
+					action: files.length ? 'refresh' : 'skip',
 				};
 			}),
 		};
@@ -436,19 +444,48 @@ function plan(action, ids) {
 
 function runCheck(row) {
 	const id = row.id;
-	const appPath = join(repoAbs(row), 'APP_FACTS.md');
-	if (!existsSync(appPath)) return { id, ok: false, detail: 'no APP_FACTS.md' };
-	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'generator missing' };
-	const result = spawnSync(process.execPath, [APP_FACTS_GEN, repoAbs(row), '--check'], {
+	const root = repoAbs(row);
+	const problems = auditLabels(root);
+	const appPath = join(root, 'APP_FACTS.md');
+	if (existsSync(appPath)) {
+		if (!existsSync(APP_FACTS_GEN)) problems.push('AppFacts generator missing');
+		else {
+			const result = spawnSync(process.execPath, [APP_FACTS_GEN, root, '--check'], {
+				encoding: 'utf8',
+				windowsHide: true,
+			});
+			const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+			if (result.status !== 0) problems.push(out.slice(0, 240) || `fingerprint exit ${result.status}`);
+		}
+	}
+	const ledger = ledgerValidate(row);
+	if (ledger && !ledger.ok) problems.push(ledger.detail);
+	return {
+		id,
+		ok: problems.length === 0,
+		detail: (problems.join(' · ') || ledger?.detail || 'labels ok').slice(0, 800),
+		writes: false,
+	};
+}
+
+function ledgerCli() {
+	const cli = join(WORKSPACE, 'appledger', 'dist', 'cli.js');
+	return existsSync(cli) ? cli : null;
+}
+
+function ledgerValidate(row) {
+	const root = repoAbs(row);
+	const cli = ledgerCli();
+	if (!existsSync(join(root, 'appledger', 'manifest.yaml')) || !cli) return null;
+	const result = spawnSync(process.execPath, [cli, 'subjects', '--operation', 'validate'], {
+		cwd: root,
 		encoding: 'utf8',
 		windowsHide: true,
 	});
-	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+	const out = `${result.stdout || ''}${result.stderr || ''}`.trim().replace(/\s+/g, ' ');
 	return {
-		id,
 		ok: result.status === 0,
-		detail: out.slice(0, 500) || (result.status === 0 ? 'fingerprint ok' : `exit ${result.status}`),
-		writes: false,
+		detail: out.slice(0, 400) || `appledger subjects validate exit ${result.status}`,
 	};
 }
 
@@ -503,35 +540,6 @@ function runReencode(row) {
 	};
 }
 
-function runAppRefresh(row) {
-	const id = row.id;
-	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'AppFacts generator missing', writes: false };
-	const result = spawnSync(
-		process.execPath,
-		[
-			APP_FACTS_GEN,
-			repoAbs(row),
-			'--provider',
-			'ollama',
-			'--model',
-			'gemma4:12b',
-			'--no-qr',
-			'--consulting-link',
-			'https://www.catalystforge.com/',
-			'--consulting-name',
-			'Catalyst Forge',
-		],
-		{ encoding: 'utf8', windowsHide: true, timeout: 600_000 },
-	);
-	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
-	return {
-		id,
-		ok: result.status === 0,
-		detail: out.slice(-500) || (result.status === 0 ? 'AppFacts refreshed' : `AppFacts exit ${result.status}`),
-		writes: result.status === 0,
-	};
-}
-
 function runSkillRefresh(row) {
 	const root = repoAbs(row);
 	const result = writeMissingSkillFacts(root);
@@ -550,13 +558,104 @@ function runSkillRefresh(row) {
 	};
 }
 
+function runScaffold(row) {
+	const id = row.id;
+	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'AppFacts generator missing', writes: false };
+	const result = spawnSync(
+		process.execPath,
+		[
+			APP_FACTS_GEN,
+			repoAbs(row),
+			'--scaffold',
+			'--no-qr',
+			'--consulting-link',
+			'https://www.catalystforge.com/',
+			'--consulting-name',
+			'Catalyst Forge',
+		],
+		{ encoding: 'utf8', windowsHide: true },
+	);
+	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+	const wrote = /Wrote /.test(out);
+	return {
+		id,
+		ok: result.status === 0,
+		detail: out.slice(0, 400) || (result.status === 0 ? 'AppFacts scaffolded' : `scaffold exit ${result.status}`),
+		writes: wrote,
+	};
+}
+
+function runFeatureAdd(row) {
+	const id = row.id;
+	const root = repoAbs(row);
+	const before = featureSummary(root);
+	if (before.exists && before.count > 0) {
+		return { id, ok: true, detail: 'FeatureFacts register already has features', writes: false };
+	}
+	const ffRoot = join(WORKSPACE, 'feature-facts');
+	const tsx = join(ffRoot, 'node_modules', 'tsx', 'dist', 'cli.mjs');
+	let scanDetail = 'featurefacts scan skipped';
+	if (existsSync(tsx)) {
+		const win = process.platform === 'win32';
+		const result = spawnSync(win ? 'pnpm.cmd' : 'pnpm', ['exec', 'tsx', 'src/cli.ts', 'scan', '--root', root], {
+			cwd: ffRoot,
+			encoding: 'utf8',
+			windowsHide: true,
+			timeout: 180_000,
+		});
+		const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+		scanDetail = out.slice(0, 400) || `featurefacts scan exit ${result.status}`;
+	}
+	const after = featureSummary(root);
+	if (after.count > 0) {
+		if (after.errors.length) return { id, ok: false, detail: after.errors.join('; '), writes: true };
+		return { id, ok: true, detail: scanDetail, writes: true };
+	}
+	const candidate = writePackageCandidate(root);
+	if (candidate.wrote && existsSync(tsx)) {
+		const win = process.platform === 'win32';
+		spawnSync(win ? 'pnpm.cmd' : 'pnpm', ['exec', 'tsx', 'src/cli.ts', 'report', '--root', root], {
+			cwd: ffRoot,
+			encoding: 'utf8',
+			windowsHide: true,
+			timeout: 180_000,
+		});
+	}
+	return {
+		id,
+		ok: candidate.wrote,
+		detail: candidate.wrote ? `${scanDetail} · wrote a package candidate` : `${scanDetail} · ${candidate.reason}`,
+		writes: candidate.wrote,
+	};
+}
+
+function runBind(row) {
+	const root = repoAbs(row);
+	const cli = ledgerCli();
+	if (!existsSync(join(root, 'appledger', 'manifest.yaml')) || !cli) return null;
+	const result = spawnSync(process.execPath, [cli, 'bind', '--apply'], {
+		cwd: root,
+		encoding: 'utf8',
+		windowsHide: true,
+	});
+	const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
+	return {
+		id: row.id,
+		ok: result.status === 0,
+		detail: out.slice(0, 400) || `bind exit ${result.status}`,
+		writes: /Added \d+ binding/.test(out),
+	};
+}
+
 function runRefresh(row) {
 	const root = repoAbs(row);
-	const hasPkg = existsSync(join(root, 'package.json')) || existsSync(join(root, 'README.md'));
-	const skillMissing = missingSkillFacts(root);
+	const gaps = labelGaps(root);
 	const parts = [];
-	if (hasPkg && existsSync(APP_FACTS_GEN)) parts.push(runAppRefresh(row));
-	if (skillMissing.length) parts.push(runSkillRefresh(row));
+	if (gaps.some((gap) => gap.endsWith('SKILL_FACTS.md'))) parts.push(runSkillRefresh(row));
+	if (gaps.includes('.featurefacts/features.yaml')) parts.push(runFeatureAdd(row));
+	if (gaps.includes('APP_FACTS.md')) parts.push(runScaffold(row));
+	const bound = runBind(row);
+	if (bound) parts.push(bound);
 	if (!parts.length) {
 		return { id: row.id, ok: true, detail: 'nothing to label', writes: false };
 	}

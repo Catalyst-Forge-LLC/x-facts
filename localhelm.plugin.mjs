@@ -51,24 +51,16 @@ const LABEL_COLS = [
 ];
 
 function rowActions(row) {
-	const addOrRefresh = {
-		id: 'refresh',
-		label: row.appPath ? 'Refresh' : 'Add labels',
-		write: true,
-		icon: 'lucide:refresh-cw',
-	};
-	const ship = row.hasShip
-		? { id: 'ship', label: 'Ship', write: true, icon: 'lucide:ship' }
-		: null;
-	if (!row.appPath && !row.hasTool && !row.skillCount && !row.agentItems?.length && !row.modelItems?.length) {
-		return ship ? [addOrRefresh, ship] : [addOrRefresh];
+	const actions = [{ id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' }];
+	if (row.labelGaps?.length) {
+		actions.push({ id: 'refresh', label: 'Add labels', write: true, icon: 'lucide:refresh-cw' });
 	}
-	return [
-		{ id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
-		{ id: 'reencode', label: 'Re-encode', write: true, icon: 'lucide:qr-code' },
-		addOrRefresh,
-		...(ship ? [ship] : []),
-	];
+	const hasFacts = row.appPath || row.hasTool || row.skillCount || row.agentItems?.length || row.modelItems?.length || row.featureItems?.length;
+	if (hasFacts) {
+		actions.push({ id: 'reencode', label: 'Re-encode', write: true, icon: 'lucide:qr-code' });
+	}
+	if (row.hasShip) actions.push({ id: 'ship', label: 'Ship', write: true, icon: 'lucide:ship' });
+	return actions;
 }
 
 function labelColumns() {
@@ -82,10 +74,11 @@ function boardFrom(inventory) {
 		tab: 'sites',
 		rowLabel: 'repo',
 		note: [
-			'xFacts labels for the enrolled fleet. Check rows like Fleet, then Add labels, Refresh, or Ship.',
-			'Columns are app, tool, skill, agent, and model. A name in a cell is that /v card.',
-			'“no label” means the repo has no *_FACTS.md. Add labels writes AppFacts and any missing SkillFacts next to SKILL.md packs. Tool, agent, and model are not invented.',
-			'Check compares fingerprints. Re-encode rewrites /v cards from frontmatter.',
+			'xFacts labels for the enrolled fleet. Check a row, then Add labels or Ship.',
+			'Columns are app, tool, skill, agent, model, and feature.',
+			'Check validates each label file that exists, compares the AppFacts fingerprint, and fails a missing AppFacts file, an empty FeatureFacts register, or a SKILL.md without SkillFacts.',
+			'Add labels writes a missing APP_FACTS.md from the repo scan without a model, fills a missing or empty FeatureFacts register, and writes missing SkillFacts. It leaves an existing label in place. Tool, agent, and model files are not invented.',
+			'Re-encode rewrites /v cards from frontmatter.',
 			'Ship runs that repo’s pnpm ship script (wrangler / Pages). Not FilePress Land.',
 			inventory.note,
 		]

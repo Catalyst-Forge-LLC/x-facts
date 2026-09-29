@@ -86,13 +86,13 @@ Enroll this checkout in a LocalHelm fleet to get an **xFacts labels** board on t
 localhelm enroll ../x-facts --apply
 localhelm plugins
 localhelm plugin xfacts                 # board
-localhelm plugin xfacts check           # plan fingerprint checks
+localhelm plugin xfacts check           # plan label validation
 localhelm plugin xfacts reencode --apply
 localhelm plugin xfacts refresh --apply # regenerates AppFacts via sibling generator
 localhelm plugin xfacts ship x-facts --apply
 ```
 
-The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, and model labels (any `*_FACTS.md` under the repo, skipping `node_modules` / `.git` / `dist` / `site` / fixtures), `/v` drift, and plan/apply for check · re-encode · refresh · ship. Refresh writes `APP_FACTS.md` via the AppFacts generator and any missing `SKILL_FACTS.md` next to `SKILL.md` packs. It does not invent ToolFacts, AgentFacts, or ModelFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter. Ship runs `pnpm ship` when that script exists (wrangler / Pages), not FilePress Land.
+The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, model, and feature labels. Check validates those files against their schemas, compares an AppFacts fingerprint when `APP_FACTS.md` exists, and fails a missing AppFacts file, an empty FeatureFacts register, or a `SKILL.md` without SkillFacts. Add labels writes a missing `APP_FACTS.md` from the repo scan without a model, fills a missing or empty `.featurefacts/features.yaml` (FeatureFacts scan, or one package candidate when the scan finds nothing), and writes missing `SKILL_FACTS.md` files. It does not rewrite an existing label and does not invent ToolFacts, AgentFacts, or ModelFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter. Ship runs `pnpm ship` when that script exists (wrangler / Pages), not FilePress Land.
 
 ## Family footer
 
