@@ -379,14 +379,17 @@ function plan(action, ids) {
 		return {
 			action,
 			note: 'Validate AppFacts, FeatureFacts, and any SkillFacts, ToolFacts, AgentFacts, or ModelFacts on disk. Compare the AppFacts fingerprint when that file exists. A missing AppFacts file, an empty FeatureFacts register, or a SKILL.md without SkillFacts fails. No write.',
-			rows: rows.map((r) => ({
-				id: r.id,
-				app: r.app,
-				status: r.status,
-				writes: false,
-				action: 'check',
-				gaps: r.labelGaps ?? [],
-			})),
+			rows: rows.map((r) => {
+				const gaps = r.labelGaps ?? [];
+				return {
+					id: r.id,
+					app: r.app,
+					status: r.status,
+					action: 'check',
+					gaps,
+					reason: gaps.length ? gaps.join(', ') : 'files present; confirm runs schema and fingerprint checks',
+				};
+			}),
 		};
 	}
 	if (action === 'reencode') {
