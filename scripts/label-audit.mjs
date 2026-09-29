@@ -4,6 +4,7 @@
  * FeatureFacts register, and a SKILL.md without SKILL_FACTS.md are gaps.
  * Tool, agent, and model files are checked only when present.
  */
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -88,6 +89,68 @@ export function featureSummary(root) {
 	const names = features.map((item) => (item && typeof item.name === 'string' ? item.name : item?.id)).filter(Boolean);
 	const validate = compileFeature();
 	return { exists: true, count: features.length, names, errors: schemaErrors(validate, data), data };
+}
+
+export function isLabelCommitPath(file) {
+	const path = String(file).replace(/\\/g, '/').replace(/^"|"$/g, '');
+	return (
+		path === 'APP_FACTS.md' ||
+		path === 'FEATURE_FACTS.md' ||
+		path === 'appledger/manifest.yaml' ||
+		path === 'SKILL_FACTS.md' ||
+		path.endsWith('/SKILL_FACTS.md') ||
+		path.startsWith('.featurefacts/')
+	);
+}
+
+/** Label paths that became dirty, plus any named path that is still dirty. Other files stay unstaged. */
+export function labelCommitPaths(before, after, include = []) {
+	const prior = new Set(before);
+	const dirty = new Set(after);
+	const out = new Set();
+	for (const path of after) {
+		if (!prior.has(path) && isLabelCommitPath(path)) out.add(path);
+	}
+	for (const path of include) {
+		if (dirty.has(path) && isLabelCommitPath(path)) out.add(path);
+	}
+	return [...out].sort();
+}
+
+function git(root, args) {
+	return spawnSync('git', ['-C', root, ...args], { encoding: 'utf8', windowsHide: true });
+}
+
+export function labelStatusPaths(root) {
+	const result = git(root, ['status', '--porcelain=v1', '-uall']);
+	if (result.status !== 0 || result.error) return null;
+	const paths = [];
+	for (const line of String(result.stdout || '').split(/\r?\n/)) {
+		if (line.length < 4) continue;
+		let path = line.slice(3);
+		const arrow = path.indexOf(' -> ');
+		if (arrow !== -1) path = path.slice(arrow + 4);
+		if (path.startsWith('"') && path.endsWith('"')) path = path.slice(1, -1);
+		paths.push(path.replace(/\\/g, '/'));
+	}
+	return paths;
+}
+
+/** Commit label paths that this write made dirty. Other dirty files stay unstaged. Does not push. */
+export function commitLabelChanges(root, before, include, message) {
+	const after = labelStatusPaths(root);
+	if (!after) return { ok: true, committed: false, note: 'not a git repo' };
+	const paths = labelCommitPaths(before ?? [], after, include);
+	if (!paths.length) return { ok: true, committed: false, note: '' };
+	const added = git(root, ['add', '--', ...paths]);
+	if (added.status !== 0 || added.error) {
+		return { ok: false, error: String(added.stderr || added.stdout || added.error || 'git add failed').trim() };
+	}
+	const committed = git(root, ['commit', '-m', message, '--', ...paths]);
+	if (committed.status !== 0 || committed.error) {
+		return { ok: false, error: String(committed.stderr || committed.stdout || committed.error || 'git commit failed').trim() };
+	}
+	return { ok: true, committed: true, note: 'committed' };
 }
 
 export function labelGaps(root) {

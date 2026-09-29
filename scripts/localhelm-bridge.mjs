@@ -17,7 +17,14 @@ import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateSync } from 'node:zlib';
 import { missingSkillFacts, writeMissingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
-import { auditLabels, featureSummary, labelGaps, writePackageCandidate } from './label-audit.mjs';
+import {
+	auditLabels,
+	commitLabelChanges,
+	featureSummary,
+	labelGaps,
+	labelStatusPaths,
+	writePackageCandidate,
+} from './label-audit.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const XFACTS_ROOT = resolve(__dirname, '..');
@@ -446,7 +453,7 @@ function plan(action, ids) {
 	if (action === 'refresh') {
 		return {
 			action,
-			note: 'Write a missing APP_FACTS.md from the repo scan (no model), fill a missing or empty FeatureFacts register, and write any missing SkillFacts next to SKILL.md. Existing labels stay. A ledger manifest is bound when appledger is available. Tool, agent, and model files are not invented.',
+			note: 'Write a missing APP_FACTS.md from the repo scan (no model), fill a missing or empty FeatureFacts register, and write any missing SkillFacts next to SKILL.md. Existing labels stay. Commits only those label files. Does not push. A ledger manifest is bound when appledger is available. Tool, agent, and model files are not invented.',
 			rows: rows.map((r) => {
 				const files = r.labelGaps ?? labelGaps(repoAbs(r));
 				return {
@@ -463,7 +470,7 @@ function plan(action, ids) {
 	if (action === 'update') {
 		return {
 			action,
-			note: 'Rewrite APP_FACTS.md from the repo scan. No model. Replaces the existing file. FeatureFacts and SkillFacts stay.',
+			note: 'Rewrite APP_FACTS.md from the repo scan. No model. Replaces the existing file and commits it. Does not push. FeatureFacts and SkillFacts stay.',
 			rows: rows.map((r) => ({
 				id: r.id,
 				app: r.app,
@@ -733,12 +740,23 @@ function apply(action, ids) {
 	const rows = selected(ids);
 	const results = [];
 	for (const r of rows) {
-		if (action === 'check') results.push(runCheck(r));
-		else if (action === 'update') results.push(runScaffold(r, true));
-		else if (action === 'reencode') results.push(runReencode(r));
-		else if (action === 'refresh') results.push(runRefresh(r));
-		else if (action === 'ship') results.push(runShip(r));
+		const root = repoAbs(r);
+		const before = action === 'refresh' || action === 'update' ? labelStatusPaths(root) : null;
+		let result;
+		if (action === 'check') result = runCheck(r);
+		else if (action === 'update') result = runScaffold(r, true);
+		else if (action === 'reencode') result = runReencode(r);
+		else if (action === 'refresh') result = runRefresh(r);
+		else if (action === 'ship') result = runShip(r);
 		else throw new Error(`unknown action ${action}`);
+		if ((action === 'refresh' || action === 'update') && result.ok && result.writes) {
+			const message = action === 'update' ? 'Helm: refresh the AppFacts label.' : 'Helm: add xFacts labels.';
+			const include = action === 'update' ? ['APP_FACTS.md'] : [];
+			const committed = commitLabelChanges(root, before, include, message);
+			if (!committed.ok) result = { ...result, ok: false, detail: `${result.detail} · commit failed: ${committed.error}` };
+			else if (committed.note) result = { ...result, detail: `${result.detail} · ${committed.note}` };
+		}
+		results.push(result);
 	}
 	return {
 		action,

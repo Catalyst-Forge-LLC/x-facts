@@ -77,7 +77,7 @@ function boardFrom(inventory) {
 			'xFacts labels for the enrolled fleet. Check a row, then Add labels or Ship.',
 			'Columns are app, tool, skill, agent, model, and feature.',
 			'Check validates each label file that exists, compares the AppFacts fingerprint, and fails a missing AppFacts file, an empty FeatureFacts register, or a SKILL.md without SkillFacts.',
-			'Add labels writes a missing APP_FACTS.md from the repo scan without a model, fills a missing or empty FeatureFacts register, and writes missing SkillFacts. It leaves an existing label in place. Tool, agent, and model files are not invented.',
+			'Add labels writes a missing APP_FACTS.md from the repo scan without a model, fills a missing or empty FeatureFacts register, and writes missing SkillFacts. It leaves an existing label in place, then commits only those files. It does not push. Tool, agent, and model files are not invented.',
 			'Re-encode rewrites /v cards from frontmatter.',
 			'Ship runs that repo’s pnpm ship script (wrangler / Pages). Not FilePress Land.',
 			inventory.note,
