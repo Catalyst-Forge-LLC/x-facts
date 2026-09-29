@@ -47,7 +47,7 @@ Static site for [xfacts.dev](https://xfacts.dev) lives in [`site/`](./site/). Pu
 
 Derived tool-surface view. Live `tools/list` in, JSON Panel out. No guessing: missing facts are `undisclosed`.
 
-The command is `xfacts-panel` from `@xfacts/panel` (Node 22.18 or newer). In this repository, `pnpm panel` and the other scripts call that command.
+Install with `npx @xfacts/panel` (Node 22.18 or newer). The command is `xfacts-panel`. In this repository, `pnpm panel` and the other scripts call that command.
 
 ```bash
 pnpm install
