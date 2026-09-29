@@ -373,6 +373,24 @@ function selected(ids) {
 	return want.size ? inv.rows.filter((r) => want.has(r.id)) : inv.rows;
 }
 
+function checkReason(gaps) {
+	const missing = [];
+	let skill = false;
+	for (const gap of gaps) {
+		if (gap === 'APP_FACTS.md') missing.push('AppFacts');
+		else if (gap === '.featurefacts/features.yaml') missing.push('FeatureFacts');
+		else if (gap.endsWith('SKILL_FACTS.md')) {
+			skill = true;
+			missing.push(gap);
+		} else missing.push(gap);
+	}
+	const head = missing.length ? `Missing ${missing.join(', ')}.` : 'No required file is missing.';
+	const rest = skill
+		? 'Also checks tool, agent, and model files when they exist.'
+		: 'Also checks skill, tool, agent, and model.';
+	return `${head} ${rest}`;
+}
+
 function plan(action, ids) {
 	const rows = selected(ids);
 	if (action === 'check') {
@@ -387,7 +405,7 @@ function plan(action, ids) {
 					status: r.status,
 					action: 'check',
 					gaps,
-					reason: gaps.length ? gaps.join(', ') : 'files present; confirm runs schema and fingerprint checks',
+					reason: checkReason(gaps),
 				};
 			}),
 		};
