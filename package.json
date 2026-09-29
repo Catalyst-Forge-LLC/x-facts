@@ -1,6 +1,6 @@
 {
   "name": "@xfacts/panel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "xFacts hub and Panel tooling: derived tool-surface views and drift checks.",
   "license": "MIT",
@@ -11,6 +11,8 @@
     "drift": "node bin/xfacts-panel.mjs drift",
     "encode": "node bin/xfacts-panel.mjs encode",
     "badge": "node bin/xfacts-panel.mjs badge",
+    "build": "node scripts/build.mjs src/cli.ts",
+    "prepack": "pnpm build",
     "test": "tsx --test src/*.test.ts",
     "typecheck": "tsc --noEmit",
     "ship": "wrangler deploy --config site/wrangler.jsonc"
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "^0.28.2",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
     "wrangler": "^4.28.0"
@@ -45,11 +48,12 @@
   },
   "files": [
     "bin",
-    "src",
-    "!src/**/*.test.ts",
+    "dist",
     "specs/enums.json",
     "specs/severity.json",
     "specs/panel.schema.json",
+    "specs/profiles/mcp-tools-list/mapping.json",
+    "specs/profiles/tool-facts/mapping.json",
     "LICENSE",
     "README.md"
   ],

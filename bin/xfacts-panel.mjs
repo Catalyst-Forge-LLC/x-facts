@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-await import("../src/cli.ts");
+await import("../dist/cli.js");

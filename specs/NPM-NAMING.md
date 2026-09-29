@@ -1,6 +1,6 @@
 # npm names for the xFacts families
 
-**Status:** Draft. The `@xfacts` org exists. The packages in section 3 are renamed in git and ready to publish. Nothing is published.
+**Status:** Draft. `@xfacts/panel@0.1.0`, `@xfacts/featurefacts@0.2.0`, and the five `0.1.0` family packages are on npm. Those versions import TypeScript from `node_modules`, which Node refuses to run. `0.1.1` and `@xfacts/featurefacts@0.2.1` bundle the commands to JavaScript and are not published yet.
 **Date:** 2026-09-28
 **Related:** ForgeTrail `specs/suite-cohesion-prelaunch-review.md` P1-6
 
@@ -38,7 +38,7 @@ A family's validator is the package people install first, so it takes the family
 
 1. **Operator:** done on 2026-09-29. The org is `@xfacts`. `acmegeek` is the owner and the only member. The default team is `developers`, and new packages under the scope join that team. `@catalyst-forge` is not needed.
 2. **Agent:** done on 2026-09-29, not published. Each package in the map (except `directory-tools` and AppFacts) has the `@xfacts` name, `bin`, `files`, `engines` `>=22.18.0`, `repository`, `license: MIT`, and `publishConfig.access: public`. `"private"` is removed. Commands import the TypeScript source. Validator and generator `prepack` copies the site schema (and the repo `LICENSE`) into the package directory; those copies are gitignored. `encode-viewer` still writes repo example indexes, so it is useful inside the repository. Checked: `pnpm test` in x-facts (22) and feature-facts (10); each validator against one example; `modelfacts-generate` with no target exits 2. `pnpm pack --dry-run` lists the command, source, schema or specs, README, and LICENSE, and does not list tests, `site/`, or `node_modules`. FeatureFacts `tsc` still fails on the existing `tests/helm-repos.test.ts` import of `scripts/helm-repos.mjs`; the test run itself passes.
-3. **Operator:** publish each package.
+3. **Operator:** `@xfacts/panel@0.1.0`, `@xfacts/featurefacts@0.2.0`, `@xfacts/toolfacts@0.1.0`, `@xfacts/agentfacts@0.1.0`, `@xfacts/skillfacts@0.1.0`, `@xfacts/modelfacts@0.1.0`, and `@xfacts/modelfacts-generator@0.1.0` were published on 2026-09-29. `npx` fails with `ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`. Publish `0.1.1` and `@xfacts/featurefacts@0.2.1`, which bundle each command to JavaScript during `prepack`.
 4. **Agent, after each publish:** change the site's install section from `git clone` to `npx @xfacts/<name>`. Remove the FeatureFacts line saying the CLI "is not on npm yet". Update catalyst-forge `src/lib/product-facts.js` npm fields and run `pnpm versions`. Update the ForgeTrail `content/companion-tools.json` xFacts entry if it names an install command.
 5. **Operator:** redeploy the family site and catalystforge.com.
 
