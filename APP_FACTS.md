@@ -1,6 +1,6 @@
 ---
 app_facts_version: 0.1.0
-name: panel
+name: xFacts
 type: CLI tool
 status: active
 license: MIT
@@ -40,7 +40,7 @@ credits:
   built_by: "Catalyst Forge — https://www.catalystforge.com/"
 ---
 
-# panel
+# xFacts
 
 `CLI tool` · **active** · MIT
 
@@ -76,4 +76,4 @@ xFacts hub and Panel tooling: derived tool-surface views and drift checks.
 ---
 *Generated with [AppFacts](https://appfacts.dev) · Built by [Catalyst Forge](https://www.catalystforge.com/) · [Visual label][appfacts-label]*
 
-[appfacts-label]: https://appfacts.dev/v#af1.eNqdUk1vGyEQ_SvoHaKmYneVK6dGjtpGcntJblVVjVmyIQYGwazljZX_XrFOeq9vDO9rxOOEA8yNRqLoYJApuQANWXIbN9t7JcztpgrJXGFAVvzBQSN461JttB_3j2eG3cOcEChNM00NeVyye7DFZ4FGmZP4NeYnj65_qS2IOfg0teiUI940RpcrzK8TEgy-RB5dsJzEHSUXFrYchjruoZFhcOdsoOJG5ZPKZPc0NV9OPTRa0Nnz7EUvh8tU3ROXSFIvUFtKnLyl4F_dBfKFYvgf2W-N3ezD2Fp4J_2JlGhy5eOFNcRVgYHUo-q6Nqha7PC5b8deqrq6UolH9w9c66tDoJ0LHc2jlzM1rgVajtmHtsGa_E5vgIfBNy_f5526teI5VfVp_V_9EsN1q7q4zNULlwUGzyK5mmGYvDzPu95yHDYkFJYq3Vcuk-u2281w7J7ISsXbX4fs5OU
+[appfacts-label]: https://appfacts.dev/v#af1.eNqdUk1r3DAQ_SviHUJaZJtedWrZkA_Y9NLcSiizsuIoK2mENF7WXfLfg7xp78lNw_sa5umEA8w3jUTRweB4TVYqNGTJbd5s75QwB2hUIZkrDMiKPzhoBG9dqo12f_dwZtg9zAmB0jTT1JCHJbtftvgs0ChzEr_m_OTR9S9rEHPwaYJBTjniVWN0ucL8PiHB4Hvk0QXLSdxRcmFhy2Go4x4aGQZXzgYqblQ-qUx2T1Pz5dRDowWdPc9e9HL4nKp74hJpvctH1ZYSJ28p-L_uE_KFYviI7FFjN_swthbeSX8iJZpc-XdhDXFVYCD1qLquDaoWO3zt27OXqi4uVOLR_QfX-uoQaOdCR_Po5UyNa4GWY_ahbbAmv9Mb4GFw4-V23qkfVjynqi4zJRf6JYYvreriMlcvXBYYPIvkaoZh8vI873rLcdiQUFiqdNdcJtdtt5vh2D2tX_T1DXlo5T4
