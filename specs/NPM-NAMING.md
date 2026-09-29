@@ -1,6 +1,6 @@
 # npm names for the xFacts families
 
-**Status:** Draft. `@xfacts/panel@0.1.1`, `@xfacts/featurefacts@0.2.1`, and the five family `0.1.1` packages are on npm and run from `npx`. Family sites and READMEs name those commands. The live sites update when the operator redeploys.
+**Status:** Draft. `@xfacts/panel@0.1.1`, `@xfacts/featurefacts@0.2.1`, and the five family `0.1.1` packages are on npm and run from `npx`. Family sites and READMEs name those commands. The live sites update when the operator redeploys. `@xfacts/appfacts@0.1.0` is prepared as ESM JavaScript and is not published.
 **Date:** 2026-09-28
 **Related:** ForgeTrail `specs/suite-cohesion-prelaunch-review.md` P1-6
 
@@ -31,7 +31,7 @@ A family's validator is the package people install first, so it takes the family
 | `model-facts/validator/` | `@xfacts/modelfacts` | `@xfacts/modelfacts` | `modelfacts` | Subcommand: `validate`. |
 | `model-facts/generator/` | `@xfacts/modelfacts-generator` | `@xfacts/modelfacts-generator` | `modelfacts-generate` | Drafts a label from a Hugging Face card or a local Ollama model. |
 | `model-facts/directory-tools/` | `modelfacts-directory-tools` | not published | — | It maintains the modelfacts.dev catalog and has no users outside that repository. |
-| `app-facts/generator/` | none | `@xfacts/appfacts` later | `appfacts` | This is plain JavaScript and Python with no `package.json`. It needs a TypeScript ESM package before it can be named. Until then AppFacts stays clone-only. |
+| `app-facts/generator/` | `@xfacts/appfacts` | `@xfacts/appfacts` | `appfacts` | ESM JavaScript, version 0.1.0, prepared on 2026-09-29 and not published. The Python generator stays in the repository and is not the npm command. The site still says clone until that publish. |
 | `app-facts/`, `tool-facts/`, `agent-facts/`, `skill-facts/`, `model-facts/` roots | `<family>` or unnamed | stay private | — | Site and workspace roots only. |
 
 ## 4. Order of work
@@ -39,8 +39,9 @@ A family's validator is the package people install first, so it takes the family
 1. **Operator:** done on 2026-09-29. The org is `@xfacts`. `acmegeek` is the owner and the only member. The default team is `developers`, and new packages under the scope join that team. `@catalyst-forge` is not needed.
 2. **Agent:** done on 2026-09-29, not published. Each package in the map (except `directory-tools` and AppFacts) has the `@xfacts` name, `bin`, `files`, `engines` `>=22.18.0`, `repository`, `license: MIT`, and `publishConfig.access: public`. `"private"` is removed. Commands import the TypeScript source. Validator and generator `prepack` copies the site schema (and the repo `LICENSE`) into the package directory; those copies are gitignored. `encode-viewer` still writes repo example indexes, so it is useful inside the repository. Checked: `pnpm test` in x-facts (22) and feature-facts (10); each validator against one example; `modelfacts-generate` with no target exits 2. `pnpm pack --dry-run` lists the command, source, schema or specs, README, and LICENSE, and does not list tests, `site/`, or `node_modules`. FeatureFacts `tsc` still fails on the existing `tests/helm-repos.test.ts` import of `scripts/helm-repos.mjs`; the test run itself passes.
 3. **Operator:** done on 2026-09-29. `@xfacts/panel@0.1.1`, `@xfacts/featurefacts@0.2.1`, `@xfacts/toolfacts@0.1.1`, `@xfacts/agentfacts@0.1.1`, `@xfacts/skillfacts@0.1.1`, `@xfacts/modelfacts@0.1.1`, and `@xfacts/modelfacts-generator@0.1.1` are public. `npx` runs each command. The earlier `0.1.0` and `@xfacts/featurefacts@0.2.0` releases remain and cannot run from `node_modules`.
-4. **Agent:** done on 2026-09-29 in the repositories, not yet redeployed. Family install sections and READMEs use `npx @xfacts/<name>`. The FeatureFacts “not on npm yet” line is gone. catalyst-forge `product-facts.js` sets `npm` to `@xfacts/panel` and lists the family commands; `pnpm versions` refreshed the shelf. ForgeTrail `content/companion-tools.json` does not name an install command, so that entry was left as it was.
+4. **Agent:** done on 2026-09-29 in the repositories, not yet redeployed. Family install sections and READMEs use `npx @xfacts/<name>`. The FeatureFacts “not on npm yet” line is gone. catalyst-forge `product-facts.js` sets `npm` to `@xfacts/panel` and lists the family commands; `pnpm versions` refreshed the shelf. ForgeTrail `content/companion-tools.json` does not name an install command, so that entry was left as it was. AppFacts was not in that pass.
 5. **Operator:** redeploy the family site and catalystforge.com.
+6. **Agent:** done on 2026-09-29, not published. The AppFacts Node generator is ESM. `app-facts/generator/package.json` names `@xfacts/appfacts` at 0.1.0 with bin `appfacts`, `engines` `>=22.18.0`, and `publishConfig.access: public`. The Python generator stays in the repository. Node tests (15) and Python tests (13) pass. A packed tarball installed under `node_modules` runs `--help` and writes a QR PNG. appfacts.dev still says clone until the operator publishes this package.
 
 ## 5. The third-party `agentfacts` package
 
