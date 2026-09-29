@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const win = process.platform === 'win32';
-const ACTIONS = new Set(['check', 'refresh', 'reencode', 'ship']);
+const ACTIONS = new Set(['check', 'refresh', 'reencode', 'update', 'ship']);
 
 function bridge(args) {
 	return new Promise((resolve, reject) => {

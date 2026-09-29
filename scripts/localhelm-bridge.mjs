@@ -4,8 +4,8 @@
  *
  * Commands (stdout = JSON):
  *   inventory
- *   plan  --action check|reencode|refresh|ship [--names a,b]
- *   apply --action check|reencode|refresh|ship [--names a,b]
+ *   plan  --action check|reencode|refresh|update|ship [--names a,b]
+ *   apply --action check|reencode|refresh|update|ship [--names a,b]
  *
  * Lists enrolled LocalHelm fleet projects (localhelm.fleet.json next to this
  * workspace). Falls back to sibling git/package folders if no fleet file.
@@ -460,6 +460,20 @@ function plan(action, ids) {
 			}),
 		};
 	}
+	if (action === 'update') {
+		return {
+			action,
+			note: 'Rewrite APP_FACTS.md from the repo scan. No model. Replaces the existing file. FeatureFacts and SkillFacts stay.',
+			rows: rows.map((r) => ({
+				id: r.id,
+				app: r.app,
+				status: r.status,
+				files: ['APP_FACTS.md'],
+				writes: true,
+				action: 'update',
+			})),
+		};
+	}
 	throw new Error(`unknown action ${action}`);
 }
 
@@ -579,7 +593,7 @@ function runSkillRefresh(row) {
 	};
 }
 
-function runScaffold(row) {
+function runScaffold(row, force = false) {
 	const id = row.id;
 	if (!existsSync(APP_FACTS_GEN)) return { id, ok: false, detail: 'AppFacts generator missing', writes: false };
 	const result = spawnSync(
@@ -589,6 +603,7 @@ function runScaffold(row) {
 			repoAbs(row),
 			'--scaffold',
 			'--no-qr',
+			...(force ? ['--force'] : []),
 			'--consulting-link',
 			'https://www.catalystforge.com/',
 			'--consulting-name',
@@ -719,6 +734,7 @@ function apply(action, ids) {
 	const results = [];
 	for (const r of rows) {
 		if (action === 'check') results.push(runCheck(r));
+		else if (action === 'update') results.push(runScaffold(r, true));
 		else if (action === 'reencode') results.push(runReencode(r));
 		else if (action === 'refresh') results.push(runRefresh(r));
 		else if (action === 'ship') results.push(runShip(r));
