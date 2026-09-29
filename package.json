@@ -1,23 +1,22 @@
 {
-  "name": "xfacts",
+  "name": "@xfacts/panel",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "xFacts hub and Panel tooling: derived tool-surface views and drift checks.",
   "license": "MIT",
   "scripts": {
-    "panel": "tsx src/cli.ts panel",
-    "validate": "tsx src/cli.ts validate",
-    "integrity": "tsx src/cli.ts integrity",
-    "drift": "tsx src/cli.ts drift",
-    "encode": "tsx src/cli.ts encode",
-    "badge": "tsx src/cli.ts badge",
+    "panel": "node bin/xfacts-panel.mjs panel",
+    "validate": "node bin/xfacts-panel.mjs validate",
+    "integrity": "node bin/xfacts-panel.mjs integrity",
+    "drift": "node bin/xfacts-panel.mjs drift",
+    "encode": "node bin/xfacts-panel.mjs encode",
+    "badge": "node bin/xfacts-panel.mjs badge",
     "test": "tsx --test src/*.test.ts",
     "typecheck": "tsc --noEmit",
     "ship": "wrangler deploy --config site/wrangler.jsonc"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.18.0"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
@@ -40,5 +39,25 @@
       "esbuild",
       "workerd"
     ]
+  },
+  "bin": {
+    "xfacts-panel": "./bin/xfacts-panel.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "!src/**/*.test.ts",
+    "specs/enums.json",
+    "specs/severity.json",
+    "specs/panel.schema.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Catalyst-Forge-LLC/x-facts.git"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

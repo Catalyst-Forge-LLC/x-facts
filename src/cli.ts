@@ -13,15 +13,15 @@ import { validatePanel } from "./validate-panel.ts";
 function usage(): never {
   console.error(`xFacts Panel
 
-  pnpm panel --source tools.json|TOOL_FACTS.md [--name NAME] [--url CANONICAL] [--out panel.json]
-  pnpm panel --stdio -- <command> [args…]
-  pnpm panel --http URL
-  pnpm validate panel.json
-  pnpm integrity panel.json --source tools.json
-  pnpm drift approved.json --source tools.json
-  pnpm drift approved.json --stdio -- <command> [args…]
-  pnpm encode panel.json
-  pnpm badge panel.json [--out badge.svg]
+  xfacts-panel panel --source tools.json|TOOL_FACTS.md [--name NAME] [--url CANONICAL] [--out panel.json]
+  xfacts-panel panel --stdio -- <command> [args…]
+  xfacts-panel panel --http URL
+  xfacts-panel validate panel.json
+  xfacts-panel integrity panel.json --source tools.json
+  xfacts-panel drift approved.json --source tools.json
+  xfacts-panel drift approved.json --stdio -- <command> [args…]
+  xfacts-panel encode panel.json
+  xfacts-panel badge panel.json [--out badge.svg]
 `);
   process.exit(EXIT.usage);
 }

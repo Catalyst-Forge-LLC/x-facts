@@ -1,6 +1,6 @@
 # npm names for the xFacts families
 
-**Status:** Draft. The `@xfacts` org exists. Nothing is renamed or published yet.
+**Status:** Draft. The `@xfacts` org exists. The packages in section 3 are renamed in git and ready to publish. Nothing is published.
 **Date:** 2026-09-28
 **Related:** ForgeTrail `specs/suite-cohesion-prelaunch-review.md` P1-6
 
@@ -9,7 +9,7 @@
 - None of these unscoped names is on npm: `xfacts`, `appfacts`, `featurefacts`, `toolfacts`, `skillfacts`, `modelfacts`, and the dashed forms (`app-facts` and the rest).
 - `agentfacts@0.1.2` belongs to another account, `xr3less`. Its description is "See what your coding agent actually did, next to what it said it did." It is not part of AgentFacts.
 - The npm search returns no packages under `@xfacts`. That does not show whether the org name is free. The registry refuses org listings to non-members, and the npmjs.com org page returned 403 to the check.
-- Every xFacts `package.json` is `"private": true`.
+- On 2026-09-28 every xFacts `package.json` was `"private": true`. On 2026-09-29 the packages in section 3 dropped `private` and took the `@xfacts` names. `directory-tools` and the site roots stay private. Nothing is published.
 
 ## 2. Decision
 
@@ -23,13 +23,13 @@ A family's validator is the package people install first, so it takes the family
 
 | Repository path | Current name | Proposed name | Command | Notes |
 | --- | --- | --- | --- | --- |
-| `x-facts/` | `xfacts` | `@xfacts/panel` | `xfacts-panel` | The scripts `panel`, `validate`, `integrity`, `drift`, `encode`, and `badge` become subcommands. It has no `bin` yet. |
-| `feature-facts/` | `featurefacts` | `@xfacts/featurefacts` | `featurefacts` | The `bin` already exists. |
-| `tool-facts/validator/` | `toolfacts-validator` | `@xfacts/toolfacts` | `toolfacts` | `validate` and `encode-viewer` become subcommands. |
-| `agent-facts/validator/` | `agentfacts-validator` | `@xfacts/agentfacts` | `agentfacts` | Same shape as ToolFacts. The command name matches the third-party package's name, but npm installs by package name, so they do not collide. |
-| `skill-facts/validator/` | `skillfacts-validator` | `@xfacts/skillfacts` | `skillfacts` | Same shape as ToolFacts. |
-| `model-facts/validator/` | `modelfacts-validator` | `@xfacts/modelfacts` | `modelfacts` | Same shape as ToolFacts. |
-| `model-facts/generator/` | `modelfacts-generator` | `@xfacts/modelfacts-generator` | `modelfacts-generate` | Drafts a label from a Hugging Face card or a local Ollama model. |
+| `x-facts/` | `@xfacts/panel` | `@xfacts/panel` | `xfacts-panel` | Subcommands: `panel`, `validate`, `integrity`, `drift`, `encode`, `badge`. |
+| `feature-facts/` | `@xfacts/featurefacts` | `@xfacts/featurefacts` | `featurefacts` | Version 0.2.0. |
+| `tool-facts/validator/` | `@xfacts/toolfacts` | `@xfacts/toolfacts` | `toolfacts` | Subcommands: `validate`, `encode-viewer`. |
+| `agent-facts/validator/` | `@xfacts/agentfacts` | `@xfacts/agentfacts` | `agentfacts` | Same shape as ToolFacts. The command name matches the third-party package's name, but npm installs by package name, so they do not collide. |
+| `skill-facts/validator/` | `@xfacts/skillfacts` | `@xfacts/skillfacts` | `skillfacts` | Same shape as ToolFacts. |
+| `model-facts/validator/` | `@xfacts/modelfacts` | `@xfacts/modelfacts` | `modelfacts` | Subcommand: `validate`. |
+| `model-facts/generator/` | `@xfacts/modelfacts-generator` | `@xfacts/modelfacts-generator` | `modelfacts-generate` | Drafts a label from a Hugging Face card or a local Ollama model. |
 | `model-facts/directory-tools/` | `modelfacts-directory-tools` | not published | — | It maintains the modelfacts.dev catalog and has no users outside that repository. |
 | `app-facts/generator/` | none | `@xfacts/appfacts` later | `appfacts` | This is plain JavaScript and Python with no `package.json`. It needs a TypeScript ESM package before it can be named. Until then AppFacts stays clone-only. |
 | `app-facts/`, `tool-facts/`, `agent-facts/`, `skill-facts/`, `model-facts/` roots | `<family>` or unnamed | stay private | — | Site and workspace roots only. |
@@ -37,7 +37,7 @@ A family's validator is the package people install first, so it takes the family
 ## 4. Order of work
 
 1. **Operator:** done on 2026-09-29. The org is `@xfacts`. `acmegeek` is the owner and the only member. The default team is `developers`, and new packages under the scope join that team. `@catalyst-forge` is not needed.
-2. **Agent, one repository at a time:** rename the package, remove `"private": true`, add `bin`, `files`, `engines`, `repository`, and `publishConfig.access: public`, and move script entry points behind the command. `pnpm pack --dry-run` must list only the intended files, and the family's validator must still pass its examples. Do not publish.
+2. **Agent:** done on 2026-09-29, not published. Each package in the map (except `directory-tools` and AppFacts) has the `@xfacts` name, `bin`, `files`, `engines` `>=22.18.0`, `repository`, `license: MIT`, and `publishConfig.access: public`. `"private"` is removed. Commands import the TypeScript source. Validator and generator `prepack` copies the site schema (and the repo `LICENSE`) into the package directory; those copies are gitignored. `encode-viewer` still writes repo example indexes, so it is useful inside the repository. Checked: `pnpm test` in x-facts (22) and feature-facts (10); each validator against one example; `modelfacts-generate` with no target exits 2. `pnpm pack --dry-run` lists the command, source, schema or specs, README, and LICENSE, and does not list tests, `site/`, or `node_modules`. FeatureFacts `tsc` still fails on the existing `tests/helm-repos.test.ts` import of `scripts/helm-repos.mjs`; the test run itself passes.
 3. **Operator:** publish each package.
 4. **Agent, after each publish:** change the site's install section from `git clone` to `npx @xfacts/<name>`. Remove the FeatureFacts line saying the CLI "is not on npm yet". Update catalyst-forge `src/lib/product-facts.js` npm fields and run `pnpm versions`. Update the ForgeTrail `content/companion-tools.json` xFacts entry if it names an install command.
 5. **Operator:** redeploy the family site and catalystforge.com.
