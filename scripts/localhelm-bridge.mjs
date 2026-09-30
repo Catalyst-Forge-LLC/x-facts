@@ -16,7 +16,6 @@ import { homedir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateSync } from 'node:zlib';
-import { missingSkillFacts, writeMissingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
 import {
 	auditLabels,
 	commitLabelChanges,
@@ -582,16 +581,42 @@ function runReencode(row) {
 }
 
 function runSkillRefresh(row) {
+	const id = row.id;
 	const root = repoAbs(row);
-	const result = writeMissingSkillFacts(root);
-	const wrote = result.wrote ?? [];
+	const script = join(WORKSPACE, 'skill-facts', 'scripts', 'generate_skill_facts.mjs');
+	if (!existsSync(script)) {
+		return {
+			id,
+			ok: false,
+			detail: 'SkillFacts generator is unavailable. Check out the sibling skill-facts repo before adding SKILL_FACTS.md.',
+			writes: false,
+		};
+	}
+	const result = spawnSync(process.execPath, [script, root], { encoding: 'utf8', windowsHide: true });
+	const out = String(result.stdout || '').trim();
+	const err = `${result.stderr || ''}${result.error ? result.error.message || result.error : ''}`.trim();
+	let parsed = null;
+	try {
+		parsed = JSON.parse(out);
+	} catch {
+		parsed = null;
+	}
+	if (result.status !== 0 || result.error || !parsed || parsed.ok === false) {
+		return {
+			id,
+			ok: false,
+			detail: (err || out || `skill facts exit ${result.status}`).slice(0, 400),
+			writes: false,
+		};
+	}
+	const wrote = (Array.isArray(parsed.wrote) ? parsed.wrote : []).map((p) => join(root, p));
 	if (wrote.length) {
 		const helper = join(XFACTS_ROOT, 'scripts', 'reencode_facts_viewer.py');
 		if (existsSync(helper)) runPython([helper, ...wrote]);
 	}
 	return {
-		id: row.id,
-		ok: result.ok !== false,
+		id,
+		ok: true,
 		detail: wrote.length
 			? `SkillFacts ${wrote.map((p) => relative(root, p).replace(/\\/g, '/')).join(', ')}`
 			: 'no missing SkillFacts',

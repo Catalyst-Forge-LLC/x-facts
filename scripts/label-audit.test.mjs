@@ -64,4 +64,14 @@ describe('label audit', () => {
 		writeFileSync(register, JSON.stringify({ features: [] }));
 		assert.ok(auditLabels(root).some((problem) => problem.startsWith('featurefacts ')));
 	});
+
+	it('reports a SKILL.md pack that has no SKILL_FACTS.md', () => {
+		const root = mkdtempSync(join(tmpdir(), 'xfacts-skill-'));
+		mkdirSync(join(root, 'packs', 'demo'), { recursive: true });
+		writeFileSync(join(root, 'packs', 'demo', 'SKILL.md'), '---\nname: demo\n---\n');
+		assert.ok(labelGaps(root).includes('packs/demo/SKILL_FACTS.md'));
+		assert.ok(auditLabels(root).includes('missing packs/demo/SKILL_FACTS.md'));
+		writeFileSync(join(root, 'packs', 'demo', 'SKILL_FACTS.md'), '---\nname: demo\n---\n');
+		assert.equal(labelGaps(root).includes('packs/demo/SKILL_FACTS.md'), false);
+	});
 });

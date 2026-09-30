@@ -12,7 +12,6 @@ import Ajv from 'ajv';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { parse } from 'yaml';
-import { missingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
 
 const WORKSPACE = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
@@ -172,6 +171,30 @@ function validateMarkdown(kind, file) {
 }
 
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', '.cursor', 'site', 'fixtures', 'coverage', '__ARCHIVE']);
+
+/** SKILL.md packs in this tree that have no SKILL_FACTS.md beside them. */
+export function missingSkillFacts(root) {
+	const missing = [];
+	function walk(dir, depth) {
+		if (depth > 5 || !existsSync(dir)) return;
+		let entries = [];
+		try {
+			entries = readdirSync(dir, { withFileTypes: true });
+		} catch {
+			return;
+		}
+		for (const ent of entries) {
+			if (SKIP_DIRS.has(ent.name) || ent.name.startsWith('.')) continue;
+			const p = join(dir, ent.name);
+			if (ent.isFile() && ent.name === 'SKILL.md') {
+				const facts = join(dir, 'SKILL_FACTS.md');
+				if (!existsSync(facts)) missing.push(facts);
+			} else if (ent.isDirectory()) walk(p, depth + 1);
+		}
+	}
+	walk(root, 0);
+	return missing;
+}
 
 function walkFacts(root) {
 	const hits = { skill: [], tool: [], agent: [], model: [] };
