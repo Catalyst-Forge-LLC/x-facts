@@ -6,8 +6,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: x-facts
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: x-facts
+      # The LocalHelm bridge validates against the canonical sibling schemas.
+      # Pin the tested schema source instead of relying on a maintainer's shelf.
+      - uses: actions/checkout@v4
+        with:
+          repository: Catalyst-Forge-LLC/feature-facts
+          ref: bc8652d3fe213048c3c625daa08a9d928991531f
+          path: feature-facts
+          sparse-checkout: schemas
+          persist-credentials: false
       - uses: pnpm/action-setup@v4
         with:
           version: 10
@@ -15,6 +29,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-dependency-path: x-facts/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm test

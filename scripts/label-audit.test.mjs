@@ -29,6 +29,8 @@ describe('commit label changes', () => {
 	it('commits the new label and leaves an unrelated dirty file', () => {
 		const root = mkdtempSync(join(tmpdir(), 'xfacts-commit-'));
 		execFileSync('git', ['init'], { cwd: root });
+		execFileSync('git', ['config', 'user.name', 'xFacts test fixture'], { cwd: root });
+		execFileSync('git', ['config', 'user.email', 'fixture@example.invalid'], { cwd: root });
 		writeFileSync(join(root, 'README.md'), '# Sample\n');
 		execFileSync('git', ['add', 'README.md'], { cwd: root });
 		execFileSync('git', ['commit', '-m', 'start'], { cwd: root });

@@ -94,6 +94,8 @@ localhelm plugin xfacts ship x-facts --apply
 
 The bridge (`scripts/localhelm-bridge.mjs`) lists the enrolled LocalHelm fleet (or sibling git folders if there is no fleet file) and reports app, tool, skill, agent, model, and feature labels. Check validates those files against their schemas, compares an AppFacts fingerprint when `APP_FACTS.md` exists, and fails a missing AppFacts file, an invalid FeatureFacts register, or a `SKILL.md` without SkillFacts. Add labels writes a missing `APP_FACTS.md` from the repo scan without a model, creates a missing `.featurefacts/features.yaml` with FeatureFacts scan (zero records is valid), and writes missing `SKILL_FACTS.md` files. It does not rewrite an existing label and does not invent ToolFacts, AgentFacts, or ModelFacts. Re-encode writes a `/v` card into each `*_FACTS.md` from frontmatter. Ship runs `pnpm ship` when that script exists (wrangler / Pages), not FilePress Land.
 
+The bridge's schema checks require the corresponding sibling label checkout; an unavailable schema is reported as a check failure. `pnpm test` includes the FeatureFacts audit integration and needs `../feature-facts/schemas`. Panel CI checks out that canonical schema directory at a pinned commit beside xFacts, so the empty-register regression is exercised on a clean runner. Git commit tests set their author identity only inside their disposable fixture repository.
+
 ## Family footer
 
 `site/footer.html` is the paste-ready footer for every sibling. When the family grows or a label ships, change that file first; the label sites follow at their next deploy.
