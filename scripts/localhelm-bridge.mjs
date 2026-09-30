@@ -23,7 +23,6 @@ import {
 	featureSummary,
 	labelGaps,
 	labelStatusPaths,
-	writePackageCandidate,
 } from './label-audit.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -307,7 +306,7 @@ function inspectRepo(project) {
 	if (!hasFacts) status = 'no label';
 	else if (app === 'missing') status = 'ok';
 	if (!existsSync(appPath)) status = 'no label';
-	else if (!register.exists || register.count === 0) status = 'no features';
+	else if (!register.exists) status = 'no features';
 	else if (gaps.some((gap) => gap.endsWith('SKILL_FACTS.md'))) status = 'no skill facts';
 
 	const rootPkg = readJson(join(root, 'package.json'));
@@ -403,7 +402,7 @@ function plan(action, ids) {
 	if (action === 'check') {
 		return {
 			action,
-			note: 'Validate AppFacts, FeatureFacts, and any SkillFacts, ToolFacts, AgentFacts, or ModelFacts on disk. Compare the AppFacts fingerprint when that file exists. A missing AppFacts file, an empty FeatureFacts register, or a SKILL.md without SkillFacts fails. No write.',
+			note: 'Validate AppFacts, FeatureFacts, and any SkillFacts, ToolFacts, AgentFacts, or ModelFacts on disk. Compare the AppFacts fingerprint when that file exists. A missing AppFacts file, a missing or invalid FeatureFacts register, or a SKILL.md without SkillFacts fails. Zero feature records is valid. No write.',
 			rows: rows.map((r) => {
 				const gaps = r.labelGaps ?? [];
 				return {
@@ -453,7 +452,7 @@ function plan(action, ids) {
 	if (action === 'refresh') {
 		return {
 			action,
-			note: 'Write a missing APP_FACTS.md from the repo scan (no model), fill a missing or empty FeatureFacts register, and write any missing SkillFacts next to SKILL.md. Existing labels stay. Commits only those label files. Does not push. A ledger manifest is bound when appledger is available. Tool, agent, and model files are not invented.',
+			note: 'Write a missing APP_FACTS.md from the repo scan (no model), create a missing FeatureFacts register (zero features is valid), and write any missing SkillFacts next to SKILL.md. Existing labels stay. Commits only those label files. Does not push. A ledger manifest is bound when appledger is available. Tool, agent, and model files are not invented.',
 			rows: rows.map((r) => {
 				const files = r.labelGaps ?? labelGaps(repoAbs(r));
 				return {
@@ -632,43 +631,24 @@ function runFeatureAdd(row) {
 	const id = row.id;
 	const root = repoAbs(row);
 	const before = featureSummary(root);
-	if (before.exists && before.count > 0) {
-		return { id, ok: true, detail: 'FeatureFacts register already has features', writes: false };
+	if (before.exists) {
+		return { id, ok: before.errors.length === 0, detail: before.errors.join('; ') || 'FeatureFacts register already exists; zero features is valid', writes: false };
 	}
 	const ffRoot = join(WORKSPACE, 'feature-facts');
-	const tsx = join(ffRoot, 'node_modules', 'tsx', 'dist', 'cli.mjs');
-	let scanDetail = 'featurefacts scan skipped';
-	if (existsSync(tsx)) {
-		const win = process.platform === 'win32';
-		const result = spawnSync(win ? 'pnpm.cmd' : 'pnpm', ['exec', 'tsx', 'src/cli.ts', 'scan', '--root', root], {
-			cwd: ffRoot,
-			encoding: 'utf8',
-			windowsHide: true,
-			timeout: 180_000,
-		});
-		const out = `${result.stdout || ''}${result.stderr || ''}`.trim();
-		scanDetail = out.slice(0, 400) || `featurefacts scan exit ${result.status}`;
+	const bin = join(ffRoot, 'bin', 'featurefacts.mjs');
+	if (!existsSync(bin) || !existsSync(join(ffRoot, 'dist', 'cli.js'))) {
+		return { id, ok: false, detail: 'FeatureFacts CLI is unavailable. Build the sibling feature-facts checkout before adding its register.', writes: false };
 	}
+	const result = spawnSync(process.execPath, [bin, 'scan', '--root', root], {
+		cwd: ffRoot, encoding: 'utf8', windowsHide: true, timeout: 180_000,
+	});
 	const after = featureSummary(root);
-	if (after.count > 0) {
-		if (after.errors.length) return { id, ok: false, detail: after.errors.join('; '), writes: true };
-		return { id, ok: true, detail: scanDetail, writes: true };
-	}
-	const candidate = writePackageCandidate(root);
-	if (candidate.wrote && existsSync(tsx)) {
-		const win = process.platform === 'win32';
-		spawnSync(win ? 'pnpm.cmd' : 'pnpm', ['exec', 'tsx', 'src/cli.ts', 'report', '--root', root], {
-			cwd: ffRoot,
-			encoding: 'utf8',
-			windowsHide: true,
-			timeout: 180_000,
-		});
-	}
+	const out = ((result.stdout || '') + (result.stderr || '')).trim();
 	return {
 		id,
-		ok: candidate.wrote,
-		detail: candidate.wrote ? `${scanDetail} · wrote a package candidate` : `${scanDetail} · ${candidate.reason}`,
-		writes: candidate.wrote,
+		ok: result.status === 0 && after.exists && after.errors.length === 0,
+		detail: after.errors.join('; ') || out.slice(0, 400) || ('featurefacts scan exit ' + result.status),
+		writes: after.exists,
 	};
 }
 

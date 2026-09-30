@@ -1,17 +1,17 @@
 /**
  * Read-only label audit for the LocalHelm xFacts plugin.
- * Schema-checks files that exist. A missing AppFacts file, a missing or empty
+ * Schema-checks files that exist. A missing AppFacts file, a missing or invalid
  * FeatureFacts register, and a SKILL.md without SKILL_FACTS.md are gaps.
  * Tool, agent, and model files are checked only when present.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Ajv from 'ajv';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-import { parse, stringify } from 'yaml';
+import { parse } from 'yaml';
 import { missingSkillFacts } from '../../skill-facts/scripts/generate_skill_facts.mjs';
 
 const WORKSPACE = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -157,7 +157,7 @@ export function labelGaps(root) {
 	const gaps = [];
 	if (!existsSync(join(root, 'APP_FACTS.md'))) gaps.push('APP_FACTS.md');
 	const features = featureSummary(root);
-	if (!features.exists || features.count === 0) gaps.push('.featurefacts/features.yaml');
+	if (!features.exists) gaps.push('.featurefacts/features.yaml');
 	for (const file of missingSkillFacts(root)) {
 		gaps.push(relative(root, file).replace(/\\/g, '/'));
 	}
@@ -212,7 +212,6 @@ export function auditLabels(root) {
 
 	const features = featureSummary(root);
 	if (!features.exists) problems.push('no .featurefacts/features.yaml');
-	else if (features.count === 0) problems.push('FeatureFacts register is empty');
 	else problems.push(...features.errors.map((err) => `featurefacts ${err}`));
 
 	const found = walkFacts(root);
@@ -225,130 +224,4 @@ export function auditLabels(root) {
 		}
 	}
 	return problems;
-}
-
-function kebab(value) {
-	const id = String(value)
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-+|-+$/g, '')
-		.replace(/-+/g, '-');
-	return /^[a-z]/.test(id) ? id.slice(0, 64) : `pkg-${id}`.slice(0, 64);
-}
-
-/** One candidate row when a scan found no capabilities. Does not claim the capability is confirmed. */
-export function writePackageCandidate(root) {
-	const summary = featureSummary(root);
-	if (summary.exists && summary.count > 0) return { wrote: false, reason: 'register already has features' };
-	let pkg = {};
-	try {
-		pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-	} catch {
-		pkg = {};
-	}
-	const rawName = typeof pkg.name === 'string' && pkg.name.trim() ? pkg.name.trim() : root.split(/[/\\]/).pop();
-	const name = rawName.replace(/^@[^/]+\//, '');
-	const id = kebab(name) || 'package';
-	const description = typeof pkg.description === 'string' && pkg.description.trim()
-		? pkg.description.trim()
-		: `Package ${name}. No command surface was extracted.`;
-	const now = new Date().toISOString();
-	const registry = {
-		schemaVersion: '0.2.0',
-		scan_id: 'scan-add',
-		product: {
-			name,
-			type: pkg.bin ? 'CLI tool' : 'unknown',
-			status: 'unknown',
-			...(typeof pkg.license === 'string' && pkg.license ? { license: pkg.license } : {}),
-		},
-		features: [
-			{
-				id,
-				name,
-				description,
-				type: 'feature',
-				recognition: 'candidate',
-				lifecycle: 'unknown',
-				availability: {
-					state: 'unknown',
-					conditions: [],
-					reason: 'Availability was not declared.',
-				},
-				maturity: 'unknown',
-				audiences: {
-					state: 'unknown',
-					values: [],
-					reason: 'Audience was not declared.',
-				},
-				discovery: {
-					state: 'unassessed',
-					surfaces: [],
-					adapter_ids: [],
-					reason: 'No command surface was extracted.',
-				},
-				intent: 'unknown',
-				publication: {
-					scope: 'internal',
-					reason: 'A scan candidate stays internal until a maintainer publishes it.',
-				},
-				entry_points: [],
-				implements: [],
-				dependencies: [],
-				docs: {
-					state: 'unassessed',
-					result: 'unknown',
-					adapter_ids: [],
-					links: [],
-					reason: 'Documentation was not assessed.',
-				},
-				tests: {
-					state: 'unassessed',
-					result: 'unknown',
-					adapter_ids: [],
-					links: [],
-					reason: 'Tests were not assessed.',
-				},
-				observation: {
-					state: 'current',
-					last_seen_scan_id: 'scan-add',
-					reason: 'Written by Add labels from package.json.',
-				},
-				evidence: [
-					{
-						id: 'ev-package',
-						kind: 'declared',
-						state: 'current',
-						assertion: {
-							field: 'capability',
-							value: description,
-							claim: 'package.json names this package. This is not a confirmed capability list.',
-						},
-						declaration: {
-							actor: 'xfacts-add-labels',
-							source: 'package.json',
-							recorded_at: now,
-						},
-					},
-				],
-				editorial: {
-					locked: [],
-					aliases: [],
-					notes: 'Candidate only. FeatureFacts scan found no capability to confirm.',
-				},
-				uncertainty_reasons: {
-					lifecycle: 'package.json does not establish release status.',
-					maturity: 'No maturity was declared.',
-					intent: 'Discovery intent was not declared.',
-				},
-			},
-		],
-		redirects: [],
-	};
-	const errors = schemaErrors(compileFeature(), registry);
-	if (errors.length) return { wrote: false, reason: errors.join('; ') };
-	const dest = featureRegisterPath(root);
-	mkdirSync(dirname(dest), { recursive: true });
-	writeFileSync(dest, stringify(registry, { aliasDuplicateObjects: false }));
-	return { wrote: true, reason: dest };
 }

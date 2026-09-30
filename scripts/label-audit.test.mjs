@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
@@ -11,7 +11,6 @@ import {
 	labelCommitPaths,
 	labelGaps,
 	labelStatusPaths,
-	writePackageCandidate,
 } from './label-audit.mjs';
 
 describe('label commit paths', () => {
@@ -44,7 +43,7 @@ describe('commit label changes', () => {
 });
 
 describe('label audit', () => {
-	it('treats a package with no labels as gaps, then accepts a package candidate', () => {
+	it('treats missing labels as gaps and preserves a valid empty FeatureFacts register', () => {
 		const root = mkdtempSync(join(tmpdir(), 'xfacts-audit-'));
 		writeFileSync(
 			join(root, 'package.json'),
@@ -52,11 +51,17 @@ describe('label audit', () => {
 		);
 		assert.deepEqual(labelGaps(root), ['APP_FACTS.md', '.featurefacts/features.yaml']);
 		assert.ok(auditLabels(root).includes('no APP_FACTS.md'));
-		const wrote = writePackageCandidate(root);
-		assert.equal(wrote.wrote, true);
+		mkdirSync(join(root, '.featurefacts'));
+		const register = join(root, '.featurefacts', 'features.yaml');
+		const empty = JSON.stringify({ schemaVersion: '0.2.0', scan_id: 'empty-scan', product: { name: 'Empty Demo', type: 'synthetic fixture', status: 'unknown' }, features: [], redirects: [] });
+		writeFileSync(register, empty);
 		const summary = featureSummary(root);
-		assert.equal(summary.count, 1);
+		assert.equal(summary.count, 0);
 		assert.deepEqual(summary.errors, []);
 		assert.deepEqual(labelGaps(root), ['APP_FACTS.md']);
+		assert.deepEqual(auditLabels(root), ['no APP_FACTS.md']);
+		assert.equal(readFileSync(register, 'utf8'), empty);
+		writeFileSync(register, JSON.stringify({ features: [] }));
+		assert.ok(auditLabels(root).some((problem) => problem.startsWith('featurefacts ')));
 	});
 });
