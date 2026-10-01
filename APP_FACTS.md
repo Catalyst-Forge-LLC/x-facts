@@ -4,7 +4,7 @@ name: xFacts
 type: CLI tool
 status: active
 license: MIT
-version: 0.1.3
+version: 0.1.4
 repository: https://github.com/Catalyst-Forge-LLC/x-facts
 stack:
   language: TypeScript
