@@ -645,24 +645,31 @@
         transition: none !important;
       }
     }
-  </style>
+
+/* Shared reading rhythm, with each family's accent and label retained. */
+.hero .brand {font-size:1.25rem;letter-spacing:-.03em;margin:0 0 1rem;line-height:1.3}
+.hero h1.lede {font-size:clamp(2rem,4.2vw,3.4rem);font-weight:650;line-height:1.12;letter-spacing:-.035em;max-width:19ch;text-wrap:balance;margin:0 0 1.25rem}
+.hero .sub {font-size:1.0625rem;line-height:1.65;max-width:58ch}
+.hero .entry-limit {font-size:.875rem;line-height:1.6;max-width:58ch;margin:1rem 0;color:var(--muted,inherit)}
+.hero .entry-kind {font-size:.875rem;line-height:1.5;margin:0 0 1rem}
+.hero .cta {display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.hero .cta a {display:inline-flex;align-items:center;min-height:44px;padding:.7rem 1rem;font-size:1rem}
+.hero :is(a,button):focus-visible {outline:3px solid currentColor;outline-offset:4px}
+.hero .label-plane {min-width:0;max-width:100%}
+@media(max-width:760px){.hero h1.lede{font-size:2.25rem}.hero .brand{font-size:1.125rem}.hero .cta a{max-width:100%;white-space:normal}.hero{overflow-wrap:anywhere}}
+
+.hero .cta a{border:1px solid currentColor;border-radius:6px;text-decoration:none}.hero .cta a:first-child{font-weight:700}
+</style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap hero-copy">
       <div class="hero-grid">
         <div>
-          <p class="decision">What is this app built from?</p>
-          <h1 class="brand"><span class="x">x</span>Facts</h1>
-          <p class="lede">Small, structured labels for software, one per question you have before you adopt it.</p>
-          <p class="sub">
-            Any app can carry AppFacts and FeatureFacts. Tools carry ToolFacts. ModelFacts,
-            AgentFacts, and SkillFacts cover the AI layers when a system has them. Read the label
-            that matches the decision in front of you. A validator checks structure. It does not
-            prove the claims are true, and it is not a safety certificate.
-            Read the label for the decision you are making. If you publish software, follow that
-            label's template or generator, review its claims, and publish it with its sources and date.
-          </p>
+
+          <p class="brand"><span class="x">x</span>Facts</p>
+          <p class="entry-kind">Open label formats for any software</p><h1 class="lede">Know what you are about to adopt.</h1>
+          <p class="sub">Before you install an app, model, tool, or skill, read a short label answering the question that matters to your decision. xFacts gives publishers consistent formats for the stack, capabilities, model, tools, agent setup, and skill instructions.</p><div class="cta"><a class="btn btn-primary" href="#anatomy">Choose a label to read</a><a class="btn btn-ghost" href="#rules">Publish a label</a></div><p class="entry-limit">Validators check structure. The claims still need sources and review. A label is not a safety certificate.</p>
           <ul class="marks" aria-label="xFacts family accents">
             <li class="app" title="AppFacts"></li>
             <li class="model" title="ModelFacts"></li>
