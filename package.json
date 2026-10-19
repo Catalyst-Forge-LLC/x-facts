@@ -1,6 +1,6 @@
 {
   "name": "@xfacts/panel",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "xFacts hub and Panel tooling: derived tool-surface views and drift checks.",
   "license": "MIT",
