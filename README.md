@@ -6,14 +6,14 @@ The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): small, 
 
 This repo is the hub and the home of the **Panel** contract ([`specs/PANEL.md`](./specs/PANEL.md)): a derived, machine-readable view of what tools can reach, plus drift detection. Per-label formats still live in the six sibling repos; they are transitional natives.
 
-| Label | Layer | Site | Status |
+| Label | Question it answers | Site | Status |
 |---|---|---|---|
-| [AppFacts](https://appfacts.dev) | Body | appfacts.dev | Live |
-| [ModelFacts](https://modelfacts.dev) | Brain | modelfacts.dev | Live |
-| [ToolFacts](https://toolfacts.dev) | Toolbelt | toolfacts.dev | Live |
-| [AgentFacts](https://agentfacts.dev) | Hands | agentfacts.dev | Live |
-| [SkillFacts](https://skillfacts.dev) | Playbook | skillfacts.dev | Live |
-| [FeatureFacts](https://featurefacts.dev) | Terrain (product capabilities) | featurefacts.dev | Live |
+| [AppFacts](https://appfacts.dev) | What is this app built from and how is it delivered? | appfacts.dev | Live |
+| [ModelFacts](https://modelfacts.dev) | Which model is this, where did it come from, and what are its limits? | modelfacts.dev | Live |
+| [ToolFacts](https://toolfacts.dev) | What does invoking this tool read, write, or reach? | toolfacts.dev | Live |
+| [AgentFacts](https://agentfacts.dev) | What can this agent configuration reach or do without asking? | agentfacts.dev | Live |
+| [SkillFacts](https://skillfacts.dev) | What does this skill teach the agent to do? | skillfacts.dev | Live |
+| [FeatureFacts](https://featurefacts.dev) | What can this product do, and what evidence supports each capability? | featurefacts.dev | Live |
 
 ## What's in here
 
