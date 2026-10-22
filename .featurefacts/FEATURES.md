@@ -1,6 +1,6 @@
 # Feature register: xFacts
 
-Scan `scan-16276eca664d`. Candidates are not confirmed capabilities.
+Scan `scan-e0eba32abd00`. Candidates are not confirmed capabilities.
 
 | ID | Name | Recognition | Lifecycle | Availability | Docs | Tests | Observation |
 |---|---|---|---|---|---|---|---|

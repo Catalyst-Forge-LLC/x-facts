@@ -1,5 +1,5 @@
 schemaVersion: 0.2.0
-scan_id: scan-16276eca664d
+scan_id: scan-e0eba32abd00
 product:
   name: xFacts
   type: typescript-node
@@ -46,7 +46,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-badge-capability
@@ -64,7 +64,7 @@ features:
           symbol: badge
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-badge-recognition
@@ -140,7 +140,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-drift-capability
@@ -158,7 +158,7 @@ features:
           symbol: drift
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-drift-recognition
@@ -234,7 +234,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-encode-capability
@@ -252,7 +252,7 @@ features:
           symbol: encode
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-encode-recognition
@@ -328,7 +328,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-integrity-capability
@@ -346,7 +346,7 @@ features:
           symbol: integrity
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-integrity-recognition
@@ -424,7 +424,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-panel-capability
@@ -442,7 +442,7 @@ features:
           symbol: panel
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-panel-recognition
@@ -518,7 +518,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-16276eca664d
+      last_seen_scan_id: scan-e0eba32abd00
       reason: Current source evidence is available.
     evidence:
       - id: cmd-validate-capability
@@ -536,7 +536,7 @@ features:
           symbol: validate
         provenance:
           adapter_id: typescript-node-surface
-          adapter_version: 0.2.4
+          adapter_version: 0.2.5
           origin: deterministic
           method: surface-cluster
       - id: cmd-validate-recognition

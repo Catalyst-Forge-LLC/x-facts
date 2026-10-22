@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-16276eca664d",
+  "scan_id": "scan-e0eba32abd00",
   "surfaces": [
     {
       "id": "cmd-badge",
@@ -16,7 +16,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -36,7 +36,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -56,7 +56,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -76,7 +76,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -96,7 +96,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -116,7 +116,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -134,7 +134,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "package-json-bin"
       },
