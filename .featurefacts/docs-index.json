@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-16276eca664d",
+  "kind": "docs",
+  "assessments": [
+    {
+      "feature_id": "cmd-badge",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "cmd-drift",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "cmd-encode",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "cmd-integrity",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "cmd-panel",
+      "assessment": {
+        "state": "partial",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [
+          {
+            "surface_id": "doc-readme",
+            "association": "static-reference"
+          }
+        ],
+        "reason": "A document names this capability in a heading or code span. That is a sign. It does not mean the documentation is adequate."
+      }
+    },
+    {
+      "feature_id": "cmd-validate",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    }
+  ]
+}

@@ -1,0 +1,603 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-16276eca664d",
+  "tool": "featurefacts",
+  "tool_version": "0.2.6",
+  "generated_at": "2026-10-22T09:32:39.732-04:00",
+  "root": ".",
+  "status": "complete",
+  "scope": {
+    "include": [
+      "package.json",
+      "README.md",
+      "CHANGELOG.md",
+      "*.js",
+      "*.mjs",
+      "*.cjs",
+      "*.ts",
+      "src/**",
+      "app/**",
+      "apps/**",
+      "packages/**",
+      "lib/**",
+      "bin/**",
+      "client/**",
+      "server/**",
+      "web/**",
+      "docs/**",
+      "tests/**",
+      "test/**"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/.svelte-kit/**",
+      "**/.turbo/**",
+      "**/.vite/**",
+      "**/.next/**",
+      "**/coverage/**",
+      "**/.env",
+      "**/.env.*",
+      "**/*.pem",
+      "**/*.key",
+      ".featurefacts/**",
+      "FEATURE_FACTS.md",
+      "site/**",
+      "examples/**",
+      "skill/**",
+      "tests/fixtures/**",
+      "*.config.js",
+      "*.config.mjs",
+      "*.config.cjs",
+      "*.config.ts",
+      "*.config.mts",
+      "*.config.cts",
+      ".eslintrc.*",
+      "docs/featurefacts-spec-v0.2.0-with-review/**",
+      "docs/haulout-*.md"
+    ],
+    "supported_ecosystems": [
+      "typescript-node"
+    ],
+    "files": [
+      {
+        "path": "bin/xfacts-panel.mjs",
+        "sha256": "3ba9a84844221272f5a19de093c6db822b1a0cc570048887d626867fb54dcdea",
+        "bytes": 54,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "localhelm.plugin.mjs",
+        "sha256": "5172f340538a0407de708eabb44429c45bd9f730d35580c530623b7c78388712",
+        "bytes": 4577,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "package.json",
+        "sha256": "bd987dd5feebfb5ca5bb4b6ec3edccf5f8c38a2aa0b59de5308afb465b522427",
+        "bytes": 1780,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "README.md",
+        "sha256": "56fe62539e495d988294de08601a9e49c9f7eebfaad2518f708b1bfbf8463ff2",
+        "bytes": 7104,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "markdown-document"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "markdown-document"
+        ]
+      },
+      {
+        "path": "src/badge.ts",
+        "sha256": "069a131ac684c17e5a0c5179a253b0222f42a5e199a376a18fc3ddb9f8a2f852",
+        "bytes": 1511,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/build-panel.ts",
+        "sha256": "1fb2962ce1187ac4dfaa04d23687293ee1723a8680df619861277c646e6300f7",
+        "bytes": 5547,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/canonicalize-tool-facts.ts",
+        "sha256": "c2ed3ef7298fd1138b462337d1e8c8170cf590ef1312032afec5e33381a3dedc",
+        "bytes": 978,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/canonicalize.test.ts",
+        "sha256": "f7859e5a512d2abb1a2646c1fb2fde125bdca41505e985930b92e2d93747c109",
+        "bytes": 1634,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "src/canonicalize.ts",
+        "sha256": "d9128f328c1f9ee0f77f6498df2e93c754ec775a19cb83fcf3cb1cdc7e80c6ee",
+        "bytes": 1598,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/cli.ts",
+        "sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "bytes": 7286,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/collapse.ts",
+        "sha256": "fdbb75f22abb1c9220d65f8b5aff1b356a4118fea8831233f8ff480809d7b00c",
+        "bytes": 524,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/drift.ts",
+        "sha256": "e9c78c6391b8afd890d6cddb643913e53df9b6e00737abd4e4a0436abb4ed0b5",
+        "bytes": 2286,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/encode-viewer.ts",
+        "sha256": "4f6ae070016aa6b652ed1687309953a0a6c7c50105108eac4bf2763473766c55",
+        "bytes": 874,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/integrity.ts",
+        "sha256": "de5b0cdb9152090401aa379dc18997dd272ee1469023bcf7335b89231790e8a1",
+        "bytes": 735,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/map-mcp.test.ts",
+        "sha256": "77e3446291380d82982b436e420a65b5681ed4cd03e559d0f5e2b0b1e6e4c17e",
+        "bytes": 5806,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "src/map-mcp.ts",
+        "sha256": "04b4c9268390717c66009a924fbafdab19999fc9d8e4d918b61a9600b005dbde",
+        "bytes": 4529,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/map-tool-facts.test.ts",
+        "sha256": "a7511f3c2954f5ce9c3b7a931db9389d835e746e5a4d4de0f905f24a08593603",
+        "bytes": 3024,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "src/map-tool-facts.ts",
+        "sha256": "641211baea020d22f49cafff335c20dcfce9fdb8919a2e213fc498ea5c390d92",
+        "bytes": 3899,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/mcp-fetch.ts",
+        "sha256": "751925a174480fcb2de7f5bf278a6bda81ec11adcbdb5505c8e31bc4db44e9b4",
+        "bytes": 1885,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/parse-tool-facts.ts",
+        "sha256": "75fd028ac813ba9785ded4fdfca5f6bc21b648e3f211d5a41c324c5d5ac948ae",
+        "bytes": 2094,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/spec.ts",
+        "sha256": "20bc7b0d751fd67a8a18cad3de126e6d78488ed3b234c11036fdc805d803bd9f",
+        "bytes": 1852,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/types.ts",
+        "sha256": "35f31355bc94dc474541a4a0de1d4437b756e5fa6d24fd07486da21629474328",
+        "bytes": 2536,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/validate-drift.test.ts",
+        "sha256": "0f241e1a1445ffa0b1a16989f0734ad78aa89725cb4db453a204b0a91eb3bbc3",
+        "bytes": 2782,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "src/validate-panel.ts",
+        "sha256": "f8ddd9b2f0ea62b9c2e48f573c1648fdd739860123b154ad813fc00228d8fcbc",
+        "bytes": 3161,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      }
+    ],
+    "exclusions": [
+      {
+        "path": ".featurefacts",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": ".git",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "dist",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "examples",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "node_modules",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "site",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "skill",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "tests/fixtures",
+        "reason": "exclude-pattern"
+      }
+    ]
+  },
+  "adapters": [
+    {
+      "id": "typescript-tree",
+      "version": "0.2.0",
+      "kind": "tree",
+      "state": "completed",
+      "eligible_files": [
+        "bin/xfacts-panel.mjs",
+        "localhelm.plugin.mjs",
+        "package.json",
+        "README.md",
+        "src/badge.ts",
+        "src/build-panel.ts",
+        "src/canonicalize-tool-facts.ts",
+        "src/canonicalize.test.ts",
+        "src/canonicalize.ts",
+        "src/cli.ts",
+        "src/collapse.ts",
+        "src/drift.ts",
+        "src/encode-viewer.ts",
+        "src/integrity.ts",
+        "src/map-mcp.test.ts",
+        "src/map-mcp.ts",
+        "src/map-tool-facts.test.ts",
+        "src/map-tool-facts.ts",
+        "src/mcp-fetch.ts",
+        "src/parse-tool-facts.ts",
+        "src/spec.ts",
+        "src/types.ts",
+        "src/validate-drift.test.ts",
+        "src/validate-panel.ts"
+      ],
+      "inspected_files": [
+        "bin/xfacts-panel.mjs",
+        "localhelm.plugin.mjs",
+        "package.json",
+        "README.md",
+        "src/badge.ts",
+        "src/build-panel.ts",
+        "src/canonicalize-tool-facts.ts",
+        "src/canonicalize.test.ts",
+        "src/canonicalize.ts",
+        "src/cli.ts",
+        "src/collapse.ts",
+        "src/drift.ts",
+        "src/encode-viewer.ts",
+        "src/integrity.ts",
+        "src/map-mcp.test.ts",
+        "src/map-mcp.ts",
+        "src/map-tool-facts.test.ts",
+        "src/map-tool-facts.ts",
+        "src/mcp-fetch.ts",
+        "src/parse-tool-facts.ts",
+        "src/spec.ts",
+        "src/types.ts",
+        "src/validate-drift.test.ts",
+        "src/validate-panel.ts"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "typescript-node-surface",
+      "version": "0.2.4",
+      "kind": "surface",
+      "state": "completed",
+      "eligible_files": [
+        "bin/xfacts-panel.mjs",
+        "localhelm.plugin.mjs",
+        "package.json",
+        "src/badge.ts",
+        "src/build-panel.ts",
+        "src/canonicalize-tool-facts.ts",
+        "src/canonicalize.ts",
+        "src/cli.ts",
+        "src/collapse.ts",
+        "src/drift.ts",
+        "src/encode-viewer.ts",
+        "src/integrity.ts",
+        "src/map-mcp.ts",
+        "src/map-tool-facts.ts",
+        "src/mcp-fetch.ts",
+        "src/parse-tool-facts.ts",
+        "src/spec.ts",
+        "src/types.ts",
+        "src/validate-panel.ts"
+      ],
+      "inspected_files": [
+        "bin/xfacts-panel.mjs",
+        "localhelm.plugin.mjs",
+        "package.json",
+        "src/badge.ts",
+        "src/build-panel.ts",
+        "src/canonicalize-tool-facts.ts",
+        "src/canonicalize.ts",
+        "src/cli.ts",
+        "src/collapse.ts",
+        "src/drift.ts",
+        "src/encode-viewer.ts",
+        "src/integrity.ts",
+        "src/map-mcp.ts",
+        "src/map-tool-facts.ts",
+        "src/mcp-fetch.ts",
+        "src/parse-tool-facts.ts",
+        "src/spec.ts",
+        "src/types.ts",
+        "src/validate-panel.ts"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "markdown-document",
+      "version": "0.2.0",
+      "kind": "document",
+      "state": "completed",
+      "eligible_files": [
+        "README.md"
+      ],
+      "inspected_files": [
+        "README.md"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "typescript-test",
+      "version": "0.2.0",
+      "kind": "test",
+      "state": "completed",
+      "eligible_files": [
+        "src/canonicalize.test.ts",
+        "src/map-mcp.test.ts",
+        "src/map-tool-facts.test.ts",
+        "src/validate-drift.test.ts"
+      ],
+      "inspected_files": [
+        "src/canonicalize.test.ts",
+        "src/map-mcp.test.ts",
+        "src/map-tool-facts.test.ts",
+        "src/validate-drift.test.ts"
+      ],
+      "diagnostics": []
+    }
+  ],
+  "rules_version": "featurefacts-core@0.2.0",
+  "fingerprints": {
+    "source": "986798b9eb8f0d1e2c2493dcc057db5d6d6208dae77f461d221749008dde72f1",
+    "config": "65b96dd8f611ab5b1e507004df38487402519449fe8cafcbeb51f168eaea2d89",
+    "adapters": "04d451e412ce42b8c594b784923933b2dba060dfc0acaafcafd74c212714058d",
+    "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
+    "registry": "62536b12e7ef919f9819ff6f9f8569b79b0c4842737a07aa0107cf23d136d848",
+    "projection": "d26087681780da3f2e4d1f0653db043b643d9219e6c3d67cd1e8e3166629d862"
+  },
+  "artifacts": [
+    {
+      "path": ".featurefacts/config.yaml",
+      "sha256": "442a32663747785644b52aa2fe01b492d535845d7c6c4f3ae44e679d2b4651c2"
+    },
+    {
+      "path": ".featurefacts/docs-index.json",
+      "sha256": "b19bc604509f6b8188d0d4c09edf6edea16eaf6e6f8b62cb38759838635d399c"
+    },
+    {
+      "path": ".featurefacts/features.json",
+      "sha256": "13d98f2c1059a9f7f1da35beec8c0d42ed5ea8dfae1607c93c971c12cdf40ef3"
+    },
+    {
+      "path": ".featurefacts/FEATURES.md",
+      "sha256": "b537c0bb9902fc1ab8d9ecdaee7672600761e2ad416f985d76045f14abe4d877"
+    },
+    {
+      "path": ".featurefacts/features.yaml",
+      "sha256": "d6d1d49b52d2cd3c7ec3375d6daa39aa6d82076b29a122990b9de8bfe17bc3af"
+    },
+    {
+      "path": ".featurefacts/gaps.yaml",
+      "sha256": "9383aa75d98aae5f19e05eb9070286ec8680d72aae0b324f4ab23ea4a66e96ee"
+    },
+    {
+      "path": ".featurefacts/surfaces.json",
+      "sha256": "02102ab0de11530163c46518cabea120fc82b7cc93f4b90bd770b0c262adeeec"
+    },
+    {
+      "path": ".featurefacts/test-index.json",
+      "sha256": "1b59fc5dba17f0eff15bcf6b8128dda3f29fee1bc1872789ff5972bb391a6821"
+    },
+    {
+      "path": "FEATURE_FACTS.md",
+      "sha256": "30741bb25f373b08101e129429359a3e7527ecc4c42410aaf377b48e6012cdc5"
+    }
+  ],
+  "diagnostics": []
+}

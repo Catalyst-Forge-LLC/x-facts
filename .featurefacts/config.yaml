@@ -1,0 +1,110 @@
+schemaVersion: 0.2.0
+include:
+  - package.json
+  - README.md
+  - CHANGELOG.md
+  - "*.js"
+  - "*.mjs"
+  - "*.cjs"
+  - "*.ts"
+  - src/**
+  - app/**
+  - apps/**
+  - packages/**
+  - lib/**
+  - bin/**
+  - client/**
+  - server/**
+  - web/**
+  - docs/**
+  - tests/**
+  - test/**
+exclude:
+  - "**/node_modules/**"
+  - "**/dist/**"
+  - "**/build/**"
+  - "**/.git/**"
+  - "**/.svelte-kit/**"
+  - "**/.turbo/**"
+  - "**/.vite/**"
+  - "**/.next/**"
+  - "**/coverage/**"
+  - "**/.env"
+  - "**/.env.*"
+  - "**/*.pem"
+  - "**/*.key"
+  - .featurefacts/**
+  - FEATURE_FACTS.md
+  - site/**
+  - examples/**
+  - skill/**
+  - tests/fixtures/**
+  - "*.config.js"
+  - "*.config.mjs"
+  - "*.config.cjs"
+  - "*.config.ts"
+  - "*.config.mts"
+  - "*.config.cts"
+  - .eslintrc.*
+  - docs/featurefacts-spec-v0.2.0-with-review/**
+  - docs/haulout-*.md
+adapters:
+  - id: typescript-tree
+    kind: tree
+    enabled: true
+  - id: typescript-node-surface
+    kind: surface
+    enabled: true
+  - id: markdown-document
+    kind: document
+    enabled: true
+  - id: typescript-test
+    kind: test
+    enabled: true
+externals: []
+curation:
+  selected_ids:
+    - cmd-panel
+    - cmd-validate
+    - cmd-integrity
+    - cmd-drift
+    - cmd-encode
+    - cmd-badge
+  overrides:
+    cmd-panel:
+      name: Build a Panel
+    cmd-validate:
+      name: Validate a Panel
+    cmd-integrity:
+      name: Integrity check
+    cmd-drift:
+      name: Drift check
+    cmd-encode:
+      name: Encode a share link
+    cmd-badge:
+      name: Badge SVG
+  approval:
+    actor: acmegeek
+    source: featurefacts review
+    recorded_at: 2026-10-22T09:32:40.270-04:00
+publication:
+  target: internal
+  include_counts: true
+  include_assessments: true
+  map_link: .featurefacts/FEATURES.md
+policy:
+  enabled: false
+  rules:
+    - id: released-test-links
+      level: fail
+    - id: locked-locators-resolve
+      level: warn
+    - id: unconfirmed-selection
+      level: fail
+  unassessed: warn
+waivers: []
+safety:
+  max_file_bytes: 1048576
+  follow_symlinks: false
+  network: false
+  execute_target_code: false

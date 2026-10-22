@@ -1,0 +1,749 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-16276eca664d",
+  "product": {
+    "name": "xFacts",
+    "type": "typescript-node",
+    "status": "active"
+  },
+  "features": [
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-badge"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-badge-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-badge. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 209,
+            "end_line": 209,
+            "symbol": "badge"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-badge-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-badge-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-badge",
+      "name": "Badge",
+      "description": "Observed implementation surfaces: cmd-badge. Candidate only until a maintainer confirms the product meaning."
+    },
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-drift"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-drift-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-drift. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 62,
+            "end_line": 62,
+            "symbol": "drift"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-drift-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-drift-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-drift",
+      "name": "Drift",
+      "description": "Observed implementation surfaces: cmd-drift. Candidate only until a maintainer confirms the product meaning."
+    },
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-encode"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-encode-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-encode. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 197,
+            "end_line": 197,
+            "symbol": "encode"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-encode-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-encode-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-encode",
+      "name": "Encode",
+      "description": "Observed implementation surfaces: cmd-encode. Candidate only until a maintainer confirms the product meaning."
+    },
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-integrity"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-integrity-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-integrity. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 153,
+            "end_line": 153,
+            "symbol": "integrity"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-integrity-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-integrity-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-integrity",
+      "name": "Integrity",
+      "description": "Observed implementation surfaces: cmd-integrity. Candidate only until a maintainer confirms the product meaning."
+    },
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-panel"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "partial",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [
+          {
+            "surface_id": "doc-readme",
+            "association": "static-reference"
+          }
+        ],
+        "reason": "A document names this capability in a heading or code span. That is a sign. It does not mean the documentation is adequate."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-panel-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-panel. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 128,
+            "end_line": 128,
+            "symbol": "panel"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-panel-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-panel-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-panel",
+      "name": "Panel",
+      "description": "Observed implementation surfaces: cmd-panel. Candidate only until a maintainer confirms the product meaning."
+    },
+    {
+      "type": "feature",
+      "recognition": "confirmed",
+      "lifecycle": "implemented",
+      "availability": {
+        "state": "unknown",
+        "conditions": [],
+        "reason": "Availability is a declaration. Source presence is not a deployment check."
+      },
+      "maturity": "unknown",
+      "audiences": {
+        "state": "unknown",
+        "values": [],
+        "reason": "Audience was not declared."
+      },
+      "discovery": {
+        "state": "unassessed",
+        "surfaces": [],
+        "adapter_ids": [],
+        "reason": "Discovery surfaces were not assessed beyond extracted entry points."
+      },
+      "intent": "unknown",
+      "publication": {
+        "scope": "internal",
+        "reason": "Internal is the conservative default. Public permission requires an attributed declaration."
+      },
+      "entry_points": [
+        "cmd-validate"
+      ],
+      "implements": [],
+      "dependencies": [],
+      "docs": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      },
+      "tests": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      },
+      "observation": {
+        "state": "current",
+        "last_seen_scan_id": "scan-16276eca664d",
+        "reason": "Current source evidence is available."
+      },
+      "evidence": [
+        {
+          "id": "cmd-validate-capability",
+          "kind": "observed",
+          "state": "current",
+          "assertion": {
+            "field": "capability",
+            "value": "Observed implementation surfaces: cmd-validate. Candidate only until a maintainer confirms the product meaning.",
+            "claim": "Static extraction found implementation surfaces. This is not confirmation."
+          },
+          "locator": {
+            "path": "src/cli.ts",
+            "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+            "start_line": 141,
+            "end_line": 141,
+            "symbol": "validate"
+          },
+          "provenance": {
+            "adapter_id": "typescript-node-surface",
+            "adapter_version": "0.2.4",
+            "origin": "deterministic",
+            "method": "surface-cluster"
+          }
+        },
+        {
+          "id": "cmd-validate-recognition",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "recognition",
+            "value": "confirmed",
+            "claim": "Confirmed as confirmed in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        },
+        {
+          "id": "cmd-validate-lifecycle",
+          "kind": "declared",
+          "state": "current",
+          "assertion": {
+            "field": "lifecycle",
+            "value": "implemented",
+            "claim": "Confirmed as implemented in featurefacts review."
+          },
+          "declaration": {
+            "actor": "acmegeek",
+            "source": "featurefacts review",
+            "recorded_at": "2026-10-22T09:32:40.270-04:00"
+          }
+        }
+      ],
+      "editorial": {
+        "locked": [],
+        "aliases": [],
+        "notes": ""
+      },
+      "uncertainty_reasons": {
+        "maturity": "No attributed maturity declaration.",
+        "intent": "Discovery intent was not declared."
+      },
+      "id": "cmd-validate",
+      "name": "Validate",
+      "description": "Observed implementation surfaces: cmd-validate. Candidate only until a maintainer confirms the product meaning."
+    }
+  ],
+  "redirects": []
+}

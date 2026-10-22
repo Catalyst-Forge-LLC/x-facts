@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-16276eca664d",
+  "kind": "tests",
+  "assessments": [
+    {
+      "feature_id": "cmd-badge",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "cmd-drift",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "cmd-encode",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "cmd-integrity",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "cmd-panel",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "cmd-validate",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-16276eca664d",
+  "surfaces": [
+    {
+      "id": "cmd-badge",
+      "kind": "command",
+      "ref": "badge",
+      "title": "badge",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 209,
+        "end_line": 209,
+        "symbol": "badge"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-drift",
+      "kind": "command",
+      "ref": "drift",
+      "title": "drift",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 62,
+        "end_line": 62,
+        "symbol": "drift"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-encode",
+      "kind": "command",
+      "ref": "encode",
+      "title": "encode",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 197,
+        "end_line": 197,
+        "symbol": "encode"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-integrity",
+      "kind": "command",
+      "ref": "integrity",
+      "title": "integrity",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 153,
+        "end_line": 153,
+        "symbol": "integrity"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-panel",
+      "kind": "command",
+      "ref": "panel",
+      "title": "panel",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 128,
+        "end_line": 128,
+        "symbol": "panel"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-validate",
+      "kind": "command",
+      "ref": "validate",
+      "title": "validate",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "6d781b7d39f234e5e5060122f361492193b999738c6d676d821ba04485fe51a5",
+        "start_line": 141,
+        "end_line": 141,
+        "symbol": "validate"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-xfacts-panel",
+      "kind": "command",
+      "ref": "bin xfacts-panel",
+      "title": "xfacts-panel",
+      "locator": {
+        "path": "package.json",
+        "content_sha256": "bd987dd5feebfb5ca5bb4b6ec3edccf5f8c38a2aa0b59de5308afb465b522427",
+        "symbol": "bin.xfacts-panel"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "package-json-bin"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-readme",
+      "kind": "document",
+      "ref": "README.md",
+      "title": "README.md",
+      "locator": {
+        "path": "README.md",
+        "content_sha256": "56fe62539e495d988294de08601a9e49c9f7eebfaad2518f708b1bfbf8463ff2"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-src-canonicalize-test",
+      "kind": "test",
+      "ref": "src/canonicalize.test.ts",
+      "title": "src/canonicalize.test.ts",
+      "locator": {
+        "path": "src/canonicalize.test.ts",
+        "content_sha256": "f7859e5a512d2abb1a2646c1fb2fde125bdca41505e985930b92e2d93747c109"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-src-map-mcp-test",
+      "kind": "test",
+      "ref": "src/map-mcp.test.ts",
+      "title": "src/map-mcp.test.ts",
+      "locator": {
+        "path": "src/map-mcp.test.ts",
+        "content_sha256": "77e3446291380d82982b436e420a65b5681ed4cd03e559d0f5e2b0b1e6e4c17e"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-src-map-tool-facts-test",
+      "kind": "test",
+      "ref": "src/map-tool-facts.test.ts",
+      "title": "src/map-tool-facts.test.ts",
+      "locator": {
+        "path": "src/map-tool-facts.test.ts",
+        "content_sha256": "a7511f3c2954f5ce9c3b7a931db9389d835e746e5a4d4de0f905f24a08593603"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-src-validate-drift-test",
+      "kind": "test",
+      "ref": "src/validate-drift.test.ts",
+      "title": "src/validate-drift.test.ts",
+      "locator": {
+        "path": "src/validate-drift.test.ts",
+        "content_sha256": "0f241e1a1445ffa0b1a16989f0734ad78aa89725cb4db453a204b0a91eb3bbc3"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    }
+  ]
+}
