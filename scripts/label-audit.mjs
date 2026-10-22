@@ -75,6 +75,15 @@ export function featureRegisterPath(root) {
 	return join(root, '.featurefacts', 'features.yaml');
 }
 
+/**
+ * FeatureFacts commands that create a missing register. `init` refuses to replace an existing
+ * config, so a repo that already has `.featurefacts/config.yaml` only scans. Neither step writes a
+ * capability row of its own: zero features is a valid register, and no product-name row is seeded.
+ */
+export function featureAddSteps(root) {
+	return existsSync(join(root, '.featurefacts', 'config.yaml')) ? ['scan'] : ['init', 'scan'];
+}
+
 export function featureSummary(root) {
 	const path = featureRegisterPath(root);
 	if (!existsSync(path)) return { exists: false, count: 0, names: [], errors: [], data: null };

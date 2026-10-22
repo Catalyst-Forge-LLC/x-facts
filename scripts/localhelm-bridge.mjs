@@ -19,6 +19,7 @@ import { inflateSync } from 'node:zlib';
 import {
 	auditLabels,
 	commitLabelChanges,
+	featureAddSteps,
 	featureSummary,
 	labelGaps,
 	labelStatusPaths,
@@ -664,15 +665,15 @@ function runFeatureAdd(row) {
 	if (!existsSync(bin) || !existsSync(join(ffRoot, 'dist', 'cli.js'))) {
 		return { id, ok: false, detail: 'FeatureFacts CLI is unavailable. Build the sibling feature-facts checkout before adding its register.', writes: false };
 	}
-	const initialized = spawnSync(process.execPath, [bin, 'init', '--root', root], {
-		cwd: ffRoot, encoding: 'utf8', windowsHide: true, timeout: 180_000,
-	});
-	if (initialized.status !== 0) {
-		return { id, ok: false, detail: ((initialized.stdout || '') + (initialized.stderr || '')).trim().slice(0, 400) || ('featurefacts init exit ' + initialized.status), writes: featureSummary(root).exists };
+	let result;
+	for (const step of featureAddSteps(root)) {
+		result = spawnSync(process.execPath, [bin, step, '--root', root], {
+			cwd: ffRoot, encoding: 'utf8', windowsHide: true, timeout: 180_000,
+		});
+		if (result.status !== 0 && step === 'init') {
+			return { id, ok: false, detail: ((result.stdout || '') + (result.stderr || '')).trim().slice(0, 400) || ('featurefacts init exit ' + result.status), writes: featureSummary(root).exists };
+		}
 	}
-	const result = spawnSync(process.execPath, [bin, 'scan', '--root', root], {
-		cwd: ffRoot, encoding: 'utf8', windowsHide: true, timeout: 180_000,
-	});
 	const after = featureSummary(root);
 	const out = ((result.stdout || '') + (result.stderr || '')).trim();
 	return {

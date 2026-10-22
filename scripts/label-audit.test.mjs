@@ -7,6 +7,7 @@ import { describe, it } from 'node:test';
 import {
 	auditLabels,
 	commitLabelChanges,
+	featureAddSteps,
 	featureSummary,
 	labelCommitPaths,
 	labelGaps,
@@ -75,5 +76,15 @@ describe('label audit', () => {
 		assert.ok(auditLabels(root).includes('missing packs/demo/SKILL_FACTS.md'));
 		writeFileSync(join(root, 'packs', 'demo', 'SKILL_FACTS.md'), '---\nname: demo\n---\n');
 		assert.equal(labelGaps(root).includes('packs/demo/SKILL_FACTS.md'), false);
+	});
+});
+
+describe('feature register add', () => {
+	it('runs init only where there is no FeatureFacts config', () => {
+		const root = mkdtempSync(join(tmpdir(), 'xfacts-feature-add-'));
+		assert.deepEqual(featureAddSteps(root), ['init', 'scan']);
+		mkdirSync(join(root, '.featurefacts'));
+		writeFileSync(join(root, '.featurefacts', 'config.yaml'), 'schemaVersion: 0.2.0\n');
+		assert.deepEqual(featureAddSteps(root), ['scan']);
 	});
 });
