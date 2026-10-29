@@ -1,6 +1,8 @@
 # xFacts
 
-**x is a variable, not a social network.**
+**See what software does, needs, and can reach.**
+
+xFacts gives readers short, comparable labels for software capabilities, requirements, and declared reach. Maintainers publish them beside the project so people and agents can inspect the facts before adoption.
 
 The front door of the xFacts family at [xfacts.dev](https://xfacts.dev): small, validatable nutrition labels for software, one per question you have at adoption time. AppFacts and FeatureFacts fit any app. ToolFacts fits tools (v0.1: MCP servers). ModelFacts, AgentFacts, and SkillFacts cover the AI layers when a system has them. A given system may need only two.
 

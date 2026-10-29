@@ -8,7 +8,7 @@
 | Label | Layer | Question | Agent entry |
 |---|---|---|---|
 | AppFacts | Application | What is this app built from? | https://appfacts.dev/ |
-| ModelFacts | Model | What does this model document about itself? | https://modelfacts.dev/llms.txt |
+| ModelFacts | Model | What are this model’s specifications, limits, and reported results? | https://modelfacts.dev/llms.txt |
 | ToolFacts | Tool | What does this tool touch when invoked? | https://toolfacts.dev/llms.txt |
 | AgentFacts | Agent configuration | What may this configuration do? | https://agentfacts.dev/llms.txt |
 | SkillFacts | Skill package | What will this skill teach an agent to do? | https://skillfacts.dev/llms.txt |
@@ -27,7 +27,7 @@ Missing facts are `undisclosed`. The hub does not re-fetch or run a live drift m
 
 Catalyst Forge ships the labels on its own tools. AppFacts on the open-source shelf, ToolFacts on ForgeTrail / ollanet / DictaWhisper MCP, SkillFacts on published skill packages. Catalogs mark those rows `dogfood: true`.
 
-ForgeTrail (https://forgetrail.dev) guides the work through phases with approval gates. AppLedger (https://appledger.dev) keeps the record of that work in `appledger/`. xFacts labels describe what was built. Each works on its own.
+ForgeTrail (https://forgetrail.dev) guides development and uses AppLedger (https://appledger.dev) as its project record in `appledger/`. xFacts labels describe what was built. AppLedger and xFacts are also usable without ForgeTrail.
 
 ## Shared rules
 
